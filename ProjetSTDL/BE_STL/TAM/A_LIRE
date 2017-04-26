@@ -1,0 +1,8 @@
+Pour assembler X.tam :
+java -jar aspartam.jar X.tam
+
+qui fabrique un X.tamo dans le même répertoire.
+
+Pour exécuter X.tamo (sans debug) :
+
+java -cp egg-5.3.1.jar:tammachine.jar X.tamo

@@ -1,0 +1,12 @@
+test {
+   typedef int T1;
+   typedef int T2;
+   T1 v1 = true;
+   T2 v2 = v1;
+   T1 k = 1;
+   int l = k;
+   int i = - 1;
+   const int j = 2;
+   struct T { int n; int m; } s = { 4, 5};
+   s.m = 6;
+}

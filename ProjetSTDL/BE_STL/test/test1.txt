@@ -1,0 +1,18 @@
+test{
+        int i = 3;
+        i = i +1;
+
+        if(i == 4 ) {
+                i = i + 2;
+        }
+
+        while(true) {
+                i = i + 3;
+        }
+        typedef int Entier;
+        Entier j = 5;
+        typedef <Entier,Entier> PairEntier;
+        j = 6;
+        PairEntier k = {j, 4};
+
+}
