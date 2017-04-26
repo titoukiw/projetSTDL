@@ -10,63 +10,74 @@ option auto= true;
 option version = 0.0.1 ;
 option k=2;
 
+inh gauche		: Expression for SuiteParametresGenericite, SuiteArgumentsGenericite;
 
---testPushHenri
+syn ast 		: Fichier for Classes, Classe, Principale, Interface, Interfaces;
+syn ast			: Instruction for Instruction;
+syn ast 		: Parametre for Parametre, ParametreGenericite;
 
-space  separateur				is    "[\n\r\t ]+";
-space  commentaire				is    "\/\/.*\n";
-sugar  accolade_ouvrante		is    "\{";  
-sugar  accolade_fermante		is    "\}";  
-sugar  crochet_ouvrant			is    "\[";  
-sugar  crochet_fermant			is    "\]";  
-sugar  parenthese_ouvrante		is    "\(";
-sugar  parenthese_fermante		is    "\)";
-sugar  inferieur				is    "\<";  
-sugar  superieur				is    "\>";  
-sugar  inferieur_egal			is    "\<=";  
-sugar  superieur_egal			is    "\>=";  
-sugar  point					is    "\.";  
-sugar  point_virgule			is    ";";  
-sugar  virgule					is    ",";
-sugar  affectation				is    "=";
-sugar  egalite					is    "==";  
-sugar  different				is    "\!=";  
-sugar  addition					is    "\+";
-sugar  soustraction				is    "\-";
-sugar  ou						is    "\|\|";  
-sugar  multiplication			is    "\*";
-sugar  division					is    "/";
-sugar  modulo					is    "%";
-sugar  adresse					is    "&";  
-sugar  negation					is    "\!";  
-sugar  et						is    "&&";  
-sugar  vrai						is    "true";
-sugar  faux						is    "false";
-sugar  si						is    "if";
-sugar  sinon					is    "else";
-sugar  afficher					is    "print";  
-sugar  nouveau					is    "new";  
-sugar  tant_que					is    "while";  
-sugar  retour					is    "return";  
-sugar  type_int					is    "int";
-sugar  type_bool				is    "boolean";  
-sugar  type_float				is    "float";  
-sugar  type_char				is    "char";        
-sugar  type_String				is    "String";        
+syn parametres	: Parametre for Parametre, ParametresGenericite, SuiteParametre;
+
+syn list        : LinkedList<Interface> for Interfaces;
+syn list        : LinkedList<Classe> for Classes;
+syn list        : LinkedList<Instruction> for Instructions;
+
+
+space separateur				is    "[\n\r\t ]+";
+space commentaire				is    "\/\/.*\n";
+sugar accolade_ouvrante			is    "\{";  
+sugar accolade_fermante			is    "\}";  
+sugar crochet_ouvrant			is    "\[";  
+sugar crochet_fermant			is    "\]";  
+sugar parenthese_ouvrante		is    "\(";
+sugar parenthese_fermante		is    "\)";
+sugar inferieur					is    "\<";  
+sugar superieur					is    "\>";  
+sugar inferieur_egal			is    "\<=";  
+sugar superieur_egal			is    "\>=";  
+sugar point						is    "\.";  
+sugar point_virgule				is    ";";  
+sugar virgule					is    ",";
+sugar affectation				is    "=";
+sugar egalite					is    "==";  
+sugar different					is    "\!=";  
+sugar addition					is    "\+";
+sugar soustraction				is    "\-";
+sugar ou						is    "\|\|";  
+sugar multiplication			is    "\*";
+sugar division					is    "/";
+sugar modulo					is    "%";
+sugar adresse					is    "&";  
+sugar negation					is    "\!";  
+sugar et						is    "&&";  
+sugar vrai						is    "true";
+sugar faux						is    "false";
+sugar si						is    "if";
+sugar sinon						is    "else";
+sugar afficher					is    "print";  
+sugar nouveau					is    "new";  
+sugar tant_que					is    "while";  
+sugar retour					is    "return";  
+sugar type_int					is    "int";
+sugar type_bool					is    "boolean";  
+sugar type_float				is    "float";  
+sugar type_char					is    "char";        
+sugar type_String				is    "String";        
 sugar vide						is    "void";     
 sugar nul						is    "null";     
-sugar  choix					is    "\?";         
-sugar  deux_points				is    ":";          
-sugar  interface				is    "interface";     
-sugar  classe					is    "class";      
-sugar  extension				is    "extends";      
-sugar  implantation				is    "implements";      
+sugar choix						is    "\?";         
+sugar deux_points				is    ":";          
+sugar interface					is    "interface";     
+sugar classe					is    "class";      
+sugar extension					is    "extends";      
+sugar implantation				is    "implements";      
 sugar public					is    "public";    
 sugar protege					is    "protected";    
 sugar prive						is    "private";     
 sugar statique					is    "static";       
 sugar final						is    "final";       
 sugar principale				is    "main";  
+
 term   chaine					is    "\"([^\"]|\\\")*\"";  
 term   caractere				is    "\'[^\']\'";  
 term   entier					is    "[0-9]+";
@@ -74,21 +85,27 @@ term   identificateur			is    "[a-z_][a-zA-Z0-9_]*";
 term   identificateur_type		is    "[A-Z][a-zA-Z0-9_]*"; 
 
 
-Programme -> Interfaces Classes Principale ;
+Programme -> Interfaces Classes Principale #inh;
+#inh {
+do
+	-- Bloc^factory := new BlockFactoryImpl();
+	-- ^ := new ProgrammeFactoryImpl();
+end
+}
 
 
 Interfaces -> Interface Interfaces #ast;
 #ast {
 do
-	Interfaces1^ast.add(Interface^ast);
-	Interfaces^ast := Interfaces1^ast;
+	Interfaces1^list.add(Interface^ast);
+	Interfaces^list := Interfaces1^list;
 end
 }
 
 Interfaces -> #ast;
 #ast {
 do
-Interfaces^ast := new ArrayList<Interface>();
+Interfaces^list := new LinkedList<Interface>();
 end
 }
 
@@ -120,10 +137,20 @@ Signature -> vide identificateur parenthese_ouvrante Parametres parenthese_ferma
 Signature -> Type identificateur parenthese_ouvrante Parametres parenthese_fermante ;  
 
 
-Classes -> Classe Classes ;
+Classes -> Classe Classes #ast;
+#ast {
+do
+	Classes1^list.add(Classe^ast);
+	Classes^list := Classes1^list;
+end
+}
 
-Classes -> ;
-
+Classes -> #ast;
+#ast {
+do
+	Classes^list := new LinkedList<Classe>();
+end
+}
 
 Classe -> classe  identificateur_type Genericite HeritageClasse ImplantationInterface accolade_ouvrante ElementsClasse accolade_fermante ;
 
@@ -143,7 +170,13 @@ Principale -> public classe identificateur_type accolade_ouvrante MethodePrincip
 MethodePrincipale -> public statique vide principale parenthese_ouvrante type_String crochet_ouvrant crochet_fermant identificateur parenthese_fermante Bloc ;
 
 
-Genericite -> inferieur ParametresGenericite superieur ;
+Genericite -> inferieur ParametresGenericite superieur #ast ;
+#ast {
+do
+   Generecite^parametres.add(ParametreGenericite^ast);
+   Genericite^parametres := Genericite^parametres;
+end
+}
 
 Genericite -> ;
 
@@ -153,7 +186,12 @@ ParametresGenericite -> ParametreGenericite SuiteParametresGenericite ;
 
 SuiteParametresGenericite -> virgule ParametreGenericite SuiteParametresGenericite ;
 
-SuiteParametresGenericite -> ;
+SuiteParametresGenericite -> #ast;
+#ast {
+do
+   SuiteParametresGenericite^ast := SuiteParametresGenericite^gauche;
+end
+}
 
 
 ParametreGenericite -> identificateur_type HeritageGenericite ;  
@@ -180,7 +218,13 @@ ArgumentsGenericite -> ArgumentGenericite SuiteArgumentsGenericite ;
 
 SuiteArgumentsGenericite -> virgule ArgumentGenericite SuiteArgumentsGenericite ;
 
-SuiteArgumentsGenericite -> ;
+SuiteArgumentsGenericite -> #ast;
+#ast {
+do
+   SuiteArgumentsGenericite^ast := SuiteArgumentsGenericite^gauche;
+end
+}
+
 
 
 ArgumentGenericite -> identificateur_type InstanceGenericite ;
@@ -221,17 +265,46 @@ Constructeur -> identificateur_type parenthese_ouvrante Parametres parenthese_fe
  
 
 
-Parametres -> ;
-
-Parametres -> Parametre SuiteParametres ;
 
 
+
+
+-- Lien entre parametres et suite de parametres ???
+
+Parametres -> #ast ;
+#ast {
+do
+   Parametres^parametres := new LinkedList<Parametre>();
+end
+}
+
+Parametres -> Parametre SuiteParametres #ast ;
+#ast {
+do 
+   Parametres^parametres.addFirst(Parametre^ast); 
+   Parametres^parametres := Parametres^parametres; 
+end 
+}
+
+-- TODO
 Parametre -> Type identificateur ;
 
-
 SuiteParametres -> ;
+#ast {
+do
+   SuiteParametres^parametres := new LinkedList<Parametres>();
+end
+}
 
-SuiteParametres -> virgule Parametre SuiteParametres ;
+SuiteParametres -> virgule Parametre SuiteParametres #ast;
+#ast {
+do
+	SuiteParametres1^parametres.addFirst(Parametre^ast); 
+   SuiteParametres^parametres := SuiteParametres1^parametres; 
+end
+}
+
+
 
 
 Bloc -> accolade_ouvrante  Instructions accolade_fermante  ;
@@ -258,9 +331,20 @@ SuiteTypeAtomique -> crochet_ouvrant crochet_fermant SuiteTypeAtomique ;
 SuiteTypeAtomique -> ;
 
 
-Instructions -> ;
+Instructions -> #ast;
+#ast {
+do
+   Instructions^list := new LinkedList<Instruction>();
+end
+}
 
-Instructions -> Instruction Instructions ;
+Instructions -> Instruction Instructions #ast ;
+#ast {
+do
+    Instructions1^list.addFirst(Instruction^ast);
+    Instructions^list := Instructions1^list;
+end
+}
 
 
 Instruction -> Type identificateur affectation Expression point_virgule ;
