@@ -1,0 +1,18 @@
+test80 {
+   // Erreur de type : initialisation d'une variable de type tableau d'entier avec un tableau créé statiquement initialisé par une séquence d'entier et booleen
+   int p[] = { 1, true};
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test80.bloc
+Bloc Version 0.0.1
+AST :{
+int[] p = { 1 ,true };
+}
+
+Mal typé.
+LOADL 1
+LOADL 1
+POP (0) 1
+HALT
+

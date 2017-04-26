@@ -1,0 +1,33 @@
+test18 {
+   // Sans erreur : utilisation d'une variable dans un sous bloc.
+   int i = 1 ;
+   if (true) {
+      i = 2;
+   }
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test18.bloc
+Bloc Version 0.0.1
+Declaration int i = 1;
+Affectable : @{i} Expression : 2AST :{
+int i = 1;
+if (true ){
+@{i} = 2;
+}
+}
+
+Correctement typé.
+LOADL 1
+LOADL 1
+JUMPIF (0) else_Condition1
+LOADL 2
+LOADA 0[SB]
+STOREI (1)
+POP (0) 0
+JUMP fin_Condition1
+else_Condition1:
+fin_Condition1:
+POP (0) 1
+HALT
+

@@ -1,0 +1,27 @@
+test38 {
+   // Erreur de type : utilisation d'une variable entière dans une condition.
+   int i = 1 ;
+   while (i) {
+   }
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test38.bloc
+Bloc Version 0.0.1
+AST :{
+int i = 1;
+while (@{i}) {
+}
+}
+
+Mal typé.
+LOADL 1
+debut_boucle_1:
+LOAD (1) 0[SB]
+JUMPIF (0) fin_boucle_1
+POP (0) 0
+JUMP debut_boucle_1
+fin_boucle_1:
+POP (0) 1
+HALT
+

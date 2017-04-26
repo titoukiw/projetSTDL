@@ -1,0 +1,24 @@
+test98 {
+   // Sans erreur : initialisation d'une variable de type tableau d'entier avec un tableau créé dynamiquement
+   int *p = new int;
+   *p = 1;
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test98.bloc
+Bloc Version 0.0.1
+Declaration (int *) p = fr.n7.stl.block.ast.impl.PointerAllocationImpl@49476842;
+Affectable : (*@{p}) Expression : 1AST :{
+(int *) p = fr.n7.stl.block.ast.impl.PointerAllocationImpl@49476842;
+(*@{p}) = 1;
+}
+
+Correctement typé.
+LOADL 1
+SUBR MAlloc
+LOADL 1
+LOAD (1) 0[SB]
+STOREI (1)
+POP (0) 1
+HALT
+

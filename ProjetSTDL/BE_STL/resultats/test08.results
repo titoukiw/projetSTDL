@@ -1,0 +1,17 @@
+test08 {
+   // Erreur de déclaration : double déclaration d'une variable de même type.
+   int i = 1 ;
+   int i = 1;
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test08.bloc
+Bloc Version 0.0.1
+./../tests/test08.bloc:4:Error(Semantics):bloc_already_definedi 
+AST :{
+int i = 1;
+null}
+
+java.lang.NullPointerException
+	at fr.n7.stl.block.ast.impl.BlockImpl.checkType(BlockImpl.java:97)
+	at Main.main(Main.java:28)

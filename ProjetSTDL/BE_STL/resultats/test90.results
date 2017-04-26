@@ -1,0 +1,44 @@
+test89 {
+   // Erreur de type : initialisation d'une variable de type enregistrement contenant deux champs booléens avec une valeur séquence de booléens de taille 2
+   // 	   	       extraction du premier champ de l'enregistrement dans une condition de conditionnelle
+   struct B { boolean a; int n; } p =  { true, 1 } ;
+   while (p.n) {
+   }
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test90.bloc
+Bloc Version 0.0.1
+./../tests/test90.bloc:4:Error(Syntax):Terminal boolean inattendu.
+./../tests/test90.bloc:4:Error(Syntax):Terminal [accolade_fermante] attendu au lieu de boolean.
+./../tests/test90.bloc:4:Error(Internal):Bloc Runtime error in action #ast from rule Type -> enregistrement identificateur_type accolade_ouvrante #inh Champs accolade_fermante #ast ;
+fr.n7.stl.block.ast.impl.RecordTypeImpl.addAll(RecordTypeImpl.java:68)
+egg.S_Type_Bloc.action_ast_57(S_Type_Bloc.java:167)
+egg.S_Type_Bloc.regle57(S_Type_Bloc.java:76)
+egg.S_Type_Bloc.analyser(S_Type_Bloc.java:188)
+egg.S_Instruction_Bloc.regle70(S_Instruction_Bloc.java:106)
+egg.S_Instruction_Bloc.analyser(S_Instruction_Bloc.java:371)
+egg.S_Instructions_Bloc.regle6(S_Instructions_Bloc.java:33)
+egg.S_Instructions_Bloc.analyser(S_Instructions_Bloc.java:111)
+egg.S_Bloc_Bloc.regle1(S_Bloc_Bloc.java:35)
+egg.S_Bloc_Bloc.analyser(S_Bloc_Bloc.java:55)
+egg.S_Programme_Bloc.regle0(S_Programme_Bloc.java:32)
+egg.S_Programme_Bloc.analyser(S_Programme_Bloc.java:54)
+egg.Bloc.compile(Bloc.java:32)
+Main.main(Main.java:23)
+
+./../tests/test90.bloc:4:Error(Syntax):Terminal a inattendu.
+./../tests/test90.bloc:4:Error(Syntax):Terminal [affectation] attendu au lieu de a.
+./../tests/test90.bloc:4:Error(Semantics):bloc_undefined_identa 
+./../tests/test90.bloc:4:Error(Syntax):Terminal ; inattendu.
+./../tests/test90.bloc:4:Error(Syntax):Terminal [affectation] attendu au lieu de ;.
+./../tests/test90.bloc:4:Error(Syntax):Fin de source attendue près de p.
+AST :{
+null boolean = null;
+null n = null;
+}
+
+java.lang.NullPointerException
+	at fr.n7.stl.block.ast.impl.VariableDeclarationImpl.checkType(VariableDeclarationImpl.java:83)
+	at fr.n7.stl.block.ast.impl.BlockImpl.checkType(BlockImpl.java:97)
+	at Main.main(Main.java:28)

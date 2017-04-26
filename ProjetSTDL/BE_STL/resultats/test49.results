@@ -1,0 +1,44 @@
+test49 {
+   // Sans erreur : initialisation d'une variable de type paire de booléens avec une valeur séquence de booléens de taille 2
+   // 	   	    extraction du premier élément dans la paire dans une condition de conditionnelle
+   <boolean,boolean> p =  { true, false } ;
+   while (fst p) {
+   }
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test49.bloc
+Bloc Version 0.0.1
+./../tests/test49.bloc:4:Error(Syntax):Terminal boolean inattendu.
+./../tests/test49.bloc:4:Error(Syntax):Terminal [virgule] attendu au lieu de boolean.
+./../tests/test49.bloc:4:Error(Syntax):Terminal [superieur] attendu au lieu de boolean.
+./../tests/test49.bloc:4:Error(Syntax):Terminal , inattendu.
+./../tests/test49.bloc:4:Error(Syntax):Terminal [affectation] attendu au lieu de ,.
+./../tests/test49.bloc:4:Error(Syntax):Terminal [point_virgule] attendu au lieu de ,.
+./../tests/test49.bloc:4:Error(Internal):Bloc Runtime error in action #ast from rule Instructions -> Instruction Instructions1 #ast ;
+egg.S_Instructions_Bloc.action_ast_6(S_Instructions_Bloc.java:63)
+egg.S_Instructions_Bloc.regle6(S_Instructions_Bloc.java:35)
+egg.S_Instructions_Bloc.analyser(S_Instructions_Bloc.java:105)
+egg.S_Bloc_Bloc.regle1(S_Bloc_Bloc.java:35)
+egg.S_Bloc_Bloc.analyser(S_Bloc_Bloc.java:55)
+egg.S_Programme_Bloc.regle0(S_Programme_Bloc.java:32)
+egg.S_Programme_Bloc.analyser(S_Programme_Bloc.java:54)
+egg.Bloc.compile(Bloc.java:32)
+Main.main(Main.java:23)
+
+./../tests/test49.bloc:4:Error(Syntax):Terminal [accolade_fermante] attendu au lieu de ,.
+./../tests/test49.bloc:4:Error(Internal):Bloc Runtime error in action #ast from rule Bloc -> accolade_ouvrante Instructions accolade_fermante #ast ;
+fr.n7.stl.block.ast.impl.BlockImpl.addAll(BlockImpl.java:72)
+fr.n7.stl.block.ast.impl.BlockFactoryImpl.createBlock(BlockFactoryImpl.java:261)
+egg.S_Bloc_Bloc.action_ast_1(S_Bloc_Bloc.java:42)
+egg.S_Bloc_Bloc.regle1(S_Bloc_Bloc.java:37)
+egg.S_Bloc_Bloc.analyser(S_Bloc_Bloc.java:55)
+egg.S_Programme_Bloc.regle0(S_Programme_Bloc.java:32)
+egg.S_Programme_Bloc.analyser(S_Programme_Bloc.java:54)
+egg.Bloc.compile(Bloc.java:32)
+Main.main(Main.java:23)
+
+./../tests/test49.bloc:4:Error(Syntax):Fin de source attendue près de ,.
+AST :null
+java.lang.NullPointerException
+	at Main.main(Main.java:28)

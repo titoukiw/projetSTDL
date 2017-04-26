@@ -1,0 +1,25 @@
+test54 {
+   // Sans erreur : initialisation d'une variable de type tableau d'entier avec un tableau créé statiquement, puis affectation du tableau
+   int p[] = { 1, 2};
+   p = { 3, 4};
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test54.bloc
+Bloc Version 0.0.1
+Declaration int[] p = { 1 ,2 };
+Affectable : @{p} Expression : { 3 ,4 }AST :{
+int[] p = { 1 ,2 };
+@{p} = { 3 ,4 };
+}
+
+Correctement typé.
+LOADL 1
+LOADL 2
+LOADL 3
+LOADL 4
+LOAD (1) 0[SB]
+STOREI (2)
+POP (0) 1
+HALT
+

@@ -1,0 +1,27 @@
+test21 {
+   // Erreur de type : utilisation d'une variable dans une condition.
+   int i = 1 ;
+   if (i) {
+   }
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test21.bloc
+Bloc Version 0.0.1
+AST :{
+int i = 1;
+if (@{i} ){
+}
+}
+
+Mal typé.
+LOADL 1
+LOAD (1) 0[SB]
+JUMPIF (0) else_Condition1
+POP (0) 0
+JUMP fin_Condition1
+else_Condition1:
+fin_Condition1:
+POP (0) 1
+HALT
+

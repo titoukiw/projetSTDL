@@ -1,0 +1,28 @@
+test83 {
+   // Erreur de type : initialisation d'une variable de type tableau d'entier avec un tableau créé statiquement, puis affectation de la première case avec un booléen
+   int p[] = { 1, 2};
+   p[0] = true;
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test83.bloc
+Bloc Version 0.0.1
+Declaration int[] p = { 1 ,2 };
+Affectable : @{p}[ 0 ] Expression : trueAST :{
+int[] p = { 1 ,2 };
+@{p}[ 0 ] = true;
+}
+
+Mal typé.
+LOADL 1
+LOADL 2
+LOADL 1
+LOAD (1) 0[SB]
+LOADL 0
+LOADL 1
+SUBR IMul
+SUBR IAdd
+STOREI (1)
+POP (0) 1
+HALT
+

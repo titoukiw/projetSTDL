@@ -1,0 +1,18 @@
+test87 {
+   // Erreur de type : initialisation d'une variable de enregistrement contenant deux champs entiers avec une valeur séquence d'entier et booléen
+   struct P { int x; int y; } p = { 1, true};
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test87.bloc
+Bloc Version 0.0.1
+AST :{
+struct P { int x; int y;} p = { 1 ,true };
+}
+
+Mal typé.
+LOADL 1
+LOADL 1
+POP (0) 2
+HALT
+

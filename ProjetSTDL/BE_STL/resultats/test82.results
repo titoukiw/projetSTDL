@@ -1,0 +1,27 @@
+test82 {
+   // Erreur de type : initialisation d'une variable de type tableau d'entier avec un tableau créé dynamiquement
+   int p[] = new int[2];
+   p = { 3, true};
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test82.bloc
+Bloc Version 0.0.1
+Declaration int[] p = fr.n7.stl.block.ast.impl.ArrayAllocationImpl@49476842;
+Affectable : @{p} Expression : { 3 ,true }AST :{
+int[] p = fr.n7.stl.block.ast.impl.ArrayAllocationImpl@49476842;
+@{p} = { 3 ,true };
+}
+
+Mal typé.
+LOADL 2
+LOADL 1
+SUBR IMul
+SUBR MAlloc
+LOADL 3
+LOADL 1
+LOAD (1) 0[SB]
+STOREI (2)
+POP (0) 1
+HALT
+

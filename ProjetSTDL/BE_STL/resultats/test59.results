@@ -1,0 +1,28 @@
+test59 {
+   // Sans erreur : initialisation d'une variable de type tableau d'entier avec un tableau créé dynamiquement
+   int p[] = new int[2];
+   int i = p[0];
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test59.bloc
+Bloc Version 0.0.1
+AST :{
+int[] p = fr.n7.stl.block.ast.impl.ArrayAllocationImpl@49476842;
+int i = @{p}[ 0 ];
+}
+
+Correctement typé.
+LOADL 2
+LOADL 1
+SUBR IMul
+SUBR MAlloc
+LOAD (1) 0[SB]
+LOADL 0
+LOADL 1
+SUBR IMul
+SUBR IAdd
+LOADI (1)
+POP (0) 2
+HALT
+

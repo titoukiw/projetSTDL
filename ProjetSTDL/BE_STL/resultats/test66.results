@@ -1,0 +1,24 @@
+test66 {
+   // Sans erreur : initialisation d'une variable de enregistrement contenant deux champs entiers avec une valeur séquence d'entiers de taille 2
+   // 	   	    lecture du premier champs de l'enregistrement.
+   struct P { int x; int y; } p = { 1, 2};
+   int i = p.x + p.y;
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test66.bloc
+Bloc Version 0.0.1
+AST :{
+struct P { int x; int y;} p = { 1 ,2 };
+int i = (@{p}.x + @{p}.y);
+}
+
+Correctement typé.
+LOADL 1
+LOADL 2
+LOAD (1) 0[SB]
+LOAD (1) 0[SB]
+SUBR IAdd
+POP (0) 3
+HALT
+

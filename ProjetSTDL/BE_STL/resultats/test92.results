@@ -1,0 +1,20 @@
+test92 {
+   // Sans erreur : initialisation d'une variable de type pointeur sur entier avec une variable entière créé statiquement
+   int i = 1;
+   int *p = &i;
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test92.bloc
+Bloc Version 0.0.1
+Declaration int i = 1;
+AST :{
+int i = 1;
+(int *) p = (@null);
+}
+
+fr.n7.stl.block.ast.impl.SemanticsUndefinedException: Semantics getType is not implemented in AddressAccessImpl.
+	at fr.n7.stl.block.ast.impl.AddressAccessImpl.getType(AddressAccessImpl.java:39)
+	at fr.n7.stl.block.ast.impl.VariableDeclarationImpl.checkType(VariableDeclarationImpl.java:83)
+	at fr.n7.stl.block.ast.impl.BlockImpl.checkType(BlockImpl.java:97)
+	at Main.main(Main.java:28)

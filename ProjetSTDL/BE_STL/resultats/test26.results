@@ -1,0 +1,30 @@
+test26 {
+   // Correct : double déclaration dans un sous-bloc avec le même type.
+   int i = 1 ;
+   while (true) {
+      int i = 1;
+   }
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test26.bloc
+Bloc Version 0.0.1
+AST :{
+int i = 1;
+while (true) {
+int i = 1;
+}
+}
+
+Correctement typé.
+LOADL 1
+debut_boucle_1:
+LOADL 1
+JUMPIF (0) fin_boucle_1
+LOADL 1
+POP (0) 1
+JUMP debut_boucle_1
+fin_boucle_1:
+POP (0) 1
+HALT
+

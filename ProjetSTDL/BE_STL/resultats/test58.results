@@ -1,0 +1,30 @@
+test58 {
+   // Sans erreur : initialisation d'une variable de type tableau d'entier avec un tableau créé dynamiquement
+   int p[] = new int[2];
+   p[0] = 3;
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test58.bloc
+Bloc Version 0.0.1
+Declaration int[] p = fr.n7.stl.block.ast.impl.ArrayAllocationImpl@49476842;
+Affectable : @{p}[ 0 ] Expression : 3AST :{
+int[] p = fr.n7.stl.block.ast.impl.ArrayAllocationImpl@49476842;
+@{p}[ 0 ] = 3;
+}
+
+Correctement typé.
+LOADL 2
+LOADL 1
+SUBR IMul
+SUBR MAlloc
+LOADL 3
+LOAD (1) 0[SB]
+LOADL 0
+LOADL 1
+SUBR IMul
+SUBR IAdd
+STOREI (1)
+POP (0) 1
+HALT
+

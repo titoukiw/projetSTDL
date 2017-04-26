@@ -1,0 +1,23 @@
+test96 {
+   // Sans erreur : initialisation d'une variable de type tableau d'entier avec un tableau créé statiquement, puis affectation du tableau
+   int i = 1;
+   int *p = &i;
+   *p = 2;
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test96.bloc
+Bloc Version 0.0.1
+Declaration int i = 1;
+Declaration (int *) p = (@null);
+Affectable : (*@{p}) Expression : 2AST :{
+int i = 1;
+(int *) p = (@null);
+(*@{p}) = 2;
+}
+
+fr.n7.stl.block.ast.impl.SemanticsUndefinedException: Semantics getType is not implemented in AddressAccessImpl.
+	at fr.n7.stl.block.ast.impl.AddressAccessImpl.getType(AddressAccessImpl.java:39)
+	at fr.n7.stl.block.ast.impl.VariableDeclarationImpl.checkType(VariableDeclarationImpl.java:83)
+	at fr.n7.stl.block.ast.impl.BlockImpl.checkType(BlockImpl.java:97)
+	at Main.main(Main.java:28)

@@ -1,0 +1,17 @@
+test01 {
+   // Erreur de déclaration : affectation d'une variable qui n'est pas définie
+   i = 1;
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test01.bloc
+Bloc Version 0.0.1
+Affectable : null Expression : 1./../tests/test01.bloc:3:Error(Semantics):bloc_undefined_identi 
+AST :{
+null = 1;
+}
+
+java.lang.NullPointerException
+	at fr.n7.stl.block.ast.impl.AssignmentImpl.checkType(AssignmentImpl.java:62)
+	at fr.n7.stl.block.ast.impl.BlockImpl.checkType(BlockImpl.java:97)
+	at Main.main(Main.java:28)

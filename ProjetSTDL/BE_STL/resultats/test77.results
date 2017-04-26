@@ -1,0 +1,26 @@
+test77 {
+   // Erreur de type : initialisation d'une variable de type paire d'entier avec une valeur séquence d'entiers de taille 2
+   // 	   	       affectation d'une variable de type paire d'entier avec une valeur paire d'entier et de booléen
+   <int,int> p = { 1, 2};
+   p = { 1, true };
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test77.bloc
+Bloc Version 0.0.1
+Declaration < int, int> p = { 1 ,2 };
+Affectable : @{p} Expression : { 1 ,true }AST :{
+< int, int> p = { 1 ,2 };
+@{p} = { 1 ,true };
+}
+
+Mal typé.
+LOADL 1
+LOADL 2
+LOADL 1
+LOADL 1
+LOADA 0[SB]
+STOREI (2)
+POP (0) 2
+HALT
+

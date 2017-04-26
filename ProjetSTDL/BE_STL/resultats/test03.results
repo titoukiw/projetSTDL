@@ -1,0 +1,19 @@
+test03 {
+   // Sans erreur : initialisation d'une variable de type entier avec le résultat du calcul d'une expression de type entier
+   int i = 1 + 2;
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test03.bloc
+Bloc Version 0.0.1
+AST :{
+int i = (1 + 2);
+}
+
+Correctement typé.
+LOADL 1
+LOADL 2
+SUBR IAdd
+POP (0) 1
+HALT
+

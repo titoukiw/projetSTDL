@@ -1,0 +1,17 @@
+test00 {
+   // Sans erreur : initialisation d'une variable de type entier avec une valeur entière
+   int i = 1;
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test00.bloc
+Bloc Version 0.0.1
+AST :{
+int i = 1;
+}
+
+Correctement typé.
+LOADL 1
+POP (0) 1
+HALT
+

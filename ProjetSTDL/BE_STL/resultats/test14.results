@@ -1,0 +1,23 @@
+test14 {
+   // Erreur de déclaration : double déclaration du même type séparée par un sous-bloc.
+   int i = 1 ;
+   if (true) {
+      int i = 1;
+   }
+   int i = 1;
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test14.bloc
+Bloc Version 0.0.1
+./../tests/test14.bloc:7:Error(Semantics):bloc_already_definedi 
+AST :{
+int i = 1;
+if (true ){
+int i = 1;
+}
+null}
+
+java.lang.NullPointerException
+	at fr.n7.stl.block.ast.impl.BlockImpl.checkType(BlockImpl.java:97)
+	at Main.main(Main.java:28)

@@ -1,0 +1,17 @@
+test02 {
+   // Erreur de type : initialisation d'une variable de type entier avec une valeur booléenne
+   int i = true;
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test02.bloc
+Bloc Version 0.0.1
+AST :{
+int i = true;
+}
+
+Mal typé.
+LOADL 1
+POP (0) 1
+HALT
+

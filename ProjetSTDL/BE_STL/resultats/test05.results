@@ -1,0 +1,20 @@
+test05 {
+   // Erreur de type : appel d'une opération booléenne sur une valeur entière et une valeur booléenne
+   int i = 1 && true;
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test05.bloc
+Bloc Version 0.0.1
+AST :{
+int i = (1 && true);
+}
+
+Warning : Type error in binary expression : Merged parameters int boolean
+Mal typé.
+LOADL 1
+LOADL 1
+SUBR BAnd
+POP (0) 1
+HALT
+

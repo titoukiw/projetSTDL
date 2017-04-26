@@ -1,0 +1,51 @@
+test91 {
+   int n = 10;
+   int r = 1;
+   while (n > 0) {
+      r = r * n;
+      n = n - 1;
+   }
+   print (n);
+}
+======================
+======================
+======================
+Fichier analyé : ./../tests/test91.bloc
+Bloc Version 0.0.1
+Declaration int r = 1;
+Affectable : @{r} Expression : (@{r} * @{n})Declaration int n = 10;
+Affectable : @{n} Expression : (@{n} - 1)AST :{
+int n = 10;
+int r = 1;
+while ((@{n} > 0)) {
+@{r} = (@{r} * @{n});
+@{n} = (@{n} - 1);
+}
+print@{n};}
+
+Correctement typé.
+LOADL 10
+LOADL 1
+debut_boucle_1:
+LOAD (1) 0[SB]
+LOADL 0
+SUBR IGtr
+JUMPIF (0) fin_boucle_1
+LOAD (1) 1[SB]
+LOAD (1) 0[SB]
+SUBR IMul
+LOADA 1[SB]
+STOREI (1)
+LOAD (1) 0[SB]
+LOADL 1
+SUBR ISub
+LOADA 0[SB]
+STOREI (1)
+POP (0) 0
+JUMP debut_boucle_1
+fin_boucle_1:
+LOAD (1) 0[SB]
+SUBR IOut
+POP (0) 2
+HALT
+

@@ -1,0 +1,33 @@
+test34 {
+   // Sans erreur : utilisation d'une variable dans un sous bloc.
+   int i = 1 ;
+   while (true) {
+      i = 2;
+   }
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test34.bloc
+Bloc Version 0.0.1
+Declaration int i = 1;
+Affectable : @{i} Expression : 2AST :{
+int i = 1;
+while (true) {
+@{i} = 2;
+}
+}
+
+Correctement typé.
+LOADL 1
+debut_boucle_1:
+LOADL 1
+JUMPIF (0) fin_boucle_1
+LOADL 2
+LOADA 0[SB]
+STOREI (1)
+POP (0) 0
+JUMP debut_boucle_1
+fin_boucle_1:
+POP (0) 1
+HALT
+

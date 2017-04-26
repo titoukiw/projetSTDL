@@ -1,0 +1,21 @@
+test04 {
+   // Erreur de type : appel d'une opération arithmétique sur une valeur entière et une valeur booléenne
+   int i = 1 + true;
+}======================
+======================
+======================
+Fichier analyé : ./../tests/test04.bloc
+Bloc Version 0.0.1
+AST :{
+int i = (1 + true);
+}
+
+Warning : Type error in binary expression : Merged parameters int boolean
+Warning : Type error in binary expression : + parameter error
+Mal typé.
+LOADL 1
+LOADL 1
+SUBR IAdd
+POP (0) 1
+HALT
+
