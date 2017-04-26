@@ -10,6 +10,9 @@ option auto= true;
 option version = 0.0.1 ;
 option k=2;
 
+
+--testPushHenri
+
 space  separateur				is    "[\n\r\t ]+";
 space  commentaire			is    "\/\/.*\n";
 sugar  accolade_ouvrante		is    "\{";  
