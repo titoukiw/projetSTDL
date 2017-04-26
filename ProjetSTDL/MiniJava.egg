@@ -10,8 +10,15 @@ option auto= true;
 option version = 0.0.1 ;
 option k=2;
 
+inh gauche : Expression for SuiteCondition;
+inh factory : BlockFactory for Bloc, Instruction, Expression, TypeAtomique, SuiteCondition, Condition;
 
---testPushHenri
+syn ast 	: Block for Bloc;
+syn ast 	: Expression for Condition, Expression, SuiteCondition;
+
+syn type  : Type for TypeAtomique;
+
+
 
 space  separateur				is    "[\n\r\t ]+";
 space  commentaire				is    "\/\/.*\n";
@@ -234,23 +241,58 @@ SuiteParametres -> ;
 SuiteParametres -> virgule Parametre SuiteParametres ;
 
 
-Bloc -> accolade_ouvrante  Instructions accolade_fermante  ;
+Bloc -> accolade_ouvrante #inh Instructions accolade_fermante #ast ;
+#ast {
+do
+  Bloc^ast := Bloc^factory.createBlock(Instructions^ast);
+end
+}
+#inh {
+do
+  Instructions^tds := new SymbolTable(Bloc^tds);
+end
+}
 
 
 Type -> TypeAtomique SuiteTypeAtomique ;
 
 
-TypeAtomique -> type_bool  ;
+TypeAtomique -> type_bool #ast ;
+#ast {
+do
+   TypeAtomique^ast := TypeAtomique^factory.createBooleanType();  
+end
+}
 
-TypeAtomique -> type_int   ;  
+TypeAtomique -> type_int  #ast ;
+#ast {
+do
+   TypeAtomique^ast := TypeAtomique^factory.createIntegerType();  
+end
+}
  
-TypeAtomique -> type_char  ;  
+TypeAtomique -> type_char #ast ;
+#ast {
+do
+   TypeAtomique^ast := TypeAtomique^factory.createCharType();  
+end
+}
  
-TypeAtomique -> type_float  ;
+TypeAtomique -> type_float #ast ;
+#ast {
+do
+   TypeAtomique^ast := TypeAtomique^factory.createFloatType();  
+end
+}
 
-TypeAtomique -> type_String ;
+TypeAtomique -> type_String #ast ;
+#ast {
+do
+   TypeAtomique^ast := TypeAtomique^factory.createStringType();  
+end
+}
  
-TypeAtomique -> identificateur_type InstanceGenericite  ; 
+TypeAtomique -> identificateur_type InstanceGenericite ; 
 
 
 SuiteTypeAtomique -> crochet_ouvrant crochet_fermant SuiteTypeAtomique ;
@@ -296,8 +338,17 @@ Instruction -> afficher Expression point_virgule ;
 Instruction -> retour Expression point_virgule ;
 
 
-Expression -> Condition SuiteCondition ;
-
+Expression -> Condition #inh SuiteCondition #ast ;
+#inh {
+do
+   SuiteCondition^gauche := Condition^ast ;
+end 
+}
+#ast {
+do
+    Expression^ast := SuiteCondition^ast;
+end 
+}
 
 SuiteCondition -> Comparatif Condition ;
 
