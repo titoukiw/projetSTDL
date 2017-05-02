@@ -60,7 +60,6 @@ sugar tant_que					is    "while";
 sugar retour					is    "return";  
 sugar type_int					is    "int";
 sugar type_bool					is    "boolean";  
-sugar type_float				is    "float";  
 sugar type_char					is    "char";        
 sugar type_String				is    "String";        
 sugar vide						is    "void";     
@@ -341,13 +340,6 @@ do
    TypeAtomique^ast := TypeAtomique^factory.createCharType();  
 end
 }
- 
-TypeAtomique -> type_float #ast ;
-#ast {
-do
-   TypeAtomique^ast := TypeAtomique^factory.createFloatType();  
-end
-}
 
 TypeAtomique -> type_String #ast ;
 #ast {
@@ -383,19 +375,7 @@ end
 Instruction -> Type identificateur affectation Expression point_virgule ;
 
 
-Instruction -> Affectable affectation Expression point_virgule ;
-
-
-Affectable -> parenthese_ouvrante Affectable parenthese_fermante ;
-
-Affectable -> identificateur SuiteAffectable ;
-
-
-SuiteAffectable -> ;
-
-SuiteAffectable -> point identificateur AppelOuAcces ;
-
-SuiteAffectable -> crochet_ouvrant Expression crochet_fermant SuiteAffectable ;
+Instruction -> Expression point_virgule ;
 
 
 
@@ -413,17 +393,13 @@ Instruction -> afficher Expression point_virgule ;
 Instruction -> retour Expression point_virgule ;
 
 
-Expression -> Condition #inh SuiteCondition #ast ;
-#inh {
-do
-   SuiteCondition^gauche := Condition^ast ;
-end 
-}
-#ast {
-do
-    Expression^ast := SuiteCondition^ast;
-end 
-}
+Expression -> Affectation SuiteAffectation ;
+
+Affectation -> Condition SuiteCondition ;
+
+SuiteAffectation -> affectation Expression ;
+
+SuiteAffectation -> ;
 
 SuiteCondition -> Comparatif Condition ;
 
@@ -494,7 +470,11 @@ Facteur -> nouveau Type SuiteNouveau ;
 
 SuiteNouveau -> crochet_ouvrant Expression crochet_fermant ;
 
--- A enlever d'après le forum : SuiteNouveau -> ;
+SuiteNouveau -> Arguments ;
+
+Arguments -> parenthese_ouvrante parenthese_fermante ;
+
+Arguments -> parenthese_ouvrante Expressions parenthese_fermante ;
 
 
 Facteur -> Valeur ;
@@ -513,6 +493,9 @@ Valeur -> caractere ;
 
 Facteur -> identificateur AppelOuAcces ;
 
+Facteur -> identificateur_type point identificateur AppelOuAcces ;
+
+Facteur -> parenthese_ouvrante Expression parenthese_fermante ;
 
 AppelOuAcces -> Acces ;
 
@@ -526,8 +509,6 @@ Acces -> crochet_ouvrant Expression crochet_fermant Acces ;
 Acces -> point identificateur AppelOuAcces ;
 
 
-Appel -> parenthese_ouvrante parenthese_fermante Acces ;  
- 
-Appel -> parenthese_ouvrante Expressions parenthese_fermante Acces ;  
+Appel -> Arguments Acces ;  
  
 end
