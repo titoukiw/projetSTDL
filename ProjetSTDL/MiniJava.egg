@@ -11,6 +11,10 @@ option version = 0.0.1 ;
 option k=2;
 
 inh gauche		: Expression for SuiteParametresGenericite, SuiteArgumentsGenericite;
+inh factory		: BlockFactory for Type, TypeAtomique, SuiteTypeAtomique, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface,ElementInterface, Signature, Classes, Classe, ElementsClasse, ElementClasse, AttributOuMethode, SuiteAttributOuMethode, Constructeur, Principale, MethodePrincipale, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation,Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur ;
+inh tdsType		: SymbolTable for Programme, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Classes, Classe, HeritageClasse, ImplantationInterface, Principale, MethodePrincipale,Generecite, ParametresGenericite, SuiteParametresGenerecite, HeritageGenericite, SuiteHeritageGenericite, InstanceGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ElementClasse, ElementsClasse, Constructeur, AttributOuMethode, SuiteAttributOuMethode, Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces  ;
+inh tdsAttMet		: SymbolTable for ;
+inh tdsVar		: SymbolTable for ;
 
 syn ast 		: Fichier for Classes, Classe, Principale, Interface, Interfaces;
 syn ast			: Instruction for Instruction;
@@ -84,11 +88,21 @@ term   identificateur			is    "[a-z_][a-zA-Z0-9_]*";
 term   identificateur_type		is    "[A-Z][a-zA-Z0-9_]*"; 
 
 
-Programme -> Interfaces Classes Principale #inh;
+Programme ->#ast Interfaces Classes Principale #inh;
+#ast {
+do
+	Programme^tdsType := new SymbolTable();
+end
+}
+
 #inh {
 do
-	-- Bloc^factory := new BlockFactoryImpl();
-	-- ^ := new ProgrammeFactoryImpl();
+	--BlockFactoryImpl dissociées, pb ?
+	 Interfaces^factory := new BlockFactoryImpl();
+	 Classes^factory := new BlockFactoryImpl();
+	 Principale^factory := new BlockFactoryImpl();
+	 --^tdsType := new SymbolTable();
+	 
 end
 }
 
