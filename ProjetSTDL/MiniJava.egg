@@ -494,7 +494,7 @@ Facteur -> nouveau Type SuiteNouveau ;
 
 SuiteNouveau -> crochet_ouvrant Expression crochet_fermant ;
 
-SuiteNouveau -> ;
+-- A enlever d'après le forum : SuiteNouveau -> ;
 
 
 Facteur -> Valeur ;
