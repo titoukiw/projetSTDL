@@ -21,15 +21,16 @@ inh tdsVar		: SymbolTable for Type, TypeAtomique, Parametres, Parametre, SuitePa
 
 
 syn ast     : Block for Programme;
-syn ast 		: Fichier for Classes, Classe, Principale, Interface, Interfaces;
+syn ast     : LinkedList<Interface> for Interfaces;
+syn ast     : Interface for Interface;
 syn ast			: Instruction for Instruction;
 syn ast 		: Parametre for Parametre, ParametreGenericite;
 
 syn parametres	: Parametre for Parametre, ParametresGenericite, SuiteParametre;
 
-syn list        : LinkedList<Interface> for Interfaces;
-syn list        : LinkedList<Classe> for Classes;
-syn list        : LinkedList<Instruction> for Instructions;
+inh list        : LinkedList<Interface> for Interfaces;
+inh list        : LinkedList<Classe> for Classes;
+inh list        : LinkedList<Instruction> for Instructions;
 
 
 space separateur				is    "[\n\r\t ]+";
@@ -136,21 +137,44 @@ end
 
 
 Interfaces -> Interface Interfaces #ast;
-#ast {
+#ast{
 do
-	Interfaces1^list.add(Interface^ast);
-	Interfaces^list := Interfaces1^list;
+  Interfaces^list.add(Interface1^ast);
+  Interfaces^ast := Interfaces1^ast;
+  Interfaces^tdsType.register(Interface^ast);
 end
 }
+
 
 Interfaces -> #ast;
 #ast {
 do
-Interfaces^list := new LinkedList<Interface>();
+  Interfaces^ast := Interfaces^list;
 end
 }
 
-Interface -> interface identificateur_type Genericite HeritageInterface accolade_ouvrante ElementsInterface accolade_fermante ;
+Interface -> interface identificateur_type Genericite HeritageInterface accolade_ouvrante ElementsInterface accolade_fermante #ast;
+#ast {
+do
+  if (Interface^tdsType.knows(identificateur_type^txt)) then
+    error(Type_already_defined, identificateur_type^txt);
+  else
+    if Generecite^ast = nil then
+      if HeritageInterface^ast = nil then
+        Interface^ast := Interface^factory.createInterface(identificateur_type^txt, ElementsInterface^ast);
+      else
+        Interface^ast := Interface^factory.createInterface(identificateur_type^txt,HeritageInterface^ast,ElementsInterface^ast);
+      end
+    else
+      if HeritageInterface^ast = nil then
+        Interface^ast := Interface^factory.createInterface(identificateur_type^txt,Generecite^ast,ElementsInterface^ast);
+      else
+        Interface^ast := Interface^factory.createInterface(identificateur_type^txt, Generecite^ast, HeritageInterface^ast, ElementsInterface^ast);
+      end
+    end
+  end
+end
+  }
 
 
 HeritageInterface -> extension identificateur_type InstanceGenericite SuiteHeritageInterface ;
