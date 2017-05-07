@@ -157,7 +157,7 @@ Interface -> interface identificateur_type Genericite HeritageInterface accolade
 #ast {
 do
   if (Interface^tdsType.knows(identificateur_type^txt)) then
-    error(Type_already_defined, identificateur_type^txt);
+    error(TYPE_already_defined, identificateur_type^txt);
   else
     if Generecite^ast = nil then
       if HeritageInterface^ast = nil then
@@ -177,29 +177,122 @@ end
   }
 
 
-HeritageInterface -> extension identificateur_type InstanceGenericite SuiteHeritageInterface ;
+HeritageInterface -> extension identificateur_type InstanceGenericite SuiteHeritageInterface #ast ;
+#ast{
+local
+  o : Optional<Declaration>;
+  d : Declaration;
+do
+  if HeritageInterface^tdsType.knows(identificateur_type^txt) then
+    o := HeritageInterface^tdsType.get(identificateur_type^txt);
+    d := o.get();
+    match d
+    with Interface then
+      if InstanceGenericite^ast := nil then
+        SuiteHeritageInterface^ast.add(HeritageInterface^factory.createGenericType(d));
+      else
+        SuiteHeritageInterface^ast.add(HeritageInterface^factory.createGenericType(d,InstanceGenericite^ast));
+      HeritageInterface^ast := SuiteHeritageInterface^ast;
+      end
+    else
+      error(TYPE_not_an_interface, identificateur_type^txt);
+    end
+  else
+    error(TYPE_unknown,identificateur_type^txt);
+  end
+end
+}
 
-HeritageInterface -> ;
+HeritageInterface -> #ast;
+#ast{
+do
+  HeritageInterface^ast := nil;
+end
+}
 
 
-SuiteHeritageInterface -> virgule identificateur_type InstanceGenericite SuiteHeritageInterface ;
+SuiteHeritageInterface -> virgule identificateur_type InstanceGenericite SuiteHeritageInterface #ast;
+#ast{
+local
+  o : Optional<Declaration>;
+  d : Declaration;
+do
+  if SuiteHeritageInterface^tdsType.knows(identificateur_type^txt) then
+    if SuiteHeritageInterface^tdsType.contains(identificateur_type^txt) then
+      error(HERITAGE_already_defined,identificateur_type^txt);
+    else
+      o := SuiteHeritageInterface^tdsType.get(identificateur_type^txt);
+      d := o.get();
+      match d
+      with Interface then
+        if InstanceGenericite^ast := nil then
+          SuiteHeritageInterface1^ast.add(SuiteHeritageInterface^factory.createGenericType(d));
+        else
+          SuiteHeritageInterface1^ast.add(SuiteHeritageInterface^factory.createGenericType(d,InstanceGenericite^ast));
+        end
+      else
+        error(TYPE_not_an_interface,identificateur_type^txt);
+      end
+    end
+  else
+    error(TYPE_unknown,identificateur_type^txt);
+  end
+end
+}
 
-SuiteHeritageInterface -> ;
+
+SuiteHeritageInterface -> #ast;
+#ast{
+do
+  SuiteHeritageInterface^ast := new LinkedList<Type>();
+end
+}
 
 
-ElementsInterface -> ElementInterface ElementsInterface ;
+ElementsInterface -> ElementInterface ElementsInterface #ast;
+#ast{
+do
+  ElementsInterface1^ast.addFirst(ElementInterface^ast);
+  ElementsInterface^ast := ElementsInterface1^ast;
+end
+}
 
-ElementsInterface -> ;
+ElementsInterface -> #ast;
+#ast{
+do
+  ElementsInterface^ast := new LinkedList<ElementInterface>();
+}
 
 
-ElementInterface -> final statique Type identificateur affectation Expression point_virgule ;
+ElementInterface -> final statique Type identificateur affectation Expression point_virgule #ast;
+#ast{
+do
+-- final static équivalent à une constante ?? Comment le mettre dans la bonne tds ??
+  ElementInterface^ast := ElementInterface^factory.createFinalStaticField(identificateur^txt,Type^ast, Expression^ast);
+end
+}
 
-ElementInterface -> Signature point_virgule ;
+ElementInterface -> Signature point_virgule #ast;
+#ast{
+do
+  ElementInterface^ast := Signature^ast;
+end
+}
 
 
-Signature -> vide identificateur parenthese_ouvrante Parametres parenthese_fermante ;  
+Signature -> vide identificateur parenthese_ouvrante Parametres parenthese_fermante #ast;
+#ast{
+do
+  Signature^ast := Signature^factory.createSignature(identificateur^txt,Parametres^ast);
+end
+}  
  
-Signature -> Type identificateur parenthese_ouvrante Parametres parenthese_fermante ;  
+Signature -> Type identificateur parenthese_ouvrante Parametres parenthese_fermante #ast;
+#ast{
+do
+  Signature^ast := Signature^factory.createSignature(identificateur^txt,Type^ast,Parametres^ast);
+end
+}  
 
 
 Classes -> Classe Classes #ast;
