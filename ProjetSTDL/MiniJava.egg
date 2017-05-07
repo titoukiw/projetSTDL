@@ -12,10 +12,15 @@ option k=2;
 
 inh gauche		: Expression for SuiteParametresGenericite, SuiteArgumentsGenericite;
 inh factory		: BlockFactory for Type, TypeAtomique, SuiteTypeAtomique, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface,ElementInterface, Signature, Classes, Classe, ElementsClasse, ElementClasse, AttributOuMethode, SuiteAttributOuMethode, Constructeur, Principale, MethodePrincipale, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation,Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur ;
+
 inh tdsType		: SymbolTable for Programme, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Classes, Classe, HeritageClasse, ImplantationInterface, Principale, MethodePrincipale,Generecite, ParametresGenericite, SuiteParametresGenerecite, HeritageGenericite, SuiteHeritageGenericite, InstanceGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ElementClasse, ElementsClasse, Constructeur, AttributOuMethode, SuiteAttributOuMethode, Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces  ;
+
 inh tdsAttMet		: SymbolTable for ElementClasse, ElementsClasse, AttributOuMethode, SuiteAttributOuMethode, MethodePrincipale, Constructeur, Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces ;
+
 inh tdsVar		: SymbolTable for Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces ;
 
+
+syn ast     : Block for Programme;
 syn ast 		: Fichier for Classes, Classe, Principale, Interface, Interfaces;
 syn ast			: Instruction for Instruction;
 syn ast 		: Parametre for Parametre, ParametreGenericite;
@@ -80,7 +85,6 @@ sugar prive						is    "private";
 sugar statique					is    "static";       
 sugar final						is    "final";       
 sugar principale				is    "main";  
-
 term   chaine					is    "\"([^\"]|\\\")*\"";  
 term   caractere				is    "\'[^\']\'";  
 term   entier					is    "[0-9]+";
@@ -88,23 +92,47 @@ term   identificateur			is    "[a-z_][a-zA-Z0-9_]*";
 term   identificateur_type		is    "[A-Z][a-zA-Z0-9_]*"; 
 
 
-Programme ->#ast Interfaces Classes Principale #inh;
-#ast {
+Programme ->#factory Interfaces #ast1 Classes #ast2 Principale #ast3;
+
+#factory {
 do
+  Interfaces^tdsType := new SymbolTable();
+  Interfaces^factory := new InterfaceFactory();
+  Interfaces^list := new LinkedList<Interface>();
+  Classes^factory := new ClassFactory();
 	Programme^tdsType := new SymbolTable();
 end
 }
 
-#inh {
+#ast1 {
 do
-	--BlockFactoryImpl dissociées, pb ?
-	 Interfaces^factory := new BlockFactoryImpl();
-	 Classes^factory := new BlockFactoryImpl();
-	 Principale^factory := new BlockFactoryImpl();
-	 --^tdsType := new SymbolTable();
-	 
+  Classes^ast := Interfaces^ast;
+  Classes^tdsAttMet := new SymbolTable(Interface^tdsType);
 end
 }
+
+#ast2 {
+do
+  Principale^ast := Programme^ast;
+  Princiaple^tdsVar := new SymbolTable(Classes^tdsAttMet);
+end
+}
+
+#ast3 {
+  do
+  Programme^ast := Principale^ast;
+  end
+}
+
+--#inh {
+--do
+--  BlockFactoryImpl dissociées, pb ?
+--	 Interfaces^factory := new BlockFactoryImpl();
+--	 Classes^factory := new BlockFactoryImpl();
+--	 Principale^factory := new BlockFactoryImpl();
+--	 ^tdsType := new SymbolTable();
+--end
+--}
 
 
 Interfaces -> Interface Interfaces #ast;
