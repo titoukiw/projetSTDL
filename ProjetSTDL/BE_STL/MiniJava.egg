@@ -371,11 +371,25 @@ do
 end
 }
 
-ParametresGenericite -> ParametreGenericite SuiteParametresGenericite ;
+ParametresGenericite -> ParametreGenericite SuiteParametresGenericite #ast;
+#ast {
+do
+  SuiteParametresGenericite^ast.addFirst(ParametreGenericite^ast);
+  ParametresGenericite^ast := SuiteParametresGenericite^ast;
+  ParametreGenericite^tdsType.register(ParametreGenericite^ast);
+
+end
+}
 
 
-SuiteParametresGenericite -> virgule ParametreGenericite SuiteParametresGenericite ;
-
+SuiteParametresGenericite -> virgule ParametreGenericite SuiteParametresGenericite #ast;
+#ast {
+do
+  SuiteParametresGenericite1^ast.addFirst(ParametreGenericite^ast);
+  SuiteParametresGenericite^ast := SuiteParametresGenericite1^ast;
+  SuiteParametresGenericite^tdsType.register(ParametreGenericite^ast);
+end
+}
 SuiteParametresGenericite -> #ast;
 #ast {
 do
@@ -384,9 +398,23 @@ end
 }
 
 
-ParametreGenericite -> identificateur_type HeritageGenericite ;  
+ParametreGenericite -> identificateur_type HeritageGenericite #ast ; 
+#ast {
+do
+  if ParametreGenericite^tdsType.contains(identificateur_type^txt) then
+    error(GENERICITE_already_defined, identificateur_type^txt);
+  else
+    ParametreGenericite^ast := ParametreGenericite^factory.createGenericParameter(identificateur_type^txt, HeritageGenericite^ast);
+  end
+end
+} 
  
-ParametreGenericite -> choix HeritageGenericite ;  
+ParametreGenericite -> choix HeritageGenericite #ast ;  
+#ast {
+do
+  ParametreGenericite^ast := ParametreGenericite^factory.createGenericParameter(HeritageGenericite^ast);
+end
+}
  
 
 HeritageGenericite -> extension identificateur_type SuiteHeritageGenericite ;

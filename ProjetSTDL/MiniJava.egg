@@ -10,87 +10,88 @@ option auto= true;
 option version = 0.0.1 ;
 option k=2;
 
-inh gauche		: Expression for SuiteParametresGenericite, SuiteArgumentsGenericite;
-inh factory		: BlockFactory for Type, TypeAtomique, SuiteTypeAtomique, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface,ElementInterface, Signature, Classes, Classe, ElementsClasse, ElementClasse, AttributOuMethode, SuiteAttributOuMethode, Constructeur, Principale, MethodePrincipale, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation,Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur ;
+inh gauche    : Expression for SuiteParametresGenericite, SuiteArgumentsGenericite;
+inh factory   : BlockFactory for Type, TypeAtomique, SuiteTypeAtomique, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface,ElementInterface, Signature, Classes, Classe, ElementsClasse, ElementClasse, AttributOuMethode, SuiteAttributOuMethode, Constructeur, Principale, MethodePrincipale, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation,Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur ;
 
-inh tdsType		: SymbolTable for Programme, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Classes, Classe, HeritageClasse, ImplantationInterface, Principale, MethodePrincipale,Generecite, ParametresGenericite, SuiteParametresGenerecite, HeritageGenericite, SuiteHeritageGenericite, InstanceGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ElementClasse, ElementsClasse, Constructeur, AttributOuMethode, SuiteAttributOuMethode, Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces  ;
+inh tdsType   : SymbolTable for Programme, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Classes, Classe, HeritageClasse, ImplantationInterface, Principale, MethodePrincipale,Generecite, ParametresGenericite, SuiteParametresGenerecite, HeritageGenericite, SuiteHeritageGenericite, InstanceGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ElementClasse, ElementsClasse, Constructeur, AttributOuMethode, SuiteAttributOuMethode, Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces  ;
 
-inh tdsAttMet		: SymbolTable for ElementClasse, ElementsClasse, AttributOuMethode, SuiteAttributOuMethode, MethodePrincipale, Constructeur, Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces ;
+inh tdsAttMet   : SymbolTable for ElementClasse, ElementsClasse, AttributOuMethode, SuiteAttributOuMethode, MethodePrincipale, Constructeur, Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces ;
 
-inh tdsVar		: SymbolTable for Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces ;
+inh tdsVar    : SymbolTable for Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces ;
 
 
 syn ast     : Block for Programme;
 syn ast     : LinkedList<Interface> for Interfaces;
 syn ast     : Interface for Interface;
-syn ast			: Instruction for Instruction;
-syn ast 		: Parametre for Parametre, ParametreGenericite;
+syn ast     : Instruction for Instruction;
+syn ast     : Parametre for Parametre, ParametreGenericite;
+syn ast     : LinkedList<ParametreGenericite> for  ParametresGenericite, Generecite, SuiteParametresGenericite;
 
-syn parametres	: Parametre for Parametre, ParametresGenericite, SuiteParametre;
+syn parametres  : Parametre for Parametre, ParametresGenericite, SuiteParametre;
 
 inh list        : LinkedList<Interface> for Interfaces;
 inh list        : LinkedList<Classe> for Classes;
 inh list        : LinkedList<Instruction> for Instructions;
 
 
-space separateur				is    "[\n\r\t ]+";
-space commentaire				is    "\/\/.*\n";
-sugar accolade_ouvrante			is    "\{";  
-sugar accolade_fermante			is    "\}";  
-sugar crochet_ouvrant			is    "\[";  
-sugar crochet_fermant			is    "\]";  
-sugar parenthese_ouvrante		is    "\(";
-sugar parenthese_fermante		is    "\)";
-sugar inferieur					is    "\<";  
-sugar superieur					is    "\>";  
-sugar inferieur_egal			is    "\<=";  
-sugar superieur_egal			is    "\>=";  
-sugar point						is    "\.";  
-sugar point_virgule				is    ";";  
-sugar virgule					is    ",";
-sugar affectation				is    "=";
-sugar egalite					is    "==";  
-sugar different					is    "\!=";  
-sugar addition					is    "\+";
-sugar soustraction				is    "\-";
-sugar ou						is    "\|\|";  
-sugar multiplication			is    "\*";
-sugar division					is    "/";
-sugar modulo					is    "%";
-sugar adresse					is    "&";  
-sugar negation					is    "\!";  
-sugar et						is    "&&";  
-sugar vrai						is    "true";
-sugar faux						is    "false";
-sugar si						is    "if";
-sugar sinon						is    "else";
-sugar afficher					is    "print";  
-sugar nouveau					is    "new";  
-sugar tant_que					is    "while";  
-sugar retour					is    "return";  
-sugar type_int					is    "int";
-sugar type_bool					is    "boolean";  
-sugar type_char					is    "char";        
-sugar type_String				is    "String";        
-sugar vide						is    "void";     
-sugar nul						is    "null";     
-sugar choix						is    "\?";         
-sugar deux_points				is    ":";          
-sugar interface					is    "interface";     
-sugar classe					is    "class";      
-sugar extension					is    "extends";      
-sugar implantation				is    "implements";      
-sugar public					is    "public";    
-sugar protege					is    "protected";    
-sugar prive						is    "private";     
-sugar statique					is    "static";       
-sugar final						is    "final";       
-sugar principale				is    "main";  
-term   chaine					is    "\"([^\"]|\\\")*\"";  
-term   caractere				is    "\'[^\']\'";  
-term   entier					is    "[0-9]+";
-term   identificateur			is    "[a-z_][a-zA-Z0-9_]*"; 
-term   identificateur_type		is    "[A-Z][a-zA-Z0-9_]*"; 
+space separateur        is    "[\n\r\t ]+";
+space commentaire       is    "\/\/.*\n";
+sugar accolade_ouvrante     is    "\{";  
+sugar accolade_fermante     is    "\}";  
+sugar crochet_ouvrant     is    "\[";  
+sugar crochet_fermant     is    "\]";  
+sugar parenthese_ouvrante   is    "\(";
+sugar parenthese_fermante   is    "\)";
+sugar inferieur         is    "\<";  
+sugar superieur         is    "\>";  
+sugar inferieur_egal      is    "\<=";  
+sugar superieur_egal      is    "\>=";  
+sugar point           is    "\.";  
+sugar point_virgule       is    ";";  
+sugar virgule         is    ",";
+sugar affectation       is    "=";
+sugar egalite         is    "==";  
+sugar different         is    "\!=";  
+sugar addition          is    "\+";
+sugar soustraction        is    "\-";
+sugar ou            is    "\|\|";  
+sugar multiplication      is    "\*";
+sugar division          is    "/";
+sugar modulo          is    "%";
+sugar adresse         is    "&";  
+sugar negation          is    "\!";  
+sugar et            is    "&&";  
+sugar vrai            is    "true";
+sugar faux            is    "false";
+sugar si            is    "if";
+sugar sinon           is    "else";
+sugar afficher          is    "print";  
+sugar nouveau         is    "new";  
+sugar tant_que          is    "while";  
+sugar retour          is    "return";  
+sugar type_int          is    "int";
+sugar type_bool         is    "boolean";  
+sugar type_char         is    "char";        
+sugar type_String       is    "String";        
+sugar vide            is    "void";     
+sugar nul           is    "null";     
+sugar choix           is    "\?";         
+sugar deux_points       is    ":";          
+sugar interface         is    "interface";     
+sugar classe          is    "class";      
+sugar extension         is    "extends";      
+sugar implantation        is    "implements";      
+sugar public          is    "public";    
+sugar protege         is    "protected";    
+sugar prive           is    "private";     
+sugar statique          is    "static";       
+sugar final           is    "final";       
+sugar principale        is    "main";  
+term   chaine         is    "\"([^\"]|\\\")*\"";  
+term   caractere        is    "\'[^\']\'";  
+term   entier         is    "[0-9]+";
+term   identificateur     is    "[a-z_][a-zA-Z0-9_]*"; 
+term   identificateur_type    is    "[A-Z][a-zA-Z0-9_]*"; 
 
 
 --Programme ->#factory Interfaces #ast1 Classes #ast2 Principale #ast3;
@@ -101,7 +102,7 @@ term   identificateur_type		is    "[A-Z][a-zA-Z0-9_]*";
 --  Interfaces^factory := new InterfaceFactory();
 --  Interfaces^list := new LinkedList<Interface>();
 --  Classes^factory := new ClassFactory();
---	Programme^tdsType := new SymbolTable();
+--  Programme^tdsType := new SymbolTable();
 --end
 --}
 
@@ -132,7 +133,7 @@ do
   Interfaces^tdsType := new SymbolTable();
   Interfaces^factory := new InterfaceFactory();
   Interfaces^list := new LinkedList<Interface>();
-  Programme^tdsType := new SymbolTable();
+  
 end
 }
 
@@ -145,10 +146,10 @@ end
 --#inh {
 --do
 --  BlockFactoryImpl dissociées, pb ?
---	 Interfaces^factory := new BlockFactoryImpl();
---	 Classes^factory := new BlockFactoryImpl();
---	 Principale^factory := new BlockFactoryImpl();
---	 ^tdsType := new SymbolTable();
+--   Interfaces^factory := new BlockFactoryImpl();
+--   Classes^factory := new BlockFactoryImpl();
+--   Principale^factory := new BlockFactoryImpl();
+--   ^tdsType := new SymbolTable();
 --end
 --}
 
@@ -156,7 +157,7 @@ end
 Interfaces -> Interface Interfaces #ast;
 #ast{
 do
-  Interfaces^list.add(Interface1^ast);
+  Interfaces^list.add(Interface^ast);
   Interfaces^ast := Interfaces1^ast;
   Interfaces^tdsType.register(Interface^ast);
 end
@@ -314,15 +315,15 @@ end
 Classes -> Classe Classes #ast;
 #ast {
 do
-	Classes1^list.add(Classe^ast);
-	Classes^list := Classes1^list;
+  Classes1^list.add(Classe^ast);
+  Classes^list := Classes1^list;
 end
 }
 
 Classes -> #ast;
 #ast {
 do
-	Classes^list := new LinkedList<Classe>();
+  Classes^list := new LinkedList<Classe>();
 end
 }
 
@@ -473,7 +474,7 @@ end
 SuiteParametres -> virgule Parametre SuiteParametres #ast;
 #ast {
 do
-	SuiteParametres1^parametres.addFirst(Parametre^ast); 
+  SuiteParametres1^parametres.addFirst(Parametre^ast); 
    SuiteParametres^parametres := SuiteParametres1^parametres; 
 end
 }
