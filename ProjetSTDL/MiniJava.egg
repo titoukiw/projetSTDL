@@ -93,36 +93,53 @@ term   identificateur			is    "[a-z_][a-zA-Z0-9_]*";
 term   identificateur_type		is    "[A-Z][a-zA-Z0-9_]*"; 
 
 
-Programme ->#factory Interfaces #ast1 Classes #ast2 Principale #ast3;
+--Programme ->#factory Interfaces #ast1 Classes #ast2 Principale #ast3;
 
+--#factory {
+--do
+--  Interfaces^tdsType := new SymbolTable();
+--  Interfaces^factory := new InterfaceFactory();
+--  Interfaces^list := new LinkedList<Interface>();
+--  Classes^factory := new ClassFactory();
+--	Programme^tdsType := new SymbolTable();
+--end
+--}
+
+--#ast1 {
+--do
+--  Classes^ast := Interfaces^ast;
+--  Classes^tdsAttMet := new SymbolTable(Interface^tdsType);
+--end
+--}
+
+--#ast2 {
+--do
+--  Principale^ast := Programme^ast;
+--  Princiaple^tdsVar := new SymbolTable(Classes^tdsAttMet);
+--end
+--}
+
+--#ast3 {
+ -- do
+ -- Programme^ast := Principale^ast;
+ -- end
+--}
+
+
+Programme -> #factory Interfaces #ast3;
 #factory {
 do
   Interfaces^tdsType := new SymbolTable();
   Interfaces^factory := new InterfaceFactory();
   Interfaces^list := new LinkedList<Interface>();
-  Classes^factory := new ClassFactory();
-	Programme^tdsType := new SymbolTable();
-end
-}
-
-#ast1 {
-do
-  Classes^ast := Interfaces^ast;
-  Classes^tdsAttMet := new SymbolTable(Interface^tdsType);
-end
-}
-
-#ast2 {
-do
-  Principale^ast := Programme^ast;
-  Princiaple^tdsVar := new SymbolTable(Classes^tdsAttMet);
+  Programme^tdsType := new SymbolTable();
 end
 }
 
 #ast3 {
-  do
-  Programme^ast := Principale^ast;
-  end
+do
+  Programme^ast := Interfaces^ast;
+end
 }
 
 --#inh {
@@ -171,7 +188,6 @@ do
       else
         Interface^ast := Interface^factory.createInterface(identificateur_type^txt, Generecite^ast, HeritageInterface^ast, ElementsInterface^ast);
       end
-    end
   end
 end
   }
