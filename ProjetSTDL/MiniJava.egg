@@ -559,18 +559,13 @@ end
 }
 
 
-Bloc -> accolade_ouvrante Instructions accolade_fermante ;
---#ast {
---do
--- Bloc^ast := Bloc^factory.createBlock(Instructions^ast);
---end
---}
---#inh {
---do
---  Instructions^list := new ArrayList<Instruction>();
---  Instructions^tds := new SymbolTable(Bloc^tds);
---end
---}
+Bloc -> accolade_ouvrante Instructions accolade_fermante #ast;
+#ast {
+do
+ Bloc^ast := Bloc^factory.createBlock(Instructions^ast);
+end
+}
+
 
 
 Type -> TypeAtomique SuiteTypeAtomique ;
