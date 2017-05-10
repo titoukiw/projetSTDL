@@ -22,6 +22,7 @@ inh tds     	: SymbolTable for Expressions, ArgumentGenericite, Programme, Param
 syn acces 	: DroitAcces for DroitAcces ;
 syn bin_op	: BinaryOperator for Comparatif, Additif, Multiplicatif;
 inh support     : Expression for Acces, Appel, AppelouAcces;
+inh gauche	: Expression for SuiteCondition, SuiteAffectation, SuiteTerme, SuiteFacteur;
 syn expressions : LinkedList<Expression> for Expressions, SuiteExpressions;
 
 
@@ -683,29 +684,94 @@ Instruction -> Expression point_virgule ;
 Instruction -> si parenthese_ouvrante Expression parenthese_fermante Bloc SuiteConditionnelle ;
 
 
-SuiteConditionnelle -> ;
+SuiteConditionnelle -> #ast;
+#ast {
+do
+    SuiteConditionnelle^ast := SuiteConditionnelle^factory.createConditional(SuiteConditionnelle^condition, SuiteConditionnelle^alors);
+end
+}
 
-SuiteConditionnelle ->sinon Bloc ;
+SuiteConditionnelle ->sinon #inh Bloc #ast;
+#inh {
+do
+        Bloc^tds := new SymbolTable(SuiteConditionnelle^tds);   
+end
+}
+#ast {
+do
+    SuiteConditionnelle^ast := SuiteConditionnelle^factory.createConditional(SuiteConditionnelle^condition, SuiteConditionnelle^alors,Bloc^ast);
+end
+}
 
-Instruction -> tant_que parenthese_ouvrante Expression parenthese_fermante Bloc ;
+Instruction -> tant_que parenthese_ouvrante Expression parenthese_fermante #inh Bloc #ast ;
+#inh {
+do
+   Bloc^tds := new SymbolTable(Instruction^tds);
+end
+}
 
-Instruction -> afficher Expression point_virgule ;
+Instruction -> afficher Expression point_virgule #ast ;
+#ast {
+do
+   Instruction^ast := Instruction^factory.createPrinter(Expression^ast);
+end
+}
 
-Instruction -> retour Expression point_virgule ;
+Instruction -> retour Expression point_virgule #ast ;
+#ast {
+do
+   Instruction^ast := Instruction^factory.createReturn(Expression^ast);
+end
+}
 
 
-Expression -> Affectation SuiteAffectation ;
+Expression -> Affectation #inh SuiteAffectation #ast;
+#inh {
+do
+   SuiteAffectation^gauche := Affectation^ast ;
+end 
+}
+#ast {
+do
+    Expression^ast := SuiteAffectation^ast;
+end 
+}
 
-Affectation -> Condition SuiteCondition ;
+Affectation -> Condition #inh SuiteCondition #ast;
+#inh {
+do
+   SuiteCondition^gauche := Condition^ast ;
+end 
+}
+#ast {
+do
+    Affectation^ast := SuiteCondition^ast;
+end 
+}
 
+--TODO
 SuiteAffectation -> affectation Expression ;
 
+--TODO
 SuiteAffectation -> ;
 
-SuiteCondition -> Comparatif Condition ;
+SuiteCondition -> Comparatif Condition #ast ;
+#ast {
+do
+	SuiteCondition^ast :=
+	SuiteCondition^factory.createBinaryExpression(
+	SuiteCondition^gauche,
+	Comparatif^bin_op,
+	Condition^ast);
+end 
+}
 
-SuiteCondition -> ;
-
+SuiteCondition -> #ast ;
+#ast {
+do
+   SuiteCondition^ast := SuiteCondition^gauche;
+end 
+}
 
 Comparatif -> egalite #texte;  
 #texte {  
@@ -749,12 +815,41 @@ do
 end  
 }
    
-Condition -> Terme SuiteTerme ;
+Condition -> Terme #ast_inh SuiteTerme #ast_syn ;
+#ast_inh {
+do 
+   SuiteTerme^gauche := Terme^ast; 
+end 
+}
 
+#ast_syn {
+do
+   Condition^ast := SuiteTerme^ast; 
+end
+}
 
-SuiteTerme -> Additif Terme SuiteTerme ;  
+SuiteTerme -> Additif Terme #ast_inh SuiteTerme #ast_syn ;  
+#ast_inh {
+do
+   SuiteTerme1^gauche := SuiteTerme^factory.createBinaryExpression(
+      SuiteTerme^gauche,  
+      Additif^bin_op,  
+      Terme^ast);  
+end 
+}
 
-SuiteTerme -> ;
+#ast_syn {
+do 
+   SuiteTerme^ast := SuiteTerme1^ast; 
+end 
+}
+
+SuiteTerme -> #ast ;
+#ast {
+do
+   SuiteTerme^ast := SuiteTerme^gauche;
+end
+}
 
 
 Additif -> soustraction #ast;  
@@ -778,15 +873,41 @@ do
 end  
 }
 
+Terme -> Facteur #ast_inh SuiteFacteur #ast_syn ;
+#ast_inh {
+do 
+   SuiteFacteur^gauche := Facteur^ast; 
+end 
+}
 
+#ast_syn {
+do
+   Terme^ast := SuiteFacteur^ast; 
+end
+}
 
-Terme -> Facteur SuiteFacteur ;
+SuiteFacteur -> Multiplicatif Facteur #ast_inh SuiteFacteur #ast_syn ;  
+#ast_inh {
+do 
+   SuiteFacteur1^gauche := SuiteFacteur^factory.createBinaryExpression(
+      SuiteFacteur^gauche,  
+      Multiplicatif^bin_op,  
+      Facteur^ast);  
+end 
+}
 
-
-SuiteFacteur -> Multiplicatif Facteur SuiteFacteur ;  
-
-SuiteFacteur -> ;  
-
+#ast_syn {
+do 
+   SuiteFacteur^ast := SuiteFacteur1^ast; 
+end 
+}
+ 
+SuiteFacteur -> #ast;  
+#ast {
+do
+   SuiteFacteur^ast := SuiteFacteur^gauche;
+end
+}
 
 Multiplicatif -> multiplication #ast; 
 #ast { 
@@ -815,7 +936,6 @@ do
    Multiplicatif^bin_op := BinaryOperator.And;   
 end 
 }
-
   
 Facteur -> accolade_ouvrante Expressions accolade_fermante #ast ;
 #ast {
@@ -824,13 +944,28 @@ do
 end
 }
 
+Expressions -> Expression SuiteExpressions #ast ;
+#ast {
+do 
+   SuiteExpressions^expressions.addFirst(Expression^ast); 
+   Expressions^expressions := SuiteExpressions^expressions; 
+end 
+}
 
-Expressions -> Expression SuiteExpressions ;
+SuiteExpressions -> virgule Expression SuiteExpressions #ast ;
+#ast {
+do 
+   SuiteExpressions1^expressions.addFirst(Expression^ast); 
+   SuiteExpressions^expressions := SuiteExpressions1^expressions; 
+end 
+}
 
-SuiteExpressions -> virgule Expression SuiteExpressions ;
-
-SuiteExpressions -> ;
-
+SuiteExpressions -> #ast ;
+#ast {
+do
+   SuiteExpressions^expressions := new LinkedList<Expression>();
+end
+}
 
 Facteur -> soustraction Facteur #ast ;  
 #ast { 
@@ -872,9 +1007,10 @@ do
 end 
 }
 
-
+-- TODO
 Arguments -> parenthese_ouvrante parenthese_fermante ;
 
+-- TODO
 Arguments -> parenthese_ouvrante Expressions parenthese_fermante ;
 
 
@@ -939,12 +1075,20 @@ do
 end
 }
 
+-- TODO
 Facteur -> identificateur_type point identificateur AppelOuAcces ;
 
-Facteur -> parenthese_ouvrante Expression parenthese_fermante ;
+Facteur -> parenthese_ouvrante Expression parenthese_fermante #ast;
+#ast {
+do
+   Facteur^ast := Facteur^factory.createSequence( Expression^expressions );
+end
+}
 
+-- TODO
 AppelOuAcces -> Acces ;
 
+-- TODO
 AppelOuAcces -> Appel ;
 
 
@@ -955,6 +1099,7 @@ do
 end  
 }
 
+-- TODO
 Acces -> crochet_ouvrant Expression crochet_fermant Acces ;
 
 Acces -> point identificateur #inh Acces #ast;
@@ -969,7 +1114,7 @@ do
 end  
 }
 
-
+-- TODO
 Appel -> Arguments Acces ;  
  
 end
