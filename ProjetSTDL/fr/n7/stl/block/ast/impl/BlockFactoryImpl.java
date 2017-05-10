@@ -435,4 +435,16 @@ public class BlockFactoryImpl implements BlockFactory {
     public Expression createPointerAllocation(Type _type) {
     	return new PointerAllocationImpl(_type);
     }
+
+    /* PROJET ------------------------------------------------------------>>>>>>>>>>>>>>>>>> */
+
+    public Interface createInterface(Object... args){
+		return new InterfaceImpl(args);
+	}
+
+
+
+
+
+
 }
