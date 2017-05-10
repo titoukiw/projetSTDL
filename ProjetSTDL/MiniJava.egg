@@ -20,7 +20,7 @@ inh tds     	: SymbolTable for Expressions, ArgumentGenericite, Programme, Param
 --inh tdsVar		: SymbolTable for Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces ;
 
 syn acces 	: DroitAcces for DroitAcces ;
-syn bin_op	: BinaryOperator for Comparatif;
+syn bin_op	: BinaryOperator for Comparatif, Additif, Multiplicatif;
 
 
 syn ast     : Objet for Classe, Interface;
@@ -746,12 +746,6 @@ do
    Comparatif^bin_op := BinaryOperator.GreaterOrEqual;    
 end  
 }
-
-
-
-
-
-
    
 Condition -> Terme SuiteTerme ;
 
@@ -761,11 +755,27 @@ SuiteTerme -> Additif Terme SuiteTerme ;
 SuiteTerme -> ;
 
 
-Additif -> addition ;  
+Additif -> soustraction #ast;  
+#ast {  
+do  
+   Additif^bin_op := BinaryOperator.Substract;   
+end  
+}
+   
+Additif -> ou #ast;  
+#ast {  
+do  
+   Additif^bin_op := BinaryOperator.Or;   
+end  
+}
 
-Additif -> soustraction ;  
+Additif -> addition #ast;  
+#ast {  
+do  
+   Additif^bin_op := BinaryOperator.Addition;   
+end  
+}
 
-Additif -> ou ;  
 
 
 Terme -> Facteur SuiteFacteur ;
@@ -776,13 +786,33 @@ SuiteFacteur -> Multiplicatif Facteur SuiteFacteur ;
 SuiteFacteur -> ;  
 
 
-Multiplicatif -> multiplication ; 
+Multiplicatif -> multiplication #ast; 
+#ast { 
+do 
+   Multiplicatif^bin_op := BinaryOperator.Multiple;  
+end 
+}
 
-Multiplicatif -> division ; 
-
-Multiplicatif -> modulo ; 
-
-Multiplicatif -> et ; 
+Multiplicatif -> division #ast; 
+#ast { 
+do 
+   Multiplicatif^bin_op := BinaryOperator.Divide;  
+end 
+}
+ 
+Multiplicatif -> modulo #ast; 
+#ast {  
+do 
+   Multiplicatif^bin_op := BinaryOperator.Modulo;   
+end 
+}
+  
+Multiplicatif -> et #ast; 
+#ast {  
+do 
+   Multiplicatif^bin_op := BinaryOperator.And;   
+end 
+}
 
   
 Facteur -> accolade_ouvrante Expressions accolade_fermante ;
