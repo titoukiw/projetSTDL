@@ -11,9 +11,9 @@ option version = 0.0.1 ;
 option k=2;
 
 inh gauche		: Expression for SuiteParametresGenericite, SuiteArgumentsGenericite;
-inh factory		: BlockFactory for Type, TypeAtomique, SuiteTypeAtomique, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface,ElementInterface, Signature, Classes, Classe, ElementsClasse, ElementClasse, AttributOuMethode, SuiteAttributOuMethode, Constructeur, Principale, MethodePrincipale, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation,Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur ;
+inh factory		: BlockFactory for Type, HeritageClasse, TypeAtomique, SuiteTypeAtomique,ParametreGenericite, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface,ElementInterface, Signature, Classes, Classe, ElementsClasse, ElementClasse, AttributOuMethode, SuiteAttributOuMethode, Constructeur, Principale, MethodePrincipale, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation,Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur ;
 
-inh tds     	: SymbolTable for Programme, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Classes, Classe, HeritageClasse, ImplantationInterface, Principale, MethodePrincipale,Genericite, ParametresGenericite, SuiteParametresGenericite, HeritageGenericite, SuiteHeritageGenericite, InstanceGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ElementClasse, ElementsClasse, Constructeur, AttributOuMethode, SuiteAttributOuMethode, Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces  ;
+inh tds     	: SymbolTable for Programme, ParametreGenericite, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Classes, Classe, HeritageClasse, ImplantationInterface, Principale, MethodePrincipale,Genericite, ParametresGenericite, SuiteParametresGenericite, HeritageGenericite, SuiteHeritageGenericite, InstanceGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ElementClasse, ElementsClasse, Constructeur, AttributOuMethode, SuiteAttributOuMethode, Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces  ;
 
 --inh tdsAttMet		: SymbolTable for ElementClasse, ElementsClasse, AttributOuMethode, SuiteAttributOuMethode, MethodePrincipale, Constructeur, Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces ;
 
@@ -23,7 +23,7 @@ inh tds     	: SymbolTable for Programme, Interfaces, Interface, HeritageInterfa
 syn ast     : Objet for Classe, Interface;
 syn ast     : LinkedList<Objet> for Interfaces,Classes;
 syn ast     : Expression for Expression;
-syn ast     : Type for Type, TypeAtomique, SuiteTypeAtomique, HeritageClasse;
+syn ast     : Type for Type, TypeAtomique, SuiteTypeAtomique, HeritageClasse, HeritageGenericite;
 syn ast     : Block for Programme, Bloc, SuiteConditionnelle;
 syn ast			: Instruction for Instruction;
 syn ast 		: ParametreGenericite for ParametreGenericite;
@@ -367,11 +367,20 @@ end
 HeritageClasse -> extension identificateur_type InstanceGenericite #ast ;
 #ast {
 do
-
+  if HeritageClasse^tds.knows(identificateur_type^txt) then
+    HeritageClasse^ast := HeritageClasse^factory.createGenericType(identificateur_type^txt,InstanceGenericite^ast);
+  else
+    error(TYPE_unknown,identificateur_type^txt);
+  end
 end
 }
 
-HeritageClasse -> ;
+HeritageClasse -> #ast;
+#ast {
+do
+  HeritageClasse^ast := nil;
+end
+}
 
 ImplantationInterface -> implantation identificateur_type InstanceGenericite SuiteHeritageInterface ;
 
