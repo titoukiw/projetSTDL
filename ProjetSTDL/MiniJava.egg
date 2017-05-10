@@ -364,17 +364,29 @@ do
 end
 }
 
-HeritageClasse -> extension identificateur_type InstanceGenericite #ast ;
-#ast {
+HeritageClasse -> extension identificateur_type #inh InstanceGenericite #ast ;
+#inh {
+local
+  f : Optional<Declaration>;
+  d : Declaration;
 do
   if HeritageClasse^tds.knows(identificateur_type^txt) then
-    HeritageClasse^ast := HeritageClasse^factory.createGenericType(identificateur_type^txt,InstanceGenericite^ast);
+    f := HeritageClasse^tds.get(identificateur_type^txt);
+    d = f.get();
+    match d
+    with GenericType then InstanceGenericite^support := HeritageClasse^factory.createGenericTypeUse(d);
+    end
   else
     error(TYPE_unknown,identificateur_type^txt);
   end
 end
 }
 
+#ast {
+do
+  HeritageClasse^ast := InstanceGenericite^ast;
+end
+}
 HeritageClasse -> #ast;
 #ast {
 do
