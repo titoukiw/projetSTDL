@@ -19,6 +19,8 @@ inh tds     	: SymbolTable for Expressions, ArgumentGenericite, Programme, Param
 
 --inh tdsVar		: SymbolTable for Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces ;
 
+syn acces 	: DroitAcces for DroitAcces ;
+
 
 syn ast     : Objet for Classe, Interface;
 syn ast     : LinkedList<Objet> for Interfaces,Classes;
@@ -388,7 +390,7 @@ ImplantationInterface -> ;
 
 
 Principale -> public classe identificateur_type accolade_ouvrante MethodePrincipale accolade_fermante #ast;
-{
+#ast {
 do
    if (Principale^tds.knows(identificateur_type^txt)) then
       error(TYPE_already_defined, identificateur_type^txt);
@@ -400,7 +402,7 @@ end
 
 
 MethodePrincipale -> public statique vide principale parenthese_ouvrante type_String crochet_ouvrant crochet_fermant identificateur parenthese_fermante Bloc #ast;
-{
+#ast {
 do
    MethodePrincipale^ast := MethodePrincipale^factory.createMethodePrincipale(identificateur^txt,Bloc^ast);
 end
@@ -502,14 +504,36 @@ ArgumentGenericite -> type_String ;
 
 ElementsClasse -> DroitAcces ElementClasse ElementsClasse ;
   
-ElementsClasse -> ;  
+ElementsClasse -> #ast ;
+#ast {
+do
+   ElementsClasse^ast := new LinkedList<ElementClasse>();
+end
+}
+
  
 
-DroitAcces -> public ;  
+DroitAcces -> public #ast ;
+#ast {
+do
+   DroitAcces^acces := DroitAcces.Public;
+end
+}
+
  
-DroitAcces -> protege ;  
+DroitAcces -> protege #ast ;
+#ast {
+do
+   DroitAcces^acces := DroitAcces.Protected;
+end
+}
  
-DroitAcces -> prive ;  
+DroitAcces -> prive #ast ;  
+#ast {
+do
+   DroitAcces^acces := DroitAcces.Private;
+end
+}
  
 
 ElementClasse -> statique AttributOuMethode ;  
@@ -572,15 +596,12 @@ do
 end
 }
 
-
 Bloc -> accolade_ouvrante Instructions accolade_fermante #ast;
 #ast {
 do
  Bloc^ast := Bloc^factory.createBlock(Instructions^ast);
 end
 }
-
-
 
 Type -> TypeAtomique SuiteTypeAtomique ;
 
