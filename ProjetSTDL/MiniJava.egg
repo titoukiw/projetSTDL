@@ -11,9 +11,9 @@ option version = 0.0.1 ;
 option k=2;
 
 inh gauche		: Expression for SuiteParametresGenericite, SuiteArgumentsGenericite;
-inh factory		: BlockFactory for Type, Genericite, HeritageClasse, SuiteParametresGenericite, ImplantationInterface, ParametresGenericite, TypeAtomique, SuiteTypeAtomique,ParametreGenericite, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface,ElementInterface, Signature, Classes, Classe, ElementsClasse, ElementClasse, AttributOuMethode, SuiteAttributOuMethode, Constructeur, Principale, MethodePrincipale, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation,Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur ;
+inh factory		: BlockFactory for Type, HeritageClasse, TypeAtomique, SuiteTypeAtomique,ParametreGenericite, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface,ElementInterface, Signature, Classes, Classe, ElementsClasse, ElementClasse, AttributOuMethode, SuiteAttributOuMethode, Constructeur, Principale, MethodePrincipale, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation,Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur ;
 
-inh tds     	: SymbolTable for Expressions, ArgumentGenericite, Programme, ParametreGenericite, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Classes, Classe, HeritageClasse, ImplantationInterface, Principale, MethodePrincipale,Genericite, ParametresGenericite, SuiteParametresGenericite, HeritageGenericite, SuiteHeritageGenericite, InstanceGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ElementClasse, ElementsClasse, Constructeur, AttributOuMethode, SuiteAttributOuMethode, Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces  ;
+inh tds     	: SymbolTable for Programme, ParametreGenericite, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Classes, Classe, HeritageClasse, ImplantationInterface, Principale, MethodePrincipale,Genericite, ParametresGenericite, SuiteParametresGenericite, HeritageGenericite, SuiteHeritageGenericite, InstanceGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ElementClasse, ElementsClasse, Constructeur, AttributOuMethode, SuiteAttributOuMethode, Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces  ;
 
 --inh tdsAttMet		: SymbolTable for ElementClasse, ElementsClasse, AttributOuMethode, SuiteAttributOuMethode, MethodePrincipale, Constructeur, Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces ;
 
@@ -387,10 +387,24 @@ ImplantationInterface -> implantation identificateur_type InstanceGenericite Sui
 ImplantationInterface -> ;
 
 
-Principale -> public classe identificateur_type accolade_ouvrante MethodePrincipale accolade_fermante ;
+Principale -> public classe identificateur_type accolade_ouvrante MethodePrincipale accolade_fermante #ast;
+{
+do
+   if (Principale^tds.knows(identificateur_type^txt)) then
+      error(TYPE_already_defined, identificateur_type^txt);
+   else
+      Principale^ast := Principale^factory.createPrincipale(identificateur_type^txt,MethodePrincipale^ast);
+   end
+end
+}
 
 
-MethodePrincipale -> public statique vide principale parenthese_ouvrante type_String crochet_ouvrant crochet_fermant identificateur parenthese_fermante Bloc ;
+MethodePrincipale -> public statique vide principale parenthese_ouvrante type_String crochet_ouvrant crochet_fermant identificateur parenthese_fermante Bloc #ast;
+{
+do
+   MethodePrincipale^ast := MethodePrincipale^factory.createMethodePrincipale(identificateur^txt,Bloc^ast);
+end
+}
 
 
 Genericite -> inferieur ParametresGenericite superieur #ast ;
