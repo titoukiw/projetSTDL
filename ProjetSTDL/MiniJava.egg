@@ -21,6 +21,8 @@ inh tds     	: SymbolTable for Expressions, ArgumentGenericite, Programme, Param
 
 syn acces 	: DroitAcces for DroitAcces ;
 syn bin_op	: BinaryOperator for Comparatif, Additif, Multiplicatif;
+inh support     : Expression for Acces, Appel, AppelouAcces;
+syn expressions : LinkedList<Expression> for Expressions, SuiteExpressions;
 
 
 syn ast     : Objet for Classe, Interface;
@@ -815,7 +817,12 @@ end
 }
 
   
-Facteur -> accolade_ouvrante Expressions accolade_fermante ;
+Facteur -> accolade_ouvrante Expressions accolade_fermante #ast ;
+#ast {
+do
+   Facteur^ast := Facteur^factory.createSequence( Expressions^expressions );
+end
+}
 
 
 Expressions -> Expression SuiteExpressions ;
@@ -825,37 +832,112 @@ SuiteExpressions -> virgule Expression SuiteExpressions ;
 SuiteExpressions -> ;
 
 
-Facteur -> soustraction Facteur ;  
+Facteur -> soustraction Facteur #ast ;  
+#ast { 
+do  
+   Facteur^ast := Facteur ^factory.createUnaryExpression(UnaryOperator.Opposite,Facteur1^ast);  
+end  
+}
+ 
+Facteur -> negation Facteur #ast ;  
+#ast { 
+do  
+   Facteur^ast := Facteur ^factory. createUnaryExpression(UnaryOperator.Negate,Facteur1^ast);  
+end  
+}
 
-Facteur -> negation Facteur ;  
+Facteur -> nouveau Type #inh SuiteNouveau #ast ; 
+#inh {
+do 
+   SuiteNouveau^type := Type^ast; 
+end 
+}
+#ast {
+do 
+   Facteur^ast := SuiteNouveau^ast; 
+end 
+}
 
-Facteur -> nouveau Type SuiteNouveau ;
+SuiteNouveau -> crochet_ouvrant Expression crochet_fermant #ast ; 
+#ast {
+do  
+   SuiteNouveau^ast := SuiteNouveau^factory.createArrayAllocation(SuiteNouveau^type,Expression^ast);  
+end  
+}
 
+SuiteNouveau -> #ast ; 
+#ast {
+do 
+   SuiteNouveau^ast := SuiteNouveau^factory.createPointerAllocation(SuiteNouveau^type); 
+end 
+}
 
-SuiteNouveau -> crochet_ouvrant Expression crochet_fermant ;
-
-SuiteNouveau -> Arguments ;
 
 Arguments -> parenthese_ouvrante parenthese_fermante ;
 
 Arguments -> parenthese_ouvrante Expressions parenthese_fermante ;
 
 
-Facteur -> Valeur ;
-
+Facteur -> Valeur #ast;
+#ast {
+do
+   Facteur^ast := Valeur^ast;
+end
+}
  
-Valeur -> entier ;
+Valeur -> entier #ast;
+#ast {
+do
+    Valeur^ast := Valeur^factory.createIntegerValue(entier^txt); 
+end
+}
 
-Valeur -> vrai ;
+Valeur -> vrai #ast;
+#ast {
+do
+    Valeur^ast := Valeur^factory.createBooleanValue(true);  
+end
+}
 
-Valeur -> faux ;
+Valeur -> faux #ast;
+#ast {
+do
+    Valeur^ast := Valeur^factory.createBooleanValue(false);  
+end
+}
 
-Valeur -> chaine ;
+Valeur -> chaine #ast;
+#ast {
+do
+    Valeur^ast := Valeur^factory.createStringValue(chaine^txt);  
+end
+}
 
-Valeur -> caractere ;
+Valeur -> caractere #ast;
+#ast {
+do
+    Valeur^ast := Valeur^factory.createCharacterValue(caractere^txt);  
+end
+}
 
-
-Facteur -> identificateur AppelOuAcces ;
+Facteur -> identificateur #inh AppelouAcces #ast ;
+#inh {
+local
+   f : Optional<Declaration>;
+   d : Declaration;
+do
+   if (Facteur^tds.knows(identificateur^txt)) then
+      f := Facteur^tds.get(identificateur^txt);
+      d := f.get();
+      match d
+      with ConstantDeclaration then AppelouAcces^support := d.getValue();
+      with VariableDeclaration then AppelouAcces^support := Facteur^factory.createVariableUse(d);
+      end
+   else
+      error(BLOC_undefined_ident, identificateur^txt);
+   end
+end
+}
 
 Facteur -> identificateur_type point identificateur AppelOuAcces ;
 
@@ -866,11 +948,26 @@ AppelOuAcces -> Acces ;
 AppelOuAcces -> Appel ;
 
 
-Acces -> ;
+Acces -> #ast ;
+#ast { 
+do  
+   Acces^ast := Acces^support;  
+end  
+}
 
 Acces -> crochet_ouvrant Expression crochet_fermant Acces ;
 
-Acces -> point identificateur AppelOuAcces ;
+Acces -> point identificateur #inh Acces #ast;
+#inh {
+do
+   Acces1^support := Acces^factory.createFieldAccess(Acces^support,identificateur^txt);
+end
+}
+#ast { 
+do  
+   Acces^ast := Acces1^ast;  
+end  
+}
 
 
 Appel -> Arguments Acces ;  
