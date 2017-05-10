@@ -438,9 +438,25 @@ public class BlockFactoryImpl implements BlockFactory {
 
     /* PROJET ------------------------------------------------------------>>>>>>>>>>>>>>>>>> */
 
-    public Interface createInterface(Object... args){
-		return new InterfaceImpl(args);
+    /* createInterface */
+    public Interface createInterface(String nom, LinkedList<ParametreGenericite> parametresGen, 
+    									LinkedList<Type> heritages, LinkedList<ElementInterface> elements){
+			return new InterfaceImpl( nom, parametresGen, heritages, elements);
 	}
+
+	public Interface createInterface(String nom, LinkedList<ParametreGenericite> parametresGen, 
+										LinkedList<ElementInterface> elements){
+		return new InterfaceImpl( nom, parametresGen, elements);
+	}
+
+	public Interface createInterface(String nom, LinkedList<Type> heritages, LinkedList<ElementInterface> elements){
+		return new InterfaceImpl( nom, heritages, elements);
+	}
+
+	public Interface createInterface(String nom, LinkedList<ElementInterface> elements){
+		return new InterfaceImpl( nom, elements);
+	}
+
 
 
 
