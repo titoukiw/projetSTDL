@@ -10,29 +10,23 @@ import fr.n7.stl.block.ast.interface;
 public class InterfaceImpl implements Interface {
 
 		private String nom;
-		private 
+		private LinkedList<Signature> listSign;
+		private LinkedList<FinalStaticField> listFSField;
 
 
 		public InterfaceImpl(String nom, LinkedList<ElementInterface> elements){
 			this.nom = nom;
+			for (ElementInterface e : elements){
+				if (e instanceof Signature ){
+					listSign.append(e);
+				} else {
+					listFSField.append(e);
+				}
+			}
 		}
-
-		public InterfaceImpl(String nom, LinkedList<ParametreGenericite> parametresGen, LinkedList<Type> heritages, LinkedList<ElementInterface> elements){
-			this.nom = nom;
-		}
-
-		public InterfaceImpl(String nom, LinkedList<ParametreGenericite> parametresGen, LinkedList<ElementInterface> elements){
-			this.nom = nom;
-		}
-
-		public InterfaceImpl(String nom, LinkedList<Type> heritages, LinkedList<ElementInterface> elements){
-			this.nom = nom;
-		}
-
-
 
 		public String getName(){
-			return this.nom;
+			return "(Interface)" + this.nom;
 		}
 
 }

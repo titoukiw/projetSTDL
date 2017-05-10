@@ -441,16 +441,16 @@ public class BlockFactoryImpl implements BlockFactory {
     /* createInterface */
     public Interface createInterface(String nom, LinkedList<ParametreGenericite> parametresGen, 
     									LinkedList<Type> heritages, LinkedList<ElementInterface> elements){
-			return new InterfaceImpl( nom, parametresGen, heritages, elements);
+			return new InterfaceGenHeritImpl( nom, parametresGen, heritages, elements);
 	}
 
 	public Interface createInterface(String nom, LinkedList<ParametreGenericite> parametresGen, 
 										LinkedList<ElementInterface> elements){
-		return new InterfaceImpl( nom, parametresGen, elements);
+		return new InterfaceGenImpl( nom, parametresGen, elements);
 	}
 
 	public Interface createInterface(String nom, LinkedList<Type> heritages, LinkedList<ElementInterface> elements){
-		return new InterfaceImpl( nom, heritages, elements);
+		return new InterfaceHeritImpl( nom, heritages, elements);
 	}
 
 	public Interface createInterface(String nom, LinkedList<ElementInterface> elements){
