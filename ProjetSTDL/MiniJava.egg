@@ -20,6 +20,7 @@ inh tds     	: SymbolTable for Expressions, ArgumentGenericite, Programme, Param
 --inh tdsVar		: SymbolTable for Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces ;
 
 syn acces 	: DroitAcces for DroitAcces ;
+syn bin_op	: BinaryOperator for Comparatif;
 
 
 syn ast     : Objet for Classe, Interface;
@@ -692,17 +693,52 @@ SuiteCondition -> Comparatif Condition ;
 SuiteCondition -> ;
 
 
-Comparatif -> egalite ;  
+Comparatif -> egalite #texte;  
+#texte {  
+do  
+   Comparatif^bin_op := BinaryOperator.Equal;   
+end  
+}
 
-Comparatif -> different ;  
+Comparatif -> different #texte;  
+#texte {  
+do  
+   Comparatif^bin_op := BinaryOperator.Different;   
+end  
+}
+  
+Comparatif -> inferieur #texte;  
+#texte {  
+do  
+   Comparatif^bin_op := BinaryOperator.Lesser;   
+end  
+}
+  
+Comparatif -> inferieur_egal #texte;  
+#texte {  
+do  
+   Comparatif^bin_op := BinaryOperator.LesserOrEqual;   
+end  
+}
+  
+Comparatif -> superieur #texte;  
+#texte {   
+do  
+   Comparatif^bin_op := BinaryOperator.Greater;    
+end  
+}
+   
+Comparatif -> superieur_egal #texte;  
+#texte {   
+do  
+   Comparatif^bin_op := BinaryOperator.GreaterOrEqual;    
+end  
+}
 
-Comparatif -> inferieur ;  
 
-Comparatif -> inferieur_egal ;  
 
-Comparatif -> superieur ;  
 
-Comparatif -> superieur_egal ;  
+
 
    
 Condition -> Terme SuiteTerme ;
