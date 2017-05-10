@@ -24,6 +24,8 @@ syn bin_op	: BinaryOperator for Comparatif, Additif, Multiplicatif;
 inh support     : Expression for Acces, Appel, AppelouAcces;
 inh gauche	: Expression for SuiteCondition, SuiteAffectation, SuiteTerme, SuiteFacteur;
 syn expressions : LinkedList<Expression> for Expressions, SuiteExpressions;
+inh alors	: Block for SuiteConditionnelle;
+inh condition	: Expression for SuiteConditionnelle; 
 
 
 syn ast     : Objet for Classe, Interface;
@@ -104,7 +106,7 @@ term   entier					is    "[0-9]+";
 term   identificateur			is    "[a-z_][a-zA-Z0-9_]*"; 
 term   identificateur_type		is    "[A-Z][a-zA-Z0-9_]*"; 
 
-
+-- TODO
 --Programme ->#factory Interfaces #ast1 Classes #ast2 Principale #ast3;
 
 --#factory {
@@ -400,8 +402,10 @@ do
 end
 }
 
+-- TODO
 ImplantationInterface -> implantation identificateur_type InstanceGenericite SuiteHeritageInterface ;
 
+-- TODO
 ImplantationInterface -> ;
 
 
@@ -415,7 +419,6 @@ do
    end
 end
 }
-
 
 MethodePrincipale -> public statique vide principale parenthese_ouvrante type_String crochet_ouvrant crochet_fermant identificateur parenthese_fermante Bloc #ast;
 #ast {
@@ -449,7 +452,6 @@ do
 end
 }
 
-
 SuiteParametresGenericite -> virgule ParametreGenericite SuiteParametresGenericite #ast;
 #ast {
 do
@@ -464,7 +466,6 @@ do
    SuiteParametresGenericite^ast := SuiteParametresGenericite^gauche;
 end
 }
-
 
 ParametreGenericite -> identificateur_type HeritageGenericite #ast ; 
 #ast {
@@ -484,24 +485,28 @@ do
 end
 }
  
-
+-- TODO
 HeritageGenericite -> extension identificateur_type SuiteHeritageGenericite ;
 
+-- TODO
 HeritageGenericite -> ;
 
+-- TODO
 SuiteHeritageGenericite -> adresse identificateur_type SuiteHeritageGenericite ;
 
+-- TODO
 SuiteHeritageGenericite -> ;
 
-
+-- TODO
 InstanceGenericite -> ;
 
+-- TODO
 InstanceGenericite -> inferieur ArgumentsGenericite superieur ;
 
-
+-- TODO
 ArgumentsGenericite -> ArgumentGenericite SuiteArgumentsGenericite ;
 
-
+-- TODO
 SuiteArgumentsGenericite -> virgule ArgumentGenericite SuiteArgumentsGenericite ;
 
 SuiteArgumentsGenericite -> #ast;
@@ -511,13 +516,13 @@ do
 end
 }
 
-
-
+-- TODO
 ArgumentGenericite -> identificateur_type InstanceGenericite ;
 
+-- TODO
 ArgumentGenericite -> type_String ;
 
-
+-- TODO
 ElementsClasse -> DroitAcces ElementClasse ElementsClasse ;
   
 ElementsClasse -> #ast ;
@@ -527,8 +532,6 @@ do
 end
 }
 
- 
-
 DroitAcces -> public #ast ;
 #ast {
 do
@@ -536,7 +539,6 @@ do
 end
 }
 
- 
 DroitAcces -> protege #ast ;
 #ast {
 do
@@ -551,32 +553,42 @@ do
 end
 }
  
-
+-- TODO
 ElementClasse -> statique AttributOuMethode ;  
  
+-- TODO 
 ElementClasse -> AttributOuMethode ;
  
+-- TODO 
 ElementClasse -> Constructeur ;  
-   
-
+    
+-- TODO
 AttributOuMethode -> Type identificateur SuiteAttributOuMethode;
-
+ 
+-- TODO
 AttributOuMethode -> vide identificateur parenthese_ouvrante Parametres parenthese_fermante Bloc ;
-
-
+ 
+-- TODO
 SuiteAttributOuMethode -> point_virgule ;
-
+ 
+-- TODO
 SuiteAttributOuMethode -> parenthese_ouvrante Parametres parenthese_fermante Bloc ;
 
 
-Constructeur -> identificateur_type parenthese_ouvrante Parametres parenthese_fermante Bloc ;
- 
-
-
-
-
-
-
+Constructeur -> identificateur_type parenthese_ouvrante Parametres parenthese_fermante Bloc #ast ;
+#ast {
+do
+   if (Constructeur^tds.knows(identificateur_type^txt)) then
+      error(CONSTRUCTOR_already_defined, identificateur_type^txt);
+   else
+      if (Classe^tds.knows(identificateur_type^txt)) then
+            Principale^ast := Principale^factory.createConstructor(identificateur_type^txt,MethodePrincipale^ast);
+      else
+      	    error(CONSTRUCTOR_wrong_name, identificateur_type^txt)
+      end
+   end
+end
+}
 -- Lien entre parametres et suite de parametres ???
 
 Parametres -> #ast ;
@@ -619,6 +631,7 @@ do
 end
 }
 
+-- TODO
 Type -> TypeAtomique SuiteTypeAtomique ;
 
 
@@ -649,12 +662,14 @@ do
    TypeAtomique^ast := TypeAtomique^factory.createStringType();  
 end
 }
- 
+
+-- TODO
 TypeAtomique -> identificateur_type InstanceGenericite ; 
 
-
+-- TODO
 SuiteTypeAtomique -> crochet_ouvrant crochet_fermant SuiteTypeAtomique ;
 
+-- TODO
 SuiteTypeAtomique -> ;
 
 
@@ -673,16 +688,50 @@ do
 end
 }
 
+Instruction -> Type identificateur affectation Expression point_virgule #ast;
+#ast {
+local
+  d : Declaration;
+do
+  d := Instruction^factory.createVariableDeclaration(identificateur^txt,Type^ast,Expression^ast);
+  if ( Instruction^tds.accepts(d) ) then
+       Instruction^tds.register(d);
+       match d
+               with Instruction then
+                       Instruction^ast := d;
+               else
+                       error(P_00,identificateur^txt);
+        end
+ else
+       error(P_00, identificateur^txt);
+ end
+       
+end
+}
 
-Instruction -> Type identificateur affectation Expression point_virgule ;
-
-
+-- TODO
 Instruction -> Expression point_virgule ;
 
+Instruction -> si parenthese_ouvrante Expression parenthese_fermante #inhB Bloc #inh SuiteConditionnelle #ast;
+#inhB {
+do
+        Bloc^tds := new SymbolTable(Instruction^tds);
+end
+}
 
+#inh {
+do
+    SuiteConditionnelle^condition := Expression^ast;
+    SuiteConditionnelle^alors := Bloc^ast;
+end
+}
 
-Instruction -> si parenthese_ouvrante Expression parenthese_fermante Bloc SuiteConditionnelle ;
-
+#ast {
+do
+   Instruction^ast := SuiteConditionnelle^ast;
+   
+end
+}
 
 SuiteConditionnelle -> #ast;
 #ast {
@@ -723,7 +772,6 @@ do
    Instruction^ast := Instruction^factory.createReturn(Expression^ast);
 end
 }
-
 
 Expression -> Affectation #inh SuiteAffectation #ast;
 #inh {
