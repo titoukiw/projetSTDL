@@ -387,10 +387,24 @@ ImplantationInterface -> implantation identificateur_type InstanceGenericite Sui
 ImplantationInterface -> ;
 
 
-Principale -> public classe identificateur_type accolade_ouvrante MethodePrincipale accolade_fermante ;
+Principale -> public classe identificateur_type accolade_ouvrante MethodePrincipale accolade_fermante #ast;
+{
+do
+   if (Principale^tds.knows(identificateur_type^txt)) then
+      error(TYPE_already_defined, identificateur_type^txt);
+   else
+      Principale^ast := Principale^factory.createPrincipale(identificateur_type^txt,MethodePrincipale^ast);
+   end
+end
+}
 
 
-MethodePrincipale -> public statique vide principale parenthese_ouvrante type_String crochet_ouvrant crochet_fermant identificateur parenthese_fermante Bloc ;
+MethodePrincipale -> public statique vide principale parenthese_ouvrante type_String crochet_ouvrant crochet_fermant identificateur parenthese_fermante Bloc #ast;
+{
+do
+   MethodePrincipale^ast := MethodePrincipale^factory.createMethodePrincipale(identificateur^txt,Bloc^ast);
+end
+}
 
 
 Genericite -> inferieur ParametresGenericite superieur #ast ;
