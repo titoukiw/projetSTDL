@@ -1,4 +1,4 @@
-package fr.n7.stl.interface.ast;
+package fr.n7.stl.block.ast;
 
 /**
  * @author okeee
