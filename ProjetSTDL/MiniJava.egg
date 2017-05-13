@@ -11,7 +11,7 @@ option version = 0.0.1 ;
 option k=2;
 
 inh gauche		: Expression for SuiteParametresGenericite, SuiteArgumentsGenericite;
-inh factory		: BlockFactory for Type, Genericite, HeritageClasse, SuiteParametresGenericite, ImplantationInterface, ParametresGenericite, TypeAtomique, SuiteTypeAtomique,ParametreGenericite, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface,ElementInterface, Signature, Classes, Classe, ElementsClasse, ElementClasse, AttributOuMethode, SuiteAttributOuMethode, Constructeur, Principale, MethodePrincipale, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation,Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur ;
+inh factory		: BlockFactory for Type, Genericite, HeritageClasse, SuiteParametresGenericite, ImplantationInterface, ParametresGenericite, TypeAtomique, SuiteTypeAtomique,ParametreGenericite, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface,ElementInterface, Signature, Classes, Classe, ElementsClasse, ElementClasse, AttributOuMethode, SuiteAttributOuMethode, Constructeur, Principale, MethodePrincipale, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation,Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, SuiteNouveau, Acces ;
 
 inh tds     	: SymbolTable for Expressions, ArgumentGenericite, Programme, ParametreGenericite, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Classes, Classe, HeritageClasse, ImplantationInterface, Principale, MethodePrincipale,Genericite, ParametresGenericite, SuiteParametresGenericite, HeritageGenericite, SuiteHeritageGenericite, InstanceGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ElementClasse, ElementsClasse, Constructeur, AttributOuMethode, SuiteAttributOuMethode, Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces  ;
 
@@ -21,7 +21,8 @@ inh tds     	: SymbolTable for Expressions, ArgumentGenericite, Programme, Param
 
 syn acces 	: DroitAcces for DroitAcces ;
 syn bin_op	: BinaryOperator for Comparatif, Additif, Multiplicatif;
-inh support     : Expression for Acces, Appel, AppelouAcces;
+inh support     : Expression for Acces, Appel, AppelOuAcces;
+inh support     : AtomicType for InstanceGenericite;  --Hh
 inh gauche	: Expression for SuiteCondition, SuiteAffectation, SuiteTerme, SuiteFacteur;
 syn expressions : LinkedList<Expression> for Expressions, SuiteExpressions;
 inh alors	: Block for SuiteConditionnelle;
@@ -30,9 +31,9 @@ inh condition	: Expression for SuiteConditionnelle;
 
 syn ast     : Objet for Classe, Interface;
 syn ast     : LinkedList<Objet> for Interfaces,Classes;
-syn ast     : Expression for Expression;
+syn ast     : Expression for Expression, Affectation, SuiteAffectation, Facteur, SuiteFacteur, Condition, SuiteCondition, Terme, SuiteTerme, Acces, SuiteNouveau;
 syn ast     : Type for Type, TypeAtomique, SuiteTypeAtomique, HeritageClasse, HeritageGenericite;
-syn ast     : Block for Programme, Bloc, SuiteConditionnelle;
+syn ast     : Block for Programme, Bloc, SuiteConditionnelle, MethodePrincipale; --Hh
 syn ast			: Instruction for Instruction;
 syn ast 		: ParametreGenericite for ParametreGenericite;
 syn ast     : LinkedList<ParametreGenericite> for  ParametresGenericite, Genericite, SuiteParametresGenericite;
@@ -43,6 +44,9 @@ syn ast     : LinkedList<ElementInterface> for ElementsInterface;
 syn ast     : LinkedList<Parametre> for Parametres, SuiteParametres;
 syn ast     : LinkedList<ElementClasse> for ElementsClasse;
 syn ast     : Parametre for Parametre;
+syn ast     : Value for Valeur; 
+syn ast     : Classe for Principale;
+inh type    : Type for SuiteNouveau; --Hh
 inh list    : LinkedList<Objet> for Classes, Interfaces;
 inh list    : LinkedList<Instruction> for Instructions;
 
@@ -214,6 +218,7 @@ local
   o : Optional<Declaration>;
   d : Declaration;
 do
+
   if HeritageInterface^tds.knows(identificateur_type^txt) then
     o := HeritageInterface^tds.get(identificateur_type^txt);
     d := o.get();
@@ -380,7 +385,7 @@ local
 do
   if HeritageClasse^tds.knows(identificateur_type^txt) then
     f := HeritageClasse^tds.get(identificateur_type^txt);
-    d = f.get();
+    d := f.get();
     match d
     with GenericType then InstanceGenericite^support := HeritageClasse^factory.createGenericTypeUse(d);
     end
@@ -458,6 +463,7 @@ do
   SuiteParametresGenericite1^ast.addFirst(ParametreGenericite^ast);
   SuiteParametresGenericite^ast := SuiteParametresGenericite1^ast;
   SuiteParametresGenericite^tds.register(ParametreGenericite^ast);
+  SuiteParametresGenericite1^gauche := SuiteParametresGenericite^ast; --Hh
 end
 }
 SuiteParametresGenericite -> #ast;
@@ -498,10 +504,16 @@ SuiteHeritageGenericite -> adresse identificateur_type SuiteHeritageGenericite ;
 SuiteHeritageGenericite -> ;
 
 -- TODO
-InstanceGenericite -> ;
+InstanceGenericite -> #ast;
+#ast{
+do
+  InstanceGenericite^ast := InstanceGenericite^support;
+end
+}
 
 -- TODO
 InstanceGenericite -> inferieur ArgumentsGenericite superieur ;
+
 
 -- TODO
 ArgumentsGenericite -> ArgumentGenericite SuiteArgumentsGenericite ;
@@ -1065,7 +1077,7 @@ Arguments -> parenthese_ouvrante Expressions parenthese_fermante ;
 Facteur -> Valeur #ast;
 #ast {
 do
-   Facteur^ast := Valeur^ast;
+   Facteur^ast := Valeur^ast  ; --Hh
 end
 }
  
@@ -1104,7 +1116,7 @@ do
 end
 }
 
-Facteur -> identificateur #inh AppelouAcces #ast ;
+Facteur -> identificateur #inh AppelOuAcces #ast ;
 #inh {
 local
    f : Optional<Declaration>;
@@ -1114,13 +1126,18 @@ do
       f := Facteur^tds.get(identificateur^txt);
       d := f.get();
       match d
-      with ConstantDeclaration then AppelouAcces^support := d.getValue();
-      with VariableDeclaration then AppelouAcces^support := Facteur^factory.createVariableUse(d);
+      with ConstantDeclaration then AppelOuAcces^support := d.getValue();
+      with VariableDeclaration then AppelOuAcces^support := Facteur^factory.createVariableUse(d);
       end
    else
       error(BLOC_undefined_ident, identificateur^txt);
    end
 end
+}
+#ast {
+do
+  Facteur^ast := AppelOuAcces^ast; --Hh
+end  
 }
 
 -- TODO
@@ -1148,7 +1165,12 @@ end
 }
 
 -- TODO
-Acces -> crochet_ouvrant Expression crochet_fermant Acces ;
+Acces -> crochet_ouvrant Expression crochet_fermant Acces #ast;
+#ast {
+do
+    Acces^ast := Acces1^ast; --Hh ajouter l'ast de l'axpression ?
+end
+}
 
 Acces -> point identificateur #inh Acces #ast;
 #inh {
