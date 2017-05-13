@@ -22,7 +22,7 @@ inh tds     	: SymbolTable for Expressions, ArgumentGenericite, Programme, Param
 syn acces 	: DroitAcces for DroitAcces ;
 syn bin_op	: BinaryOperator for Comparatif, Additif, Multiplicatif;
 inh support     : Expression for Acces, Appel, AppelOuAcces;
-inh support     : AtomicType for InstanceGenericite;  --Hh
+inh support     : LinkedList<ArgumentGenericite> for InstanceGenericite;  --Hh
 inh gauche	: Expression for SuiteCondition, SuiteAffectation, SuiteTerme, SuiteFacteur;
 syn expressions : LinkedList<Expression> for Expressions, SuiteExpressions;
 inh alors	: Block for SuiteConditionnelle;
@@ -228,8 +228,9 @@ do
         SuiteHeritageInterface^ast.add(HeritageInterface^factory.createGenericType(d));
       else
         SuiteHeritageInterface^ast.add(HeritageInterface^factory.createGenericType(d,InstanceGenericite^ast));
-      HeritageInterface^ast := SuiteHeritageInterface^ast;
       end
+       HeritageInterface^ast := SuiteHeritageInterface^ast;
+       
     else
       error(TYPE_not_an_interface, identificateur_type^txt);
     end
