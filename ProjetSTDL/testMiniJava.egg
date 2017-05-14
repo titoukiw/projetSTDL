@@ -415,6 +415,21 @@ end
 --TO DO
 --ArgumentGenericite -> type_String ;
 
+--On enleve ParametreGenericite----------------
+--Genericite -> inferieur ParametresGenericite superieur #ast ;
+--#ast {
+--do
+--   Genericite^ast := ParametresGenericite^ast;
+--end
+--}
+
+Genericite -> #ast;
+#ast {
+do
+  Genericite^ast := nil;
+end
+}
+
 
 --------------------------------------
 --l 664 > 702 (TYPES)
