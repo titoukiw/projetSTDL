@@ -11,39 +11,51 @@ option version = 0.0.1 ;
 option k=2;
 
 
-inh factory   : BlockFactory for Type, SuiteArgumentsGenericite, ArgumentGenericite, ArgumentsGenericite, InstanceGenericite, Parametre, SuiteParametres, Parametres, Genericite, HeritageClasse, SuiteParametresGenericite, ImplantationInterface, ParametresGenericite, TypeAtomique, SuiteTypeAtomique,ParametreGenericite, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface,ElementInterface, Signature, Classes, Classe, ElementsClasse, ElementClasse, AttributOuMethode, SuiteAttributOuMethode, Constructeur, Principale, MethodePrincipale, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation,Condition, SuiteCondition, SuiteTerme, Facteur, SuiteFacteur, Valeur, SuiteNouveau, Acces ;
-inh tds       : SymbolTable for Expressions, ArgumentGenericite, Programme, ParametreGenericite, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Classes, Classe, HeritageClasse, ImplantationInterface, Principale, MethodePrincipale, Genericite, ParametresGenericite, SuiteParametresGenericite, SuiteHeritageGenericite, InstanceGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ElementClasse, ElementsClasse, Constructeur, AttributOuMethode, SuiteAttributOuMethode, Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces  ;
-inh support     : Expression for Acces, Appel, AppelOuAcces;
-inh gauche  : Expression for SuiteCondition, SuiteAffectation, SuiteTerme, SuiteFacteur;
-inh alors : Block for SuiteConditionnelle;
-inh condition : Expression for SuiteConditionnelle; 
+--inh factory   : BlockFactory for Type, SuiteArgumentsGenericite, ArgumentGenericite, ArgumentsGenericite, InstanceGenericite, Parametre, SuiteParametres, Parametres, Genericite, HeritageClasse, SuiteParametresGenericite, ImplantationInterface, ParametresGenericite, TypeAtomique, SuiteTypeAtomique,ParametreGenericite, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface,ElementInterface, Signature, Classes, Classe, ElementClasse, AttributOuMethode, SuiteAttributOuMethode, Constructeur, Principale, MethodePrincipale, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation,Condition, SuiteCondition, SuiteTerme, Facteur, SuiteFacteur, Valeur, SuiteNouveau, Acces, ElementsClasse ;
+
+inh factory   : BlockFactory for Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, Signature, Parametre, TypeAtomique, SuiteTypeAtomique, ArgumentGenericite;
+inh tds     : SymbolTable for Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, Parametre, ArgumentGenericite;
+
+--inh tds       : SymbolTable for Expressions, ArgumentGenericite, Programme, ParametreGenericite, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Classes, Classe, HeritageClasse, ImplantationInterface, Principale, MethodePrincipale, Genericite, ParametresGenericite, SuiteParametresGenericite, SuiteHeritageGenericite, InstanceGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ElementClasse, Constructeur, AttributOuMethode, SuiteAttributOuMethode, Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, Appel, Acces, ElementsClasse, AppelOuAcces  ;
+
+
+--inh support     : Expression for Acces, Appel, AppelOuAcces;
+--inh gauche  : Expression for SuiteCondition, SuiteAffectation, SuiteTerme, SuiteFacteur;
+--inh alors : Block for SuiteConditionnelle;
+--inh condition : Expression for SuiteConditionnelle; 
 inh innerArray : Type for SuiteTypeAtomique;
-inh type    : Type for SuiteNouveau; --Hh
-inh list    : LinkedList<Objet> for Classes, Interfaces;
-inh list    : LinkedList<Instruction> for Instructions;
+--inh type    : Type for SuiteNouveau; --Hh
+inh list    : LinkedList<Objet> for Interfaces;
+--inh list    : LinkedList<Objet> for Classes;
+--inh list    : LinkedList<Instruction> for Instructions;
 
 
-syn ast     : Objet for Classe, Interface;
-syn ast     : LinkedList<Objet> for Interfaces,Classes;
-syn ast     : Expression for Expression, Affectation, SuiteAffectation, Facteur, SuiteFacteur, Condition, SuiteCondition, SuiteTerme, Acces, SuiteNouveau;
-syn ast     : Type for Type, TypeAtomique, SuiteTypeAtomique, HeritageClasse;
-syn ast     : Block for Programme, Bloc, SuiteConditionnelle, MethodePrincipale; --Hh
-syn ast     : Instruction for Instruction;
-syn ast     : ParametreGenericite for ParametreGenericite;
-syn ast     : LinkedList<ParametreGenericite> for  ParametresGenericite, Genericite, SuiteParametresGenericite;
+syn ast     : Objet for Interface;
+--syn ast     : Objet for Classe;
+syn ast     : LinkedList<Objet> for Interfaces;
+--syn ast     : LinkedList<Objet> for Classes;
+--syn ast     : Expression for Expression, Affectation, SuiteAffectation, Facteur, SuiteFacteur, Condition, SuiteCondition, SuiteTerme, Acces, SuiteNouveau;
+syn ast     : Type for Type, TypeAtomique, SuiteTypeAtomique;
+--syn ast     :Type for HeritageClasse;
+syn ast     : Block for Programme;
+--syn ast     :Block for MethodePrincipale, Bloc, SuiteConditionnelle; --Hh
+--syn ast     : Instruction for Instruction;
+--syn ast     : ParametreGenericite for ParametreGenericite; --Euuuuuuh
+--syn ast     : LinkedList<ParametreGenericite> for  ParametresGenericite, Genericite, SuiteParametresGenericite;
+syn ast     : LinkedList<ParametreGenericite> for Genericite;
 syn ast 	: ArgumentGenericite for ArgumentGenericite;
 syn ast     : LinkedList<ArgumentGenericite> for InstanceGenericite, ArgumentsGenericite, SuiteArgumentsGenericite;
 syn ast     : ElementInterface for ElementInterface, Signature;
 syn ast     : LinkedList<Type> for HeritageInterface, SuiteHeritageInterface;
 syn ast     : LinkedList<ElementInterface> for ElementsInterface;
 syn ast     : LinkedList<Parametre> for Parametres, SuiteParametres;
-syn ast     : LinkedList<ElementClasse> for ElementsClasse;
+--syn ast     : LinkedList<ElementClasse> for ElementsClasse;
 syn ast     : Parametre for Parametre;
-syn ast     : Value for Valeur; 
-syn ast     : Classe for Principale;
-syn expressions : LinkedList<Expression> for Expressions, SuiteExpressions;
-syn acces   : DroitAcces for DroitAcces ;
-syn bin_op  : BinaryOperator for Comparatif, Additif;
+--syn ast     : Value for Valeur; 
+--syn ast     : Classe for Principale;
+--syn expressions : LinkedList<Expression> for Expressions, SuiteExpressions;
+--syn acces   : DroitAcces for DroitAcces ;
+--syn bin_op  : BinaryOperator for Comparatif, Additif;
 
 
 
