@@ -58,20 +58,20 @@ option k=2;
 --syn bin_op  : BinaryOperator for Comparatif, Additif;
 
 
---Interface
+--Interface(Interfaces, Interface)
 inh factory : BlockFactory for Interface, Interfaces;
 inh tds		: SymbolTable for Interface, Interfaces;
 inh list 	: LinkedList<Objet> for Interfaces;
 syn ast 	: Objet	for Interface;
 syn ast 	: LinkedList<Objet> for Interfaces;
 
---Heritage Interface
+--Heritage Interface (HeritageInterface, HeritageInterfaces,SuiteHeritageInterface)
 inh tds 	: SymbolTable for HeritageInterface, SuiteHeritageInterface;
 inh factory : BlockFactory for HeritageInterface, SuiteHeritageInterface;
 syn ast 	: LinkedList<Type> for HeritageInterface, SuiteHeritageInterface;
 
 
---Element Interface
+--Element Interface (ElementInterface, ElementsInterface)
 inh factory : BlockFactory for ElementInterface, ElementsInterface;
 inh tds		: SymbolTable for ElementInterface, ElementsInterface;
 syn ast 	: ElementInterface for ElementInterface;
@@ -83,7 +83,7 @@ inh tds 	: SymbolTable for Signature;
 inh factory : BlockFactory for Signature;
 syn ast 	: ElementInterface for Signature;
 
---Genericite (Instance, Argument, Arguments, SuiteArguments)
+--Genericite (Genericite,InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite)
 inh tds		: SymbolTable for InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite;
 inh factory : BlockFactory for InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite;
 syn ast 	: ArgumentGenericite for ArgumentGenericite;
@@ -91,7 +91,7 @@ syn ast 	: LinkedList<ParametreGenericite> for Genericite;
 syn ast 	: LinkedList<ArgumentGenericite> for ArgumentsGenericite, SuiteArgumentsGenericite;
 syn ast 	:  LinkedList<ArgumentGenericite> for InstanceGenericite;
 
---Parametre
+--Parametre (Parametres, SuiteParametres)
 inh tds 	: SymbolTable for Parametre, Parametres, SuiteParametres;
 inh factory : BlockFactory for Parametre, Parametres, SuiteParametres;
 syn ast 	: Parametre for Parametre;
