@@ -10,29 +10,28 @@ option auto= true;
 option version = 0.0.1 ;
 option k=2;
 
-inh gauche    : Expression for SuiteParametresGenericite, SuiteArgumentsGenericite;
-inh factory   : BlockFactory for Type, Genericite, HeritageClasse, SuiteParametresGenericite, ImplantationInterface, ParametresGenericite, TypeAtomique, SuiteTypeAtomique,ParametreGenericite, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface,ElementInterface, Signature, Classes, Classe, ElementsClasse, ElementClasse, AttributOuMethode, SuiteAttributOuMethode, Constructeur, Principale, MethodePrincipale, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation,Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, SuiteNouveau, Acces ;
 
-inh tds       : SymbolTable for Expressions, ArgumentGenericite, Programme, ParametreGenericite, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Classes, Classe, HeritageClasse, ImplantationInterface, Principale, MethodePrincipale,Genericite, ParametresGenericite, SuiteParametresGenericite, HeritageGenericite, SuiteHeritageGenericite, InstanceGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ElementClasse, ElementsClasse, Constructeur, AttributOuMethode, SuiteAttributOuMethode, Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces  ;
-
-syn acces   : DroitAcces for DroitAcces ;
-syn bin_op  : BinaryOperator for Comparatif, Additif, Multiplicatif;
+inh factory   : BlockFactory for Type, SuiteArgumentsGenericite, ArgumentGenericite, ArgumentsGenericite, InstanceGenericite, Parametre, SuiteParametres, Parametres, Genericite, HeritageClasse, SuiteParametresGenericite, ImplantationInterface, ParametresGenericite, TypeAtomique, SuiteTypeAtomique,ParametreGenericite, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface,ElementInterface, Signature, Classes, Classe, ElementsClasse, ElementClasse, AttributOuMethode, SuiteAttributOuMethode, Constructeur, Principale, MethodePrincipale, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation,Condition, SuiteCondition, SuiteTerme, Facteur, SuiteFacteur, Valeur, SuiteNouveau, Acces ;
+inh tds       : SymbolTable for Expressions, ArgumentGenericite, Programme, ParametreGenericite, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Classes, Classe, HeritageClasse, ImplantationInterface, Principale, MethodePrincipale, Genericite, ParametresGenericite, SuiteParametresGenericite, SuiteHeritageGenericite, InstanceGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ElementClasse, ElementsClasse, Constructeur, AttributOuMethode, SuiteAttributOuMethode, Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces  ;
 inh support     : Expression for Acces, Appel, AppelOuAcces;
-inh support     : LinkedList<ArgumentGenericite> for InstanceGenericite;  --Hh
 inh gauche  : Expression for SuiteCondition, SuiteAffectation, SuiteTerme, SuiteFacteur;
-syn expressions : LinkedList<Expression> for Expressions, SuiteExpressions;
 inh alors : Block for SuiteConditionnelle;
 inh condition : Expression for SuiteConditionnelle; 
+inh innerArray : Type for SuiteTypeAtomique;
+inh type    : Type for SuiteNouveau; --Hh
+inh list    : LinkedList<Objet> for Classes, Interfaces;
+inh list    : LinkedList<Instruction> for Instructions;
 
 
 syn ast     : Objet for Classe, Interface;
 syn ast     : LinkedList<Objet> for Interfaces,Classes;
-syn ast     : Expression for Expression, Affectation, SuiteAffectation, Facteur, SuiteFacteur, Condition, SuiteCondition, Terme, SuiteTerme, Acces, SuiteNouveau;
-syn ast     : Type for Type, TypeAtomique, SuiteTypeAtomique, HeritageClasse, HeritageGenericite;
+syn ast     : Expression for Expression, Affectation, SuiteAffectation, Facteur, SuiteFacteur, Condition, SuiteCondition, SuiteTerme, Acces, SuiteNouveau;
+syn ast     : Type for Type, TypeAtomique, SuiteTypeAtomique, HeritageClasse;
 syn ast     : Block for Programme, Bloc, SuiteConditionnelle, MethodePrincipale; --Hh
 syn ast     : Instruction for Instruction;
 syn ast     : ParametreGenericite for ParametreGenericite;
 syn ast     : LinkedList<ParametreGenericite> for  ParametresGenericite, Genericite, SuiteParametresGenericite;
+syn ast 	: ArgumentGenericite for ArgumentGenericite;
 syn ast     : LinkedList<ArgumentGenericite> for InstanceGenericite, ArgumentsGenericite, SuiteArgumentsGenericite;
 syn ast     : ElementInterface for ElementInterface, Signature;
 syn ast     : LinkedList<Type> for HeritageInterface, SuiteHeritageInterface;
@@ -42,9 +41,11 @@ syn ast     : LinkedList<ElementClasse> for ElementsClasse;
 syn ast     : Parametre for Parametre;
 syn ast     : Value for Valeur; 
 syn ast     : Classe for Principale;
-inh type    : Type for SuiteNouveau; --Hh
-inh list    : LinkedList<Objet> for Classes, Interfaces;
-inh list    : LinkedList<Instruction> for Instructions;
+syn expressions : LinkedList<Expression> for Expressions, SuiteExpressions;
+syn acces   : DroitAcces for DroitAcces ;
+syn bin_op  : BinaryOperator for Comparatif, Additif;
+
+
 
 
 space separateur        is    "[\n\r\t ]+";
@@ -315,7 +316,16 @@ do
 end 
 }
 
-Parametre -> Type identificateur ;
+Parametre -> Type identificateur #ast;
+#ast {
+do
+	if Parametre^tds.contains(identificateur^txt) then
+		error(PARAMETRE_already_defined, identificateur^txt);
+	else
+		Parametre^ast := Parametre^factory.createParametre(Type^ast,identificateur^txt);
+	end
+end
+}
 
 SuiteParametres -> #ast;
 #ast {
@@ -345,38 +355,83 @@ end
 InstanceGenericite -> #ast;
 #ast{
 do
-  InstanceGenericite^ast := InstanceGenericite^support;
+  InstanceGenericite^ast := nil;
 end
 }
 
 InstanceGenericite -> inferieur ArgumentsGenericite superieur #ast;
 #ast{
 do
-  InstanceGenericite^ast := InstanceGenericite^support;
+  InstanceGenericite^ast := ArgumentsGenericite^ast;
 end
 }
 
-ArgumentsGenericite -> ArgumentGenericite SuiteArgumentsGenericite ;
+ArgumentsGenericite -> ArgumentGenericite SuiteArgumentsGenericite #ast;
+#ast {
+do
+	SuiteArgumentsGenericite^ast.addFirst(ArgumentGenericite^ast);
+	ArgumentsGenericite^ast := SuiteArgumentsGenericite^ast;
+end
+}
 
-SuiteArgumentsGenericite -> virgule ArgumentGenericite SuiteArgumentsGenericite ;
+SuiteArgumentsGenericite -> virgule ArgumentGenericite SuiteArgumentsGenericite #ast;
+#ast {
+do
+	SuiteArgumentsGenericite1^ast.addFirst(ArgumentGenericite^ast);
+	SuiteArgumentsGenericite^ast := SuiteArgumentsGenericite1^ast;
+end
+}
 
 SuiteArgumentsGenericite -> #ast;
 #ast {
 do
-   SuiteArgumentsGenericite^ast := SuiteArgumentsGenericite^gauche;
+   SuiteArgumentsGenericite^ast := new LinkedList<ArgumentGenericite>();
 end
 }
 
-ArgumentGenericite -> identificateur_type InstanceGenericite ;
+ArgumentGenericite -> identificateur_type InstanceGenericite #ast;
+#ast {
+local
+	o : Optional<Declaration>;
+	d : Declaration;
+do
+	if ArgumentGenericite^tds.knows(identificateur_type^txt) then
+		o := ArgumentGenericite^tds.get(identificateur_type^txt);
+		d := o.get();
+		match d
+		--Autre chose que Objet ? Type ?
+		with Objet then
+			if InstanceGenericite^ast = nil then
+				ArgumentGenericite^ast := ArgumentGenericite^factory.createGenericArgument(d);
+			else
+				ArgumentGenericite^ast := ArgumentGenericite^factory.createGenericArgument(d,InstanceGenericite^ast);
+			end
+		end
+	end
+end
+}
 
-ArgumentGenericite -> type_String ;
+
+--TO DO
+--ArgumentGenericite -> type_String ;
 
 
 --------------------------------------
 --l 664 > 702 (TYPES)
 --------------------------------------
 
-Type -> TypeAtomique SuiteTypeAtomique ;
+Type -> TypeAtomique #inhArray SuiteTypeAtomique #ast;
+#ast {
+do
+	Type^ast := SuiteTypeAtomique^ast;
+end
+}
+
+#inhArray {
+do
+	SuiteTypeAtomique^innerArray := TypeAtomique^ast;
+end
+}
 
 
 TypeAtomique -> type_bool #ast ;
@@ -409,9 +464,25 @@ end
 
 --TypeAtomique -> identificateur_type InstanceGenericite ; -- COMMENTE
 
-SuiteTypeAtomique -> crochet_ouvrant crochet_fermant SuiteTypeAtomique ;
+SuiteTypeAtomique -> crochet_ouvrant crochet_fermant #inhArray SuiteTypeAtomique #ast;
+#inhArray {
+do
+	SuiteTypeAtomique1^innerArray := SuiteTypeAtomique^factory.createArrayType(SuiteTypeAtomique^innerArray);
+end
+}
 
-SuiteTypeAtomique -> ;
+#ast {
+do
+	SuiteTypeAtomique^ast := SuiteTypeAtomique1^ast;
+end
+}
+
+SuiteTypeAtomique -> #ast;
+#ast {
+do
+	SuiteTypeAtomique^ast := SuiteTypeAtomique^innerArray;
+end
+}
 
 
 --------------------------------------
