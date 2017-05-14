@@ -15,10 +15,6 @@ inh factory   : BlockFactory for Type, Genericite, HeritageClasse, SuiteParametr
 
 inh tds       : SymbolTable for Expressions, ArgumentGenericite, Programme, ParametreGenericite, Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Classes, Classe, HeritageClasse, ImplantationInterface, Principale, MethodePrincipale,Genericite, ParametresGenericite, SuiteParametresGenericite, HeritageGenericite, SuiteHeritageGenericite, InstanceGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ElementClasse, ElementsClasse, Constructeur, AttributOuMethode, SuiteAttributOuMethode, Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces  ;
 
---inh tdsAttMet   : SymbolTable for ElementClasse, ElementsClasse, AttributOuMethode, SuiteAttributOuMethode, MethodePrincipale, Constructeur, Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces ;
-
---inh tdsVar    : SymbolTable for Type, TypeAtomique, Parametres, Parametre, SuiteParametres, Bloc, Instructions, Instruction, Expression, SuiteExpressions, SuiteConditionnelle, Affectation, SuiteAffectation, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, SuiteNouveau, Arguments, AppelOuAcces, Appel, Acces ;
-
 syn acces   : DroitAcces for DroitAcces ;
 syn bin_op  : BinaryOperator for Comparatif, Additif, Multiplicatif;
 inh support     : Expression for Acces, Appel, AppelOuAcces;
@@ -128,15 +124,6 @@ do
 end
 }
 
---#inh {
---do
---  BlockFactoryImpl dissociées, pb ?
---	 Interfaces^factory := new BlockFactoryImpl();
---	 Classes^factory := new BlockFactoryImpl();
---	 Principale^factory := new BlockFactoryImpl();
---	 ^tds := new SymbolTable();
---end
---}
 
 
 Interfaces -> Interface Interfaces #ast;
