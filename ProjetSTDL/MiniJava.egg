@@ -212,7 +212,7 @@ end
 }
 
 
-HeritageInterface -> extension identificateur_type InstanceGenericite SuiteHeritageInterface #ast ;
+HeritageInterface -> extension identificateur_type #inh InstanceGenericite SuiteHeritageInterface #ast ;
 #ast{
 local
   o : Optional<Declaration>;
@@ -230,7 +230,7 @@ do
         SuiteHeritageInterface^ast.add(HeritageInterface^factory.createGenericType(d,InstanceGenericite^ast));
       end
        HeritageInterface^ast := SuiteHeritageInterface^ast;
-       
+
     else
       error(TYPE_not_an_interface, identificateur_type^txt);
     end
@@ -240,6 +240,13 @@ do
 end
 }
 
+#inh{ --Hh
+do
+    --InstanceGenericite^support := HeritageInterface^ast;
+end
+}
+
+
 HeritageInterface -> #ast;
 #ast{
 do
@@ -248,7 +255,7 @@ end
 }
 
 
-SuiteHeritageInterface -> virgule identificateur_type InstanceGenericite SuiteHeritageInterface #ast;
+SuiteHeritageInterface -> virgule identificateur_type #inh InstanceGenericite SuiteHeritageInterface #ast;
 #ast{
 local
   o : Optional<Declaration>;
@@ -278,6 +285,11 @@ do
 end
 }
 
+#inh {
+do
+
+end
+}
 
 SuiteHeritageInterface -> #ast;
 #ast{
@@ -513,8 +525,12 @@ end
 }
 
 -- TODO
-InstanceGenericite -> inferieur ArgumentsGenericite superieur ;
-
+InstanceGenericite -> inferieur ArgumentsGenericite superieur #ast;
+#ast{
+do
+  InstanceGenericite^ast := InstanceGenericite^support;
+end
+}
 
 -- TODO
 ArgumentsGenericite -> ArgumentGenericite SuiteArgumentsGenericite ;
@@ -1061,6 +1077,12 @@ do
 end  
 }
 
+SuiteNouveau -> Arguments ;
+
+Arguments -> parenthese_ouvrante parenthese_fermante ;
+
+Arguments -> parenthese_ouvrante Expressions parenthese_fermante ;
+
 SuiteNouveau -> #ast ; 
 #ast {
 do 
@@ -1187,5 +1209,11 @@ end
 
 -- TODO
 Appel -> Arguments Acces ;  
+
+--TODO
+Facteur -> identificateur_type point identificateur AppelOuAcces ;
+
+--TODO
+Facteur -> parenthese_ouvrante Expression parenthese_fermante ;
  
 end
