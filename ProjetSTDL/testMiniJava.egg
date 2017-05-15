@@ -68,7 +68,7 @@ syn ast 	: LinkedList<Objet> for Interfaces;
 --Heritage Interface (HeritageInterface, HeritageInterfaces,SuiteHeritageInterface)
 inh tds 	: SymbolTable for HeritageInterface, SuiteHeritageInterface;
 inh factory : BlockFactory for HeritageInterface, SuiteHeritageInterface;
-syn ast 	: LinkedList<Type> for HeritageInterface, SuiteHeritageInterface;
+syn ast 	: LinkedList<Type> for HeritageInterface, SuiteHeritageInterface; --
 
 
 --Element Interface (ElementInterface, ElementsInterface)
@@ -382,7 +382,7 @@ do
 	if Parametre^tds.contains(identificateur^txt) then
 		error(PARAMETRE_already_defined, identificateur^txt);
 	else
-		Parametre^ast := Parametre^factory.createParametre(Type^ast,identificateur^txt);
+		Parametre^ast := Parametre^factory.createParametre(identificateur^txt, Type^ast);
 	end
 end
 }
@@ -537,7 +537,7 @@ do
 end
 }
 
---TypeAtomique -> identificateur_type InstanceGenericite ; -- COMMENTE
+--TypeAtomique -> identificateur_type InstanceGenericite ; -- A DECOMMENTER
 
 SuiteTypeAtomique -> crochet_ouvrant crochet_fermant #inhArray SuiteTypeAtomique #ast;
 #inhArray {
