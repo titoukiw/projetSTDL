@@ -457,7 +457,11 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new InterfaceImpl( nom, elements);
 	}
 
+	public TypeAtomique createGenericArgument(Objet obj, LinkedList<TypeAtomique> instGen){
+		return new TypeAtomique(obj,instGen);
+	}
 
+	/* TypeAtomique, Objet....*/
 
 
 

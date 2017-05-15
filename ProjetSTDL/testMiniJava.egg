@@ -36,7 +36,7 @@ option k=2;
 --syn ast     : LinkedList<Objet> for Classes;
 --syn ast     : Expression for Expression, Affectation, SuiteAffectation, Facteur, SuiteFacteur, Condition, SuiteCondition, SuiteTerme, Acces, SuiteNouveau;
 --syn ast     : Type for Type, TypeAtomique, SuiteTypeAtomique;
---syn ast     :Type for HeritageClasse;
+--syn ast     : Type for HeritageClasse;
 --syn ast     : Block for Programme;
 --syn ast     :Block for MethodePrincipale, Bloc, SuiteConditionnelle; --Hh
 --syn ast     : Instruction for Instruction;
@@ -86,10 +86,10 @@ syn ast 	: ElementInterface for Signature;
 --Genericite (Genericite,InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite)
 inh tds		: SymbolTable for InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite;
 inh factory : BlockFactory for InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite;
-syn ast 	: ArgumentGenericite for ArgumentGenericite;
+syn ast 	: TypeAtomique for ArgumentGenericite; -- (ArgumentGenericite)
 syn ast 	: LinkedList<ParametreGenericite> for Genericite;
-syn ast 	: LinkedList<ArgumentGenericite> for ArgumentsGenericite, SuiteArgumentsGenericite;
-syn ast 	:  LinkedList<ArgumentGenericite> for InstanceGenericite;
+syn ast 	: LinkedList<TypeAtomique> for ArgumentsGenericite, SuiteArgumentsGenericite; -- (ArgumentGenericite)
+syn ast 	:  LinkedList<TypeAtomique> for InstanceGenericite; -- (ArgumentGenericite)
 
 --Parametre (Parametres, SuiteParametres)
 inh tds 	: SymbolTable for Parametre, Parametres, SuiteParametres;
