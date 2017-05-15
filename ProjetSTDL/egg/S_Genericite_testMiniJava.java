@@ -19,7 +19,7 @@ LEX_testMiniJava scanner;
 	}
 int [] sync= new int[0];
   boolean att_eval;
-  LinkedList<ParametreGenericite> att_ast;
+  Type att_ast;
   LEX_testMiniJava att_scanner;
   private void regle24() throws Exception {
 

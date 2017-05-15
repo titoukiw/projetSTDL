@@ -7,7 +7,12 @@ package fr.n7.stl.block.ast;
 
 public interface Signature extends ElementInterface{
 
-	public LinkedList<Parametre> getParametres();
 
 	public String getId();
+
+	public Type getType();
+
+	public LinkedList<Parametre> getParametres();
+
+	
 }

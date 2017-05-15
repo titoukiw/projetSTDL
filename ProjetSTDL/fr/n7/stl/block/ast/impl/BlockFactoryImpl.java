@@ -456,17 +456,30 @@ public class BlockFactoryImpl implements BlockFactory {
 	public Interface createInterface(String nom, LinkedList<ElementInterface> elements){
 		return new InterfaceImpl( nom, elements);
 	}
+	/* END createInterface */
 
-	public TypeAtomique createGenericArgument(Objet obj, LinkedList<TypeAtomique> instGen){
-		return new TypeAtomique(obj,instGen);
+	/* Genericite */
+	public Type createArgumentGenericite(Objet obj, LinkedList<Type> instGen){ //retourner un GenericType  ?
+		return new ArgumentGenericite(obj,instGen);
 	}
 
-	public Type createGenericType(Objet obj, LinkedList<TypeAtomique> instGen){
-		return new TypeAtomique(obj,instGen);
+	public Type createArgumentGenericite(Objet obj){ //retourner un GenericType  ?
+		return new ArgumentGenericite(obj);
+	}	
+
+	public Type createGenericType(Objet obj, LinkedList<Type> instGen){
+		return new GenericType(obj,instGen);
 	}
 
-	public ElementInterface createSignature(String id, LinkedList<Parametres> listParam){
-		return new Signature(id,listParam);
+	/* END Genericite */
+
+	/* ElementInterface etc */
+	public ElementInterface createSignature(String id, LinkedList<Parametre> listParam){
+		return new Signature(id, listParam);
+	}
+
+	public ElementInterface createSignature(String id,Type type, LinkedList<Parametre> listParam){
+		return new Signature(id, type, listParam);
 	}
 
 	public Parametre createParametre(String id, Type type){
@@ -478,7 +491,7 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new FinalStaticField(id, type, expr);
 	}*/
 
-	/* TypeAtomique, Objet....*/
+	/*  Objet....*/
 
 
 

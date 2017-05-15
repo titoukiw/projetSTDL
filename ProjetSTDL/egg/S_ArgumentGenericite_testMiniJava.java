@@ -21,7 +21,7 @@ int [] sync= new int[0];
   BlockFactory att_factory;
   SymbolTable att_tds;
   boolean att_eval;
-  TypeAtomique att_ast;
+  Type att_ast;
   LEX_testMiniJava att_scanner;
   private void regle23() throws Exception {
 
@@ -53,10 +53,10 @@ loc_o=this.att_tds.get(x_2.att_txt);
 loc_d=loc_o.get();
 if (loc_d instanceof Objet ){
 if ((x_3.att_ast==null)){
-this.att_ast=this.att_factory.createGenericArgument(((Objet)loc_d));
+this.att_ast=this.att_factory.createArgumentGenericite(((Objet)loc_d));
 }
 else {
-this.att_ast=this.att_factory.createGenericArgument(((Objet)loc_d), x_3.att_ast);
+this.att_ast=this.att_factory.createArgumentGenericite(((Objet)loc_d), x_3.att_ast);
 }
 }
 

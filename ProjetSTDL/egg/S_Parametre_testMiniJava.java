@@ -42,7 +42,7 @@ att_scanner._interrompre(IProblem.Semantic, att_scanner.getBeginLine(), ItestMin
 
 }
 else {
-this.att_ast=this.att_factory.createParametre(x_2.att_ast, x_3.att_txt);
+this.att_ast=this.att_factory.createParametre(x_3.att_txt, x_2.att_ast);
 }
 }catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#ast","Parametre -> Type identificateur #ast ;", e });
 }

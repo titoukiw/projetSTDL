@@ -21,7 +21,7 @@ int [] sync= new int[0];
   BlockFactory att_factory;
   SymbolTable att_tds;
   boolean att_eval;
-  LinkedList<TypeAtomique> att_ast;
+  LinkedList<Type> att_ast;
   LEX_testMiniJava att_scanner;
   private void regle20() throws Exception {
 

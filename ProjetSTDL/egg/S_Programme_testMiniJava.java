@@ -41,7 +41,7 @@ private void action_factory_0(S_Interfaces_testMiniJava x_3) throws Exception {
 try {
 // instructions
 x_3.att_tds= new SymbolTable();
-x_3.att_factory= new InterfaceFactory();
+x_3.att_factory= new BlockFactoryImpl();
 x_3.att_list= new LinkedList<Interface>();
 }catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#factory","Programme -> #factory Interfaces #ast3 ;", e });
 }

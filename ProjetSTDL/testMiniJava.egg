@@ -86,10 +86,10 @@ syn ast 	: ElementInterface for Signature;
 --Genericite (Genericite,InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite)
 inh tds		: SymbolTable for InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite;
 inh factory : BlockFactory for InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite;
-syn ast 	: Type for ArgumentGenericite; -- (ArgumentGenericite,TypeAtomique)
-syn ast 	: LinkedList<ParametreGenericite> for Genericite;
-syn ast 	: LinkedList<Type> for ArgumentsGenericite, SuiteArgumentsGenericite; -- (ArgumentGenericite,TypeAtomique)
-syn ast 	:  LinkedList<Type> for InstanceGenericite; -- (ArgumentGenericite,TypeAtomique)
+syn ast 	: Type for ArgumentGenericite;
+syn ast 	: Type for Genericite; -- Changé temporairement (on a pas ParamGen...) -> LinkedList<ParametreGenericite> for Genericite;
+syn ast 	: LinkedList<Type> for ArgumentsGenericite, SuiteArgumentsGenericite;
+syn ast 	: LinkedList<Type> for InstanceGenericite;
 
 --Parametre (Parametres, SuiteParametres)
 inh tds 	: SymbolTable for Parametre, Parametres, SuiteParametres;
@@ -173,7 +173,7 @@ Programme -> #factory Interfaces #ast3;
 #factory {
 do
   Interfaces^tds := new SymbolTable();
-  Interfaces^factory := new InterfaceFactory();
+  Interfaces^factory := new BlockFactoryImpl();
   Interfaces^list := new LinkedList<Interface>();
   
 end
@@ -462,9 +462,9 @@ do
 		--Autre chose que Objet ? Type ?
 		with Objet then
 			if InstanceGenericite^ast = nil then
-				ArgumentGenericite^ast := ArgumentGenericite^factory.createGenericArgument(d);
+				ArgumentGenericite^ast := ArgumentGenericite^factory.createArgumentGenericite(d);
 			else
-				ArgumentGenericite^ast := ArgumentGenericite^factory.createGenericArgument(d,InstanceGenericite^ast);
+				ArgumentGenericite^ast := ArgumentGenericite^factory.createArgumentGenericite(d,InstanceGenericite^ast);
 			end
 		end
 	end
