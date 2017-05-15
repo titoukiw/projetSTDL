@@ -86,10 +86,10 @@ syn ast 	: ElementInterface for Signature;
 --Genericite (Genericite,InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite)
 inh tds		: SymbolTable for InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite;
 inh factory : BlockFactory for InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite;
-syn ast 	: TypeAtomique for ArgumentGenericite; -- (ArgumentGenericite)
+syn ast 	: Type for ArgumentGenericite; -- (ArgumentGenericite,TypeAtomique)
 syn ast 	: LinkedList<ParametreGenericite> for Genericite;
-syn ast 	: LinkedList<TypeAtomique> for ArgumentsGenericite, SuiteArgumentsGenericite; -- (ArgumentGenericite)
-syn ast 	:  LinkedList<TypeAtomique> for InstanceGenericite; -- (ArgumentGenericite)
+syn ast 	: LinkedList<Type> for ArgumentsGenericite, SuiteArgumentsGenericite; -- (ArgumentGenericite,TypeAtomique)
+syn ast 	:  LinkedList<Type> for InstanceGenericite; -- (ArgumentGenericite,TypeAtomique)
 
 --Parametre (Parametres, SuiteParametres)
 inh tds 	: SymbolTable for Parametre, Parametres, SuiteParametres;

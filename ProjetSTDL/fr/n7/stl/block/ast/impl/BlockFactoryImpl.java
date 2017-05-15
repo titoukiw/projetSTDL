@@ -465,14 +465,14 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new TypeAtomique(obj,instGen);
 	}
 
-	public ElementInterface createSignature(String id, Parametres param);{
-		return new Signature(id,param);
+	public ElementInterface createSignature(String id, LinkedList<Parametres> listParam){
+		return new Signature(id,listParam);
 	}
 
 	public Parametre createParametre(String id, Type type){
 		return new Parametre(id,type);
 	}
-	
+
 
 	/*public ElementInterface createFinalStaticField(String id,Type type, Expression expr){
 		return new FinalStaticField(id, type, expr);
