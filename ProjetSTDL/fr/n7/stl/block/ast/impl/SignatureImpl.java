@@ -7,6 +7,7 @@ package fr.n7.stl.block.ast.impl;
 
 import fr.n7.stl.block.ast.*;
 import fr.n7.stl.block.ast.AtomicType;
+import java.util.LinkedList;
 
 public class SignatureImpl implements Signature {
 
@@ -15,13 +16,13 @@ public class SignatureImpl implements Signature {
 	private Type returnType;
 
 	//Void method contructor
-	public Signature(String id, LinkedList<Parametre> listParam){
+	public SignatureImpl(String id, LinkedList<Parametre> listParam){
 		this.id = id;
 		this.listParam = listParam;
 		this.returnType = AtomicType.VoidType;
 	}
 
-	public Signature(String id, Type type, LinkedList<Parametre> listParam){
+	public SignatureImpl(String id, Type type, LinkedList<Parametre> listParam){
 		this.id = id;
 		this.listParam = listParam;
 		this.returnType = type;
@@ -33,7 +34,7 @@ public class SignatureImpl implements Signature {
 	}
 
 	public Type getType(){
-		this.returnType;
+		return this.returnType;
 	}
 
 	public LinkedList<Parametre> getParametres(){

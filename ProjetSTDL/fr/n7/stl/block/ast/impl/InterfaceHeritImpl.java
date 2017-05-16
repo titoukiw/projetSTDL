@@ -13,7 +13,7 @@ public class InterfaceHeritImpl extends InterfaceImpl{
 	private LinkedList<Type> heritages; //types hérités
 
 	public InterfaceHeritImpl(String nom, LinkedList<Type> heritages, LinkedList<ElementInterface> elements){
-		super(); //super(nom, elements);
+		super(nom, elements);
 		this.heritages = heritages;
 	}
 

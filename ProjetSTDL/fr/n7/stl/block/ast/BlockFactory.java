@@ -10,4 +10,5 @@ package fr.n7.stl.block.ast;
  */
 public interface BlockFactory extends ExpressionFactory, InstructionFactory, TypeFactory, InterfaceFactory {
 
+	public Programme createProgramme(LinkedList<Objet> interfaces);
 }

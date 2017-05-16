@@ -13,7 +13,7 @@ public class InterfaceGenHeritImpl extends InterfaceImpl{
 	private LinkedList<ParametreGenericite> parametresGen;
 
 	public InterfaceGenHeritImpl(String nom, LinkedList<ParametreGenericite> parametresGen, LinkedList<Type> heritages, LinkedList<ElementInterface> elements){
-		super(); //super(nom, elements);
+		super(nom, elements);
 		this.heritages = heritages;
 		this.parametresGen = parametresGen;
 	}

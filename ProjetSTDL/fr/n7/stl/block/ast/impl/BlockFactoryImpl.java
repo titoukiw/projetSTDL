@@ -3,29 +3,7 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.Assignable;
-import fr.n7.stl.block.ast.AtomicType;
-import fr.n7.stl.block.ast.BinaryOperator;
-import fr.n7.stl.block.ast.Block;
-import fr.n7.stl.block.ast.BlockFactory;
-import fr.n7.stl.block.ast.BooleanValue;
-import fr.n7.stl.block.ast.Sequence;
-import fr.n7.stl.block.ast.ConstantDeclaration;
-import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.FieldDeclaration;
-import fr.n7.stl.block.ast.FunctionCall;
-import fr.n7.stl.block.ast.Instruction;
-import fr.n7.stl.block.ast.RecordType;
-import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.block.ast.TypeDeclaration;
-import fr.n7.stl.block.ast.UnaryOperator;
-import fr.n7.stl.block.ast.Value;
-import fr.n7.stl.block.ast.VariableDeclaration;
-import fr.n7.stl.block.ast.ElementInterface;
-import fr.n7.stl.block.ast.Interface;
-import fr.n7.stl.block.ast.Objet;
-import fr.n7.stl.block.ast.Signature
-import fr.n7.stl.block.ast.Parametre;
+import fr.n7.stl.block.ast.*;
 import java.util.LinkedList;
 
 
@@ -467,18 +445,18 @@ public class BlockFactoryImpl implements BlockFactory {
 	/* END createInterface */
 
 	/* Genericite */
-	public Type createArgumentGenericite(Objet obj, LinkedList<Type> instGen){ //retourner un GenericType  ?
-		return new ArgumentGenericite(obj,instGen);
+	public ArgumentGenericite createArgumentGenericite(Objet obj, LinkedList<Type> instType){ //retourner un GenericType  ?
+		return new ArgumentGenericiteImpl(obj,instType);
 	}
 
-	public Type createArgumentGenericite(Objet obj){ //retourner un GenericType  ?
-		return new ArgumentGenericite(obj);
+	public ArgumentGenericite createArgumentGenericite(Objet obj){ //retourner un GenericType  ?
+		return new ArgumentGenericiteImpl(obj);
 	}	
 	public Type createGenericType(Objet obj) {
-		return new GenericType(obj);
+		return new GenericTypeImpl(obj);
 	}
 	public Type createGenericType(Objet obj, LinkedList<Type> instGen){
-		return new GenericType(obj,instGen);
+		return new GenericTypeImpl(obj,instGen);
 	}
 
 	/* END Genericite */
@@ -493,9 +471,12 @@ public class BlockFactoryImpl implements BlockFactory {
 	}
 
 	public Parametre createParametre(String id, Type type){
-		return new Parametre(id,type);
+		return new ParametreImpl(id,type);
 	}
 
+	public Programme createProgramme(LinkedList<Objet> interfaces) {
+		return new ProgrammeImpl(interfaces);
+	}
 	// Classes TypeGenerique ArgumentGenericite 
 	/*public ElementInterface createFinalStaticField(String id,Type type, Expression expr){
 		return new FinalStaticField(id, type, expr);

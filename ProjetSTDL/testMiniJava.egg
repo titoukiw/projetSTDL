@@ -104,7 +104,7 @@ inh innerArray : Type for SuiteTypeAtomique;
 syn ast 	: Type for Type, TypeAtomique, SuiteTypeAtomique;
 
 --Programme
-syn ast 	: Block for Programme;
+syn ast 	: Programme for Programme;
 
 
 
@@ -174,14 +174,18 @@ Programme -> #factory Interfaces #ast3;
 do
   Interfaces^tds := new SymbolTable();
   Interfaces^factory := new BlockFactoryImpl();
-  Interfaces^list := new LinkedList<Interface>();
+  Interfaces^list := new LinkedList<Objet>();
   
 end
 }
 
 #ast3 {
+local
+  facto : BlockFactory;
 do
-  Programme^ast := Interfaces^ast;
+  facto := new BlockFactoryImpl();
+  Programme^ast := facto.createProgramme(Interfaces^ast);
+  --Plus tard createProgramme(Interfaces^ast,Classes^ast,Princiapel^ast) !?
 end
 }
 
@@ -214,7 +218,7 @@ do
       if HeritageInterface^ast = nil then
         Interface^ast := Interface^factory.createInterface(identificateur_type^txt, ElementsInterface^ast);
       else
-        Interface^ast := Interface^factory.createInterface(identificateur_type^txt,HeritageInterface^ast,ElementsInterface^ast);
+        Interface^ast := Interface^factory.createInterface(HeritageInterface^ast, identificateur_type^txt,ElementsInterface^ast);
       end
     else
       if HeritageInterface^ast = nil then

@@ -1,5 +1,7 @@
 package fr.n7.stl.block.ast.impl;
 
+import fr.n7.stl.block.ast.*;
+
 /**
  * @author okeee
  *
@@ -31,13 +33,35 @@ public class InterfaceImpl implements Interface {
 		return "(Interface)" + this.nom;
 	}
 
-	@Override
+	public String toString(){
+		String toString = this.getName();
+		for(Signature sign : listSign){
+			toString += sign.toString();
+		}
+		for (FinalStaticField fsf : listFSField) {
+			toString += fsf.toString();
+		}
+
+		return toString + ")";
+	}
+
+	/* does not @Override ?!*/
 	public int length(){
 		return 99;
 	}
 
-	@Override
-	public Type merge(){
+	/* does not @Override ?!*/
+	public boolean equalsTo(Type type){
+		return true;
+	}
+
+	/* does not @Override ?!*/
+	public boolean compatibleWith(Type type) {
+		return true;
+	}
+
+	/* does not @Override ?!*/
+	public Type merge(Type type){
 		return null;
 	}
 }

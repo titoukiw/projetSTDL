@@ -17,8 +17,8 @@ public interface InterfaceFactory {
 //	public Interface createInterface(String nom, LinkedList<ElementInterface> elements);
 
 	/* Genericite*/
-	public Type createArgumentGenericite(Objet obj, LinkedList<Type> instGen);
-	public Type createArgumentGenericite(Objet obj);
+	public ArgumentGenericite createArgumentGenericite(Objet obj, LinkedList<Type> instGen);
+	public ArgumentGenericite createArgumentGenericite(Objet obj);
 	public Type createGenericType(Objet obj);
 	public Type createGenericType(Objet obj, LinkedList<Type> instGen);
 
