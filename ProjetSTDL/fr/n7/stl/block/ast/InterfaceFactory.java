@@ -6,7 +6,7 @@ package fr.n7.stl.block.ast;
 import java.util.LinkedList;
 
 
-public interface interfaceFactory {
+public interface InterfaceFactory {
 
 	/* createInterface */
 	public Interface createInterface(String nom, LinkedList<ParametreGenericite> parametresGen, LinkedList<Type> heritages, LinkedList<ElementInterface> elements);
