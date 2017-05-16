@@ -5,7 +5,7 @@ package fr.n7.stl.block.ast.impl;
  *
  */
 
-import fr.n7.stl.block.ast.parametre;
+import fr.n7.stl.block.ast.Parametre;
 
 public class ParametreImpl implements Parametre {
 
