@@ -21,4 +21,9 @@ public class InterfaceGenHeritImpl implements Interface extends InterfaceImpl{
 	public String getName(){
 		return super.getName();
 	}
+
+	@Override
+	public int length(){
+		return 99;
+	}
 }
