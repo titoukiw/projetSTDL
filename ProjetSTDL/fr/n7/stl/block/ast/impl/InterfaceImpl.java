@@ -26,6 +26,7 @@ public class InterfaceImpl implements Interface {
 		}
 	}
 
+	@Override
 	public String getName(){
 		return "(Interface)" + this.nom;
 	}
@@ -33,5 +34,10 @@ public class InterfaceImpl implements Interface {
 	@Override
 	public int length(){
 		return 99;
+	}
+
+	@Override
+	public Type merge(){
+		
 	}
 }

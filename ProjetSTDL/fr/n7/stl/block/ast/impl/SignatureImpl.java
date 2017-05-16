@@ -27,7 +27,8 @@ public class SignatureImpl implements Signature {
 		this.returnType = type;
 	}
 
-	public getId(){
+	@Override
+	public String getId(){
 		return this.id;
 	}
 

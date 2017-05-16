@@ -483,11 +483,11 @@ public class BlockFactoryImpl implements BlockFactory {
 
 	/* ElementInterface etc */
 	public ElementInterface createSignature(String id, LinkedList<Parametre> listParam){
-		return new Signature(id, listParam);
+		return new SignatureImpl(id, listParam);
 	}
 
 	public ElementInterface createSignature(String id,Type type, LinkedList<Parametre> listParam){
-		return new Signature(id, type, listParam);
+		return new SignatureImpl(id, type, listParam);
 	}
 
 	public Parametre createParametre(String id, Type type){

@@ -4,6 +4,7 @@ package fr.n7.stl.block.ast;
  * @author okeee
  *
  */
+import java.util.LinkedList;
 
 public interface Signature extends ElementInterface{
 
