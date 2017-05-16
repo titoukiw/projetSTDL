@@ -421,11 +421,24 @@ end
 }
 
 -- TODO
-ImplantationInterface -> implantation identificateur_type Instance
-SuiteHeritageInterface ;
+ImplantationInterface -> implantation identificateur_type InstanceGenericite SuiteHeritageInterface #ast;
+#ast {
+do
+  if ImplantationInterface^tds.contains(identificateur_type^txt) then
+    -- peut etre enlever identificateurètype^txt dans la createImplantation ?
+    ImplantationInterface^ast := ImplantationInterface^factory.createImplantation(identificateur_type^txt,InstanceGenericite^ast, SuiteHeritageInterface^ast);
+  else
+    error(TYPE_unknown,identificateur_type^txt);
+end
+}
 
 -- TODO
-ImplantationInterface -> ;
+ImplantationInterface -> #ast;
+#ast {
+do
+  ImplantationInterface^ast := nil;
+end
+}
 
 
 Principale -> public classe identificateur_type accolade_ouvrante MethodePrincipale accolade_fermante #ast;
