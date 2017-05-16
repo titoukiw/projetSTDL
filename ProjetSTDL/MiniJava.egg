@@ -658,7 +658,7 @@ AttributOuMethode -> Type identificateur SuiteAttributOuMethode #ast;
 #ast {
 do
   if AttributOuMethode^tds.knows(identificateur^txt) then --(contains ou knows je sais plus ?)
-    error(TYPE_already_defined, identificateur^txt);
+    error(P_00, identificateur^txt);
   else
     -- on crée la méthode avec son nom + AttributOuMethode (nil ou (Parametres) {Bloc})
     AttributOuMethode^ast := ElementClasse^factory.createMethode(identificateur^txt,AttributOuMethode^ast);
@@ -672,7 +672,7 @@ AttributOuMethode -> vide identificateur parenthese_ouvrante Parametres parenthe
 #ast {
 do
   if AttributOuMethode^tds.knows(identificateur^txt) then --(contains ou knows je sais plus ?)
-    error(TYPE_already_defined, identificateur^txt);
+    error(P_00, identificateur^txt);
   else
     AttributOuMethode^ast := AttributOuMethode^factory.createVoidMethode(identificateur^txt,Parametres^ast,Bloc^ast);
     AttributOuMethode^tds.register(identificateur^txt);
@@ -728,8 +728,18 @@ do
 end 
 }
 
--- TODO
-Parametre -> Type identificateur ;
+-- TODO créer le paramètre
+Parametre -> Type identificateur #ast ;
+#ast {
+do
+  if Parametre^tds.contains(identificateur^txt) then
+    error (P_00, identificateur^txt);
+  else
+    Parametre^ast := Parametre^factory.createParametre(Type^ast, identificateur^txt);
+    Parametre^tds.register(identificateur^txt);
+  end
+end
+}
 
 SuiteParametres -> #ast;
 #ast {
@@ -754,8 +764,12 @@ end
 }
 
 -- TODO
-Type -> TypeAtomique SuiteTypeAtomique ;
-
+Type -> TypeAtomique SuiteTypeAtomique #ast;
+#ast {
+do
+  Type^ast := Type^factory.createType(TypeAtomique^ast,SuiteTypeAtomique^ast);
+end
+}
 
 TypeAtomique -> type_bool #ast ;
 #ast {
@@ -786,13 +800,33 @@ end
 }
 
 -- TODO
-TypeAtomique -> identificateur_type InstanceGenericite ; 
+TypeAtomique -> identificateur_type InstanceGenericite #ast; 
+#ast {
+do
+  if TypeAtomique^tds.contains(identificateur_type^txt) then
+    TypeAtomique^ast := TypeAtomique^factry.createGenericiteType(identificateur_type^txt,InstanceGenericite^ast);
+  else
+    error(TYPE_unknown, identificateur_type^txt);
+  end
+end
+}
 
--- TODO
-SuiteTypeAtomique -> crochet_ouvrant crochet_fermant SuiteTypeAtomique ;
+-- TODO Type [] ([][][][][]...)
+SuiteTypeAtomique -> crochet_ouvrant crochet_fermant SuiteTypeAtomique #ast;
+#ast {
+do
+  SuiteTypeAtomique^ast := -- pas l'temps
+end
+}
 
--- TODO
-SuiteTypeAtomique -> ;
+
+-- TODO Type [] fini
+SuiteTypeAtomique -> #ast;
+#ast {
+do
+  SuiteTypeAtomique^ast := SuiteTypeAtomique^gauche; -- ou nil
+end
+}
 
 
 Instructions -> #ast;
