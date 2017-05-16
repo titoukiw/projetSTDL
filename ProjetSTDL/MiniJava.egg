@@ -421,7 +421,8 @@ end
 }
 
 -- TODO
-ImplantationInterface -> implantation identificateur_type InstanceGenericite SuiteHeritageInterface ;
+ImplantationInterface -> implantation identificateur_type Instance
+SuiteHeritageInterface ;
 
 -- TODO
 ImplantationInterface -> ;
@@ -504,17 +505,50 @@ do
 end
 }
  
--- TODO
-HeritageGenericite -> extension identificateur_type SuiteHeritageGenericite ;
+-- TODO <? extends T Suite> = on crée un parametre generique qui recupere les trucs de suiteHeritageGenericite
+HeritageGenericite -> extension identificateur_type SuiteHeritageGenericite #ast ;
+#ast {
+do
+  if HeritageGenericite^tds.contains(identificateur_type^txt) then
+    HeritageGenericite^ast :=   HeritageGenericite^factory.createGenericParamater(identificateur_type^txt,SuiteHeritageGenericite^ast);
+  HeritageGenericite^tds.register(HeritageGenericite^ast);
+  else
+    error(TYPE_unknown,identificateur_type^txt);
+  end
+end
+}
 
--- TODO
-HeritageGenericite -> ;
+-- TO DO : <?> = on crée juste un parametre generique quelconque
+HeritageGenericite -> #ast;
+#ast {
+do
+  HeritageGenericite^ast := HeritageGenericite^factory.createGenericParameter();
+end
+}
 
--- TODO
-SuiteHeritageGenericite -> adresse identificateur_type SuiteHeritageGenericite ;
+-- TODO <? extends T & Interface1 (& Interface2 ...) >
+SuiteHeritageGenericite -> adresse identificateur_type SuiteHeritageGenericite #ast;
+#ast {
+do
+  if SuiteHeritageGenericite^tds.contains(identificateur_type^txt) then
+  
+    SuiteHeritageGenericite1^ast.addFirst(identificateur_type^txt);
+    SuiteHeritageGenericite^ast := SuiteHeritageGenericite1^ast;
+    SuiteHeritageGenericite1^gauche := SuiteHeritageGenericite^ast; --Hh 
+    
+  else
+    error(TYPE_unknown,identificateur_type^txt);
+  end
+end
+}
 
--- TODO
-SuiteHeritageGenericite -> ;
+-- TODO <? extends T >
+SuiteHeritageGenericite -> #ast;
+#ast {
+do
+  SuiteHeritageGenericite^ast := SuiteHeritageGenericite^gauche;
+end
+}
 
 -- TODO
 InstanceGenericite -> #ast;
