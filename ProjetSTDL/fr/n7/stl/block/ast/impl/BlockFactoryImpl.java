@@ -474,7 +474,9 @@ public class BlockFactoryImpl implements BlockFactory {
 	public Type createArgumentGenericite(Objet obj){ //retourner un GenericType  ?
 		return new ArgumentGenericite(obj);
 	}	
-
+	public Type createGenericType(Objet obj) {
+		return new GenericType(obj);
+	}
 	public Type createGenericType(Objet obj, LinkedList<Type> instGen){
 		return new GenericType(obj,instGen);
 	}
