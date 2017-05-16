@@ -21,6 +21,14 @@ import fr.n7.stl.block.ast.TypeDeclaration;
 import fr.n7.stl.block.ast.UnaryOperator;
 import fr.n7.stl.block.ast.Value;
 import fr.n7.stl.block.ast.VariableDeclaration;
+import fr.n7.stl.block.ast.ElementInterface;
+import fr.n7.stl.block.ast.Interface;
+import fr.n7.stl.block.ast.Objet;
+import fr.n7.stl.block.ast.Signature
+import fr.n7.stl.block.ast.Parametre;
+import java.util.LinkedList;
+
+
 
 /**
  * Implementation of the factory for building Abstract Syntax Tree node for the Bloc language.
@@ -486,7 +494,7 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new Parametre(id,type);
 	}
 
-
+	// Classes TypeGenerique ArgumentGenericite 
 	/*public ElementInterface createFinalStaticField(String id,Type type, Expression expr){
 		return new FinalStaticField(id, type, expr);
 	}*/
