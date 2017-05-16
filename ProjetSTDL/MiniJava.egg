@@ -630,26 +630,72 @@ end
 }
  
 -- TODO
-ElementClasse -> statique AttributOuMethode ;  
+ElementClasse -> statique AttributOuMethode #ast;
+#ast {
+do
+  ElementClasse^ast := ElementClasse^factory.createElementStatique(AttributOuMethode^ast);
+end
+}
  
 -- TODO 
-ElementClasse -> AttributOuMethode ;
+ElementClasse -> AttributOuMethode #ast;
+#ast {
+do
+  ElementClasse^ast := ElementClasse^factory.createElement(AttributOuMethode^ast);
+end
+}
  
 -- TODO 
-ElementClasse -> Constructeur ;  
+ElementClasse -> Constructeur #ast;  
+#ast {
+do
+  ElementClasse^ast := ElementClasse^factory.createConstructeur(Constructeur^ast);
+end
+}
     
--- TODO
-AttributOuMethode -> Type identificateur SuiteAttributOuMethode;
+-- TODO créer une méthode, définie ou non
+AttributOuMethode -> Type identificateur SuiteAttributOuMethode #ast;
+#ast {
+do
+  if AttributOuMethode^tds.knows(identificateur^txt) then --(contains ou knows je sais plus ?)
+    error(TYPE_already_defined, identificateur^txt);
+  else
+    -- on crée la méthode avec son nom + AttributOuMethode (nil ou (Parametres) {Bloc})
+    AttributOuMethode^ast := ElementClasse^factory.createMethode(identificateur^txt,AttributOuMethode^ast);
+    AttributOuMethode^tds.register(identificateur^txt);
+  end
+end
+}
  
--- TODO
-AttributOuMethode -> vide identificateur parenthese_ouvrante Parametres parenthese_fermante Bloc ;
+-- TODO créer une méthode void
+AttributOuMethode -> vide identificateur parenthese_ouvrante Parametres parenthese_fermante Bloc #ast ;
+#ast {
+do
+  if AttributOuMethode^tds.knows(identificateur^txt) then --(contains ou knows je sais plus ?)
+    error(TYPE_already_defined, identificateur^txt);
+  else
+    AttributOuMethode^ast := AttributOuMethode^factory.createVoidMethode(identificateur^txt,Parametres^ast,Bloc^ast);
+    AttributOuMethode^tds.register(identificateur^txt);
+  end
+end
+}
  
--- TODO
-SuiteAttributOuMethode -> point_virgule ;
+-- TODO DroitAcces Type nom_Methode ;
+SuiteAttributOuMethode -> point_virgule #ast;
+#ast {
+do
+  SuiteAttributOuMethode^ast := nil;
+end
+}
  
--- TODO
-SuiteAttributOuMethode -> parenthese_ouvrante Parametres parenthese_fermante Bloc ;
-
+-- TODO DroitAcces Type nom_Methode (Parametres) { }
+SuiteAttributOuMethode -> parenthese_ouvrante Parametres parenthese_fermante Bloc #ast ;
+#ast {
+do
+  -- on crée les élements qui composent la méthode : parametres et bloc
+  SuiteAttributOuMethode^ast := SuiteAttributOuMethode^factory.createElementsMethode(Parametres^ast,Bloc^ast);
+end
+}
 
 Constructeur -> identificateur_type parenthese_ouvrante Parametres parenthese_fermante Bloc #ast ;
 #ast {
