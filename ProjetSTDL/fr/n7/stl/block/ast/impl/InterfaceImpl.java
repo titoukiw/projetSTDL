@@ -38,6 +38,6 @@ public class InterfaceImpl implements Interface {
 
 	@Override
 	public Type merge(){
-		
+		return null;
 	}
 }

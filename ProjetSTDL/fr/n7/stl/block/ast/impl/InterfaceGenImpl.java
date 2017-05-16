@@ -8,7 +8,7 @@ package fr.n7.stl.block.ast.impl;
 import fr.n7.stl.block.ast.*;
 import java.util.LinkedList;
 
-public class InterfaceGenImpl implements Interface extends InterfaceImpl{
+public class InterfaceGenImpl extends InterfaceImpl{
 
 	private LinkedList<ParametreGenericite> parametresGen;
 

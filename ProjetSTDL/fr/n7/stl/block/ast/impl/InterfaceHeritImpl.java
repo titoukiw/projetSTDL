@@ -8,7 +8,7 @@ package fr.n7.stl.block.ast.impl;
 import fr.n7.stl.block.ast.*;
 import java.util.LinkedList;
 
-public class InterfaceHeritImpl implements Interface extends InterfaceImpl{
+public class InterfaceHeritImpl extends InterfaceImpl{
 
 	private LinkedList<Type> heritages; //types hérités
 
