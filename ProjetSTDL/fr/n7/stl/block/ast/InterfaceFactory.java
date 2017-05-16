@@ -11,7 +11,7 @@ public interface InterfaceFactory {
 	/* createInterface */
 	public Interface createInterface(String nom, LinkedList<ParametreGenericite> parametresGen, LinkedList<Type> heritages, LinkedList<ElementInterface> elements);
 	public Interface createInterface(String nom, LinkedList<ParametreGenericite> parametresGen, LinkedList<ElementInterface> elements);
-	public Interface createInterface (String nom, LinkedList<Type> heritages,LinkedList<ElementInterface> elements );
+	public Interface createInterface (LinkedList<Type> heritages,String nom,LinkedList<ElementInterface> elements );
 	public Interface createInterface (String nom, LinkedList<ElementInterface> elements);
 
 	/* Genericite*/
