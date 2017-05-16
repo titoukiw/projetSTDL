@@ -4,8 +4,7 @@ package fr.n7.stl.block.ast.impl;
  * @author okeee
  *
  */
-
-i
+import fr.n7.stl.block.ast.Interface;
 
 public class InterfaceGenHeritImpl implements Interface extends InterfaceImpl{
 
