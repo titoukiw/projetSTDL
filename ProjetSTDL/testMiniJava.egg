@@ -445,7 +445,7 @@ end
 SuiteArgumentsGenericite -> #ast;
 #ast {
 do
-   SuiteArgumentsGenericite^ast := new LinkedList<ArgumentGenericite>();
+   SuiteArgumentsGenericite^ast := new LinkedList<Type>();
 end
 }
 
