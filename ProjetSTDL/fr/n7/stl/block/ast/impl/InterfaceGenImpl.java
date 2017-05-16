@@ -17,9 +17,6 @@ public class InterfaceGenImpl implements Interface extends InterfaceImpl{
 		this.parametresGen = parametresGen;
 	}
 
-	public String getName(){
-		return super.getName();
-	}
 
 	@Override
 	public int length(){

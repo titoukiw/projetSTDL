@@ -5,7 +5,7 @@ package fr.n7.stl.block.ast.impl;
  *
  */
 
-import fr.n7.stl.block.ast.signature;
+import fr.n7.stl.block.ast.*;
 import fr.n7.stl.block.ast.AtomicType;
 
 public class SignatureImpl implements Signature {

@@ -18,11 +18,6 @@ public class InterfaceHeritImpl implements Interface extends InterfaceImpl{
 	}
 
 	@Override
-	public String getName(){
-		return super.getName();
-	}
-
-	@Override
 	public int length(){
 		return 99;
 	}

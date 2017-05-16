@@ -19,9 +19,9 @@ public class InterfaceImpl implements Interface {
 		this.nom = nom;
 		for (ElementInterface e : elements){
 			if (e instanceof Signature ){
-				listSign.append(e);
+				listSign.add((Signature) e);
 			} else {
-				listFSField.append(e);
+				listFSField.add((FinalStaticField) e);
 			}
 		}
 	}
