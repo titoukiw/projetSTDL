@@ -390,7 +390,7 @@ end
 SuiteParametres -> #ast;
 #ast {
 do
-   SuiteParametres^ast := new LinkedList<Parametres>();
+   SuiteParametres^ast := new LinkedList<Parametre>();
 end
 }
 
