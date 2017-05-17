@@ -25,4 +25,26 @@ public class ArgumentGenericiteImpl implements ArgumentGenericite {
 		}
 		return toString + " )";
 	}
+
+	// ArgumentGenericite extends Type oblige:
+
+	/* does not @Override ?!*/
+	public int length(){
+		return 99;
+	}
+
+	/* does not @Override ?!*/
+	public boolean equalsTo(Type type){
+		return true;
+	}
+
+	/* does not @Override ?!*/
+	public boolean compatibleWith(Type type) {
+		return true;
+	}
+
+	/* does not @Override ?!*/
+	public Type merge(Type type){
+		return null;
+	}
 }

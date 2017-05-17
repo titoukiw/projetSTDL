@@ -87,7 +87,7 @@ syn ast 	: ElementInterface for Signature;
 inh tds		: SymbolTable for InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite;
 inh factory : BlockFactory for InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite;
 syn ast 	: Type for ArgumentGenericite;
-syn ast 	: Type for Genericite; -- Changé temporairement (on a pas ParamGen...) -> LinkedList<ParametreGenericite> for Genericite;
+syn ast 	: LinkedList<ArgumentGenericite> for Genericite; -- Changé temporairement (on a pas ParamGen...) -> LinkedList<ParametreGenericite> for Genericite;
 syn ast 	: LinkedList<Type> for ArgumentsGenericite, SuiteArgumentsGenericite;
 syn ast 	: LinkedList<Type> for InstanceGenericite;
 
@@ -221,7 +221,7 @@ do
         Interface^ast := Interface^factory.createInterface(HeritageInterface^ast, identificateur_type^txt,ElementsInterface^ast);
       end
     else
-      if HeritageInterface^ast = nil then
+      if HeritageInterface^ast = nil then   --Genericite^ast est un Type ?
         Interface^ast := Interface^factory.createInterface(identificateur_type^txt,Genericite^ast,ElementsInterface^ast);
       else
         Interface^ast := Interface^factory.createInterface(identificateur_type^txt, Genericite^ast, HeritageInterface^ast, ElementsInterface^ast);
@@ -376,7 +376,7 @@ Parametres -> Parametre SuiteParametres #ast ;
 #ast {
 do 
    Parametres^ast.addFirst(Parametre^ast);
-   Parametres^ast := SuiteParametres;  
+   Parametres^ast := SuiteParametres^ast;  
 end 
 }
 
@@ -463,7 +463,9 @@ do
 		o := ArgumentGenericite^tds.get(identificateur_type^txt);
 		d := o.get();
 		match d
-		--Autre chose que Objet ? Type ?
+		--Autre chose que Objet ? Type ?    --Hh j'ai ajouté extends Type pour les ArgumentsGénéricité
+                                        -- cf erreur error: incompatible types: ArgumentGenericite cannot be converted to Type
+                                        -- this.att_ast=this.att_factory.createArgumentGenericite(((Objet)loc_d));
 		with Objet then
 			if InstanceGenericite^ast = nil then
 				ArgumentGenericite^ast := ArgumentGenericite^factory.createArgumentGenericite(d);
@@ -541,7 +543,7 @@ do
 end
 }
 
---TypeAtomique -> identificateur_type InstanceGenericite ; -- A DECOMMENTER
+--TypeAtomique -> identificateur_type InstanceGenericite ; -- A DECOMMENTER TODO
 
 SuiteTypeAtomique -> crochet_ouvrant crochet_fermant #inhArray SuiteTypeAtomique #ast;
 #inhArray {

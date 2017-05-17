@@ -431,7 +431,7 @@ public class BlockFactoryImpl implements BlockFactory {
 	}
 
 	public Interface createInterface(String nom, LinkedList<ParametreGenericite> parametresGen, 
-										LinkedList<ElementInterface> elements){
+										LinkedList<ElementInterface> elements){ 
 		return new InterfaceGenImpl( nom, parametresGen, elements);
 	}
 
@@ -445,11 +445,11 @@ public class BlockFactoryImpl implements BlockFactory {
 	/* END createInterface */
 
 	/* Genericite */
-	public ArgumentGenericite createArgumentGenericite(Objet obj, LinkedList<Type> instType){ //retourner un GenericType  ?
+	public ArgumentGenericite createArgumentGenericite(Objet obj, LinkedList<Type> instType){ //avant:  ArgumentGenericite
 		return new ArgumentGenericiteImpl(obj,instType);
 	}
 
-	public ArgumentGenericite createArgumentGenericite(Objet obj){ //retourner un GenericType  ?
+	public ArgumentGenericite createArgumentGenericite(Objet obj){ //idem
 		return new ArgumentGenericiteImpl(obj);
 	}	
 	public Type createGenericType(Objet obj) {
