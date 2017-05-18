@@ -11,4 +11,12 @@ public class ProgrammeImpl implements Programme {
 	public ProgrammeImpl(LinkedList<Objet> interfaces) {
 		this.interfaces = interfaces;
 	}
+
+	public String toString() {
+		String result = "";
+		for(Objet obj:interfaces){
+			result += obj;
+		}
+		return result;
+	}
 }

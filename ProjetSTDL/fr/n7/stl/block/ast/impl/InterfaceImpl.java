@@ -35,14 +35,18 @@ public class InterfaceImpl implements Interface {
 
 	public String toString(){
 		String toString = this.getName();
-		for(Signature sign : listSign){
-			toString += sign.toString();
+		if(listSign != null){
+			for(Signature sign : listSign){
+				toString += sign.toString();
+			}
 		}
-		for (FinalStaticField fsf : listFSField) {
-			toString += fsf.toString();
+		if (listFSField != null){
+			for (FinalStaticField fsf : listFSField) {
+				toString += fsf.toString();
+			}
 		}
 
-		return toString + ")";
+		return toString ;
 	}
 
 	/* does not @Override ?!*/

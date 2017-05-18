@@ -1,3 +1,2 @@
 interface TestInterface {
-	void testFct();
 }
