@@ -11,6 +11,7 @@ import java.util.Optional;
 import fr.n7.stl.block.ast.Declaration;
 import fr.n7.stl.block.ast.ForbiddenDeclarationException;
 import fr.n7.stl.block.ast.HierarchicalScope;
+import java.util.LinkedList;
 
 /**
  * @author pantel2
@@ -67,6 +68,14 @@ public class SymbolTable implements HierarchicalScope<Declaration> {
 			throw new ForbiddenDeclarationException();
 		}
 	}
+
+	public void register(LinkedList<Declaration> _declarations) throws ForbiddenDeclarationException {
+		// System.out.println("Register( " + _declaration.getName() + " )");
+		for (Declaration dec : _declarations) {
+			this.register(dec);
+		}
+	}
+
 
 	@Override
 	public boolean knows(String _name) {
