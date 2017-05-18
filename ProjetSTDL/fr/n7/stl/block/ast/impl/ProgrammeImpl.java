@@ -15,7 +15,7 @@ public class ProgrammeImpl implements Programme {
 	public String toString() {
 		String result = "";
 		for(Objet obj:interfaces){
-			result += obj;
+			result += obj.toString();
 		}
 		return result;
 	}

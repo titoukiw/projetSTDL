@@ -12,4 +12,6 @@ public interface Declaration {
 	 */
 	public String getName();
 
+	//public String toString(); //??
+
 }
