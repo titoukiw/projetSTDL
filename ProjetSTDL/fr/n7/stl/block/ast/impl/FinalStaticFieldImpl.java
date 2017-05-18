@@ -7,12 +7,12 @@ import fr.n7.stl.block.ast.Type;
 
 public class FinalStaticFieldImpl extends VariableDeclarationImpl implements ElementInterface {
 
-	private Sting name;
+	private String name;
 	private Expression value;
 	private Type type;
 
 
-	public FinalStaticFieldImpl(String name, Type, type, Expression expr){
+	public FinalStaticFieldImpl(String name, Type type, Expression expr){
 		super(name,type,expr);
 	}
 
@@ -39,7 +39,7 @@ public class FinalStaticFieldImpl extends VariableDeclarationImpl implements Ele
 	
 	@Override
 	public String toString() {
-		return "([FinalStaticField] "this.type + " " + this.name + " = " + this.value + ";)\n";
+		return "([FinalStaticField] " + this.type + " " + this.name + " = " + this.value + ";)\n";
 	}
 
 

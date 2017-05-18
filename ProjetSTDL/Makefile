@@ -1,4 +1,4 @@
-EGGJAR=./BE_STL/eggc-5.4.3.jar
+EGGJAR=./eggc-5.4.3.jar
 JDIR=/usr/bin
 JAVAC=$(JDIR)/javac $(JOPTS)
 JAVA=$(JDIR)/java
@@ -26,7 +26,7 @@ compile :
 	$(JAVAC) -classpath $(EGGJAR):. Main.java
 
 exec :
-	$(JAVA) -classpath $(EGGJAR):. Main ./test/test05.bloc
+	$(JAVA) -classpath $(EGGJAR):. Main ./test.txt
 
 clean :
 	-rm Main.class

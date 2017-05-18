@@ -5,7 +5,8 @@ package fr.n7.stl.block.ast.impl;
  *
  */
 
-import fr.n7.stl.block.ast.classe;
+import fr.n7.stl.block.ast.Classe;
+import java.util.LinkedList;
 
 public class ClasseImpl implements Classe {
 
@@ -14,7 +15,7 @@ public class ClasseImpl implements Classe {
 		private LinkedList<Attribut> listAttributs;
 		//PublicStaticFields ?????
 
-		public InterfaceImpl(String nom, LinkedList<ElementClasse> elements){
+		public ClasseImpl(String nom, LinkedList<ElementClasse> elements){
 			this.nom = nom;
 			for (ElementClasse e : elements){
 				if (e instanceof Methode ){
@@ -28,7 +29,5 @@ public class ClasseImpl implements Classe {
 		public String getName(){
 			return "(Classe)" + this.nom;
 		}
-
-}
 
 }

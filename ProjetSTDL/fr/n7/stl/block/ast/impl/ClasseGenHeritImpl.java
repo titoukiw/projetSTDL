@@ -5,9 +5,10 @@ package fr.n7.stl.block.ast.impl;
  *
  */
 
-import fr.n7.stl.block.ast.classe;
+import fr.n7.stl.block.ast.*;
+import java.util.LinkedList;
 
-public class ClasseGenHeritImpl implements Classe extends ClasseImpl {
+public class ClasseGenHeritImpl  extends ClasseImpl implements Classe{
 
 	private Classe heritage; //type hérité
 	private LinkedList<ParametreGenericite> parametresGen;

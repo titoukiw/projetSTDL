@@ -13,18 +13,26 @@ public class Main{
 
   public static void main (String[] args){
   try {
+
+
       ISourceUnit cu = new SourceUnit(args[0]);
       System.out.println("Fichier analyé : "+  args[0]);
       ProblemReporter prp = new ProblemReporter(cu);
+
+
       ProblemRequestor prq = new ProblemRequestor(true);
-      Bloc bloc = new Bloc(prp);
+      testMiniJava bloc = new testMiniJava(prp);
       prq.beginReporting();
       bloc.set_eval(true);
       bloc.compile(cu);
+
+
       for(IProblem problem : prp.getAllProblems())
       	prq.acceptProblem(problem );
       prq.endReporting();
       System.out.println("AST :"+bloc.get_ast());
+
+      /*
       if (bloc.get_ast().checkType()) {
 	  System.out.println( "Correctement typé." );
       } else {
@@ -35,7 +43,7 @@ public class Main{
       Fragment _fragment = bloc.get_ast().getCode(_factory);
       _fragment.add(_factory.createHalt());
       System.out.println(_fragment);
-      System.exit(0);
+      System.exit(0);*/
       }
     catch(Exception e){
       e.printStackTrace();

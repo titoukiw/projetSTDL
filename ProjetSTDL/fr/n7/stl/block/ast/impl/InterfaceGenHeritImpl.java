@@ -10,9 +10,9 @@ import java.util.LinkedList;
 public class InterfaceGenHeritImpl extends InterfaceImpl{
 
 	private LinkedList<Type> heritages; //types hérités
-	private LinkedList<ParametreGenericite> parametresGen;
+	private LinkedList<ArgumentGenericite> parametresGen;
 
-	public InterfaceGenHeritImpl(String nom, LinkedList<ParametreGenericite> parametresGen, LinkedList<Type> heritages, LinkedList<ElementInterface> elements){
+	public InterfaceGenHeritImpl(String nom, LinkedList<ArgumentGenericite> parametresGen, LinkedList<Type> heritages, LinkedList<ElementInterface> elements){
 		super(nom, elements);
 		this.heritages = heritages;
 		this.parametresGen = parametresGen;
