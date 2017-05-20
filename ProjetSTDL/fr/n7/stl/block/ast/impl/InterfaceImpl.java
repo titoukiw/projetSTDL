@@ -36,7 +36,7 @@ public class InterfaceImpl implements Interface {
 
 	@Override
 	public String getName(){
-		return "(Interface)" + this.nom;
+		return this.nom;
 	}
 
 	public Type getType(){
@@ -44,15 +44,20 @@ public class InterfaceImpl implements Interface {
 	}
 
 	public String toString(){
-		String toString =  "\n" + this.getName() + "{";
+		String toString =  "\n (Interface)" + this.getName();
+
+
 		if(listHeritage != null){
+			toString += " extends ";
 			for(Interface herit : this.listHeritage){
-				toString += herit.toString();
+				toString +=  herit.getName() + ",";
 			}
 		}
+
+		toString += "{";
 		if (listElements != null){
 			for (ElementInterface ei : this.listElements) {
-				toString += ei.toString();
+				toString += "\n\t" + ei.toString() ;
 			}
 		}
 

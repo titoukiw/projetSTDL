@@ -41,7 +41,7 @@ public class SignatureImpl implements Signature {
 	}
 
 	public String toString(){
-		String result = "\n (Signature)" + "[" + this.interfaceCourrante + "] " + this.returnType.toString() + " " + this.id + " (";
+		String result = " (Signature)" + "[" + this.interfaceCourrante + "] " + this.returnType.toString() + " " + this.id + " (";
 		for (Parametre param : listParam){
 			result += param.getType().toString() + " " + param.getName() + ",";
 		}

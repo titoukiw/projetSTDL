@@ -2,5 +2,5 @@ interface TestInterface {
 void testFct(String testArg);
 }
 
-interface Testss{
+interface Testss extends TestInterface{
 }

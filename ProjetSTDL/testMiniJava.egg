@@ -228,10 +228,10 @@ end
 Interfaces -> Interface #interfaceMultiple Interfaces #ast;
 #interfaceMultiple{
 do
-  if (Interfaces^tds.contains(Interface^ast.getName())) then
+  if (Interfaces^tdsInterfaces.contains(Interface^ast.getName())) then
     error(INTERFACE_already_defined, Interface^ast.getName());
   else
-    Interfaces^tds.register(Interface^ast);
+    Interfaces^tdsInterfaces.register(Interface^ast);
   end
 end
 }
@@ -352,7 +352,7 @@ do
     o := HeritageInterface^tdsInterfaces.get(identificateur_type^txt);
     d := o.get();
     match d 
-      with Interface then HeritageInterface^ast.addFirst(d);
+      with Interface then SuiteHeritageInterface^ast.addFirst(d);
     else
       error(HERITAGE_not_interface, identificateur_type^txt);
     end
@@ -419,8 +419,8 @@ local
   d : Declaration;
 do
   SuiteHeritageInterface^ast := SuiteHeritageInterface1^ast;
-  if(SuiteHeritageInterface^tds.knows(identificateur_type^txt)) then
-    o := SuiteHeritageInterface^tds.get(identificateur_type^txt);
+  if(SuiteHeritageInterface^tdsInterfaces.knows(identificateur_type^txt)) then
+    o := SuiteHeritageInterface^tdsInterfaces.get(identificateur_type^txt);
     d := o.get();
     match d
       with Interface then SuiteHeritageInterface^ast.addFirst(d); 
