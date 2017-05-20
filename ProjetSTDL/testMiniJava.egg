@@ -85,8 +85,8 @@ syn ast 	: ElementInterface for Signature;
 
 --Genericite (Genericite,InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite,
 --            ParametresGenericite, SuiteParametresGenericite, ParametreGenericite, HeritageGenericite, SuiteHeritageGenericite)
-inh tds		: SymbolTable for InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ParametresGenericite, SuiteParametresGenericite, ParametreGenericite, HeritageGenericite, SuiteHeritageGenericite;
-inh factory : BlockFactory for InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ParametresGenericite, SuiteParametresGenericite, ParametreGenericite, HeritageGenericite, SuiteHeritageGenericite;
+inh tds		: SymbolTable for Genericite, InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ParametresGenericite, SuiteParametresGenericite, ParametreGenericite, HeritageGenericite, SuiteHeritageGenericite;
+inh factory : BlockFactory for Genericite, InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ParametresGenericite, SuiteParametresGenericite, ParametreGenericite, HeritageGenericite, SuiteHeritageGenericite;
 syn ast 	: ArgumentGenericite for ArgumentGenericite;
 syn ast   : ParametreGenericite for ParametreGenericite;
 syn ast 	: LinkedList<ParametreGenericite> for Genericite, ParametresGenericite, SuiteParametresGenericite; -- Changé temporairement (on a pas ParamGen..LinkedList<ArgumentGenericite>.) -> LinkedList<ParametreGenericite> for Genericite;
@@ -188,7 +188,7 @@ local
 do
   facto := new BlockFactoryImpl();
   Programme^ast := facto.createProgramme(Interfaces^ast);
-  --Plus tard createProgramme(Interfaces^ast,Classes^ast,Princiapel^ast) !?
+  --Plus tard createProgramme(Interfaces^ast,Classes^ast,Princiapel^ast) !? --Hh non
 end
 }
 
