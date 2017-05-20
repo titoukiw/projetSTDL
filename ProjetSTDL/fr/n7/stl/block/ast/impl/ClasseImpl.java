@@ -11,19 +11,19 @@ import java.util.LinkedList;
 public class ClasseImpl implements Classe {
 
 		private String nom;
-		private LinkedList<Methode> listMethodes;
+		//private LinkedList<Methode> listMethodes;
 		private LinkedList<Attribut> listAttributs;
 		//PublicStaticFields ?????
 
 		public ClasseImpl(String nom, LinkedList<ElementClasse> elements){
 			this.nom = nom;
-			for (ElementClasse e : elements){
-				if (e instanceof Methode ){
-					listMethodes.append(e);
-				} else {
-					listAttributs.append(e);
-				}
-			}
+			// for (ElementClasse e : elements){
+			// 	if (e instanceof Methode ){
+			// 		listMethodes.append(e);
+			// 	} else {
+			// 		listAttributs.append(e);
+			// 	}
+			// }
 		}
 
 		public String getName(){

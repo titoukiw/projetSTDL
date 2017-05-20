@@ -425,7 +425,7 @@ public class BlockFactoryImpl implements BlockFactory {
     /* PROJET ------------------------------------------------------------>>>>>>>>>>>>>>>>>> */
 
     /* createInterface */
-    public Interface createInterface(String nom, LinkedList<ArgumentGenericite> parametresGen, 
+/*    public Interface createInterface(String nom, LinkedList<ArgumentGenericite> parametresGen, 
     									LinkedList<Type> heritages, LinkedList<ElementInterface> elements){
 			return new InterfaceGenHeritImpl( nom, parametresGen, heritages, elements);
 	}
@@ -441,7 +441,12 @@ public class BlockFactoryImpl implements BlockFactory {
 
 	public Interface createInterface(String nom, LinkedList<ElementInterface> elements){
 		return new InterfaceImpl( nom, elements);
+	}*/
+
+	public Interface createInterface(String nom, LinkedList<Interface> heritages, LinkedList<ElementInterface> elements){
+		return new InterfaceImpl(nom,heritages,elements);
 	}
+	
 	/* END createInterface */
 
 	/* Genericite */
@@ -462,19 +467,19 @@ public class BlockFactoryImpl implements BlockFactory {
 	/* END Genericite */
 
 	/* ElementInterface etc */
-	public ElementInterface createSignature(String id, LinkedList<Parametre> listParam){
-		return new SignatureImpl(id, listParam);
+	public Signature createSignature(String id, LinkedList<Parametre> listParam, String nomInterface){
+		return new SignatureImpl(id, listParam,nomInterface);
 	}
 
-	public ElementInterface createSignature(String id,Type type, LinkedList<Parametre> listParam){
-		return new SignatureImpl(id, type, listParam);
+	public Signature createSignature(String id,Type type, LinkedList<Parametre> listParam, String nomInterface){
+		return new SignatureImpl(id, type, listParam, nomInterface);
 	}
 
 	public Parametre createParametre(String id, Type type){
 		return new ParametreImpl(id,type);
 	}
 
-	public Programme createProgramme(LinkedList<Objet> interfaces) {
+	public Programme createProgramme(LinkedList<Interface> interfaces) {
 		return new ProgrammeImpl(interfaces);
 	}
 	// Classes TypeGenerique ArgumentGenericite 

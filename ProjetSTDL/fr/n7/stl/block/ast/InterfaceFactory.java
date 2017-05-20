@@ -9,10 +9,11 @@ import java.util.LinkedList;
 public interface InterfaceFactory {
 
 	/* createInterface */
-	public Interface createInterface(String nom, LinkedList<ArgumentGenericite> parametresGen, LinkedList<Type> heritages, LinkedList<ElementInterface> elements);
-	public Interface createInterface(String nom, LinkedList<ArgumentGenericite> parametresGen, LinkedList<ElementInterface> elements);
-	public Interface createInterface (LinkedList<Type> heritages,String nom,LinkedList<ElementInterface> elements );
-	public Interface createInterface (String nom, LinkedList<ElementInterface> elements);
+	// public Interface createInterface(String nom, LinkedList<ArgumentGenericite> parametresGen, LinkedList<Type> heritages, LinkedList<ElementInterface> elements);
+	// public Interface createInterface(String nom, LinkedList<ArgumentGenericite> parametresGen, LinkedList<ElementInterface> elements);
+	// public Interface createInterface (LinkedList<Type> heritages,String nom,LinkedList<ElementInterface> elements );
+	// public Interface createInterface (String nom, LinkedList<ElementInterface> elements);
+	public Interface createInterface(String nom, LinkedList<Interface> heritages, LinkedList<ElementInterface> elements);
 //	public Interface createInterface(String nom, LinkedList<Type> heritages,LinkedList<ElementInterface> elements );
 //	public Interface createInterface(String nom, LinkedList<ElementInterface> elements);
 
@@ -24,8 +25,8 @@ public interface InterfaceFactory {
 
 
 	/* ElementInterface*/
-	public ElementInterface createSignature(String id, LinkedList<Parametre> listParam);
-	public ElementInterface createSignature(String id, Type type, LinkedList<Parametre> listParam);
+	public Signature createSignature(String id, LinkedList<Parametre> listParam, String nomInterface);
+	public Signature createSignature(String id, Type type, LinkedList<Parametre> listParam, String nomInterface);
 	public Parametre createParametre(String id, Type type);
 
 }

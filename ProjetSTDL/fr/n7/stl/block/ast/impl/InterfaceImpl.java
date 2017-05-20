@@ -13,19 +13,25 @@ import java.util.LinkedList;
 public class InterfaceImpl implements Interface {
 
 	private String nom;
-	private LinkedList<Signature> listSign;
-	private LinkedList<FinalStaticField> listFSField;
+	private LinkedList<Interface> listHeritage;
+	private LinkedList<ElementInterface> listElements;
 
 
 	public InterfaceImpl(String nom, LinkedList<ElementInterface> elements){
+		// this.nom = nom;
+		// for (ElementInterface e : elements){
+		// 	if (e instanceof Signature ){
+		// 		listSign.add((Signature) e);
+		// 	} else {
+		// 		listFSField.add((FinalStaticField) e);
+		// 	}
+		// }
+	}
+
+	public InterfaceImpl(String nom, LinkedList<Interface> listHeritage, LinkedList<ElementInterface> listElements){
 		this.nom = nom;
-		for (ElementInterface e : elements){
-			if (e instanceof Signature ){
-				listSign.add((Signature) e);
-			} else {
-				listFSField.add((FinalStaticField) e);
-			}
-		}
+		this.listHeritage = listHeritage;
+		this.listElements = listElements;
 	}
 
 	@Override
@@ -33,20 +39,24 @@ public class InterfaceImpl implements Interface {
 		return "(Interface)" + this.nom;
 	}
 
+	public Type getType(){
+		return null;
+	}
+
 	public String toString(){
-		String toString = this.getName();
-		if(listSign != null){
-			for(Signature sign : listSign){
-				toString += sign.toString();
+		String toString =  "\n" + this.getName() + "{";
+		if(listHeritage != null){
+			for(Interface herit : this.listHeritage){
+				toString += herit.toString();
 			}
 		}
-		if (listFSField != null){
-			for (FinalStaticField fsf : listFSField) {
-				toString += fsf.toString();
+		if (listElements != null){
+			for (ElementInterface ei : this.listElements) {
+				toString += ei.toString();
 			}
 		}
 
-		return toString ;
+		return toString + "\n }";
 	}
 
 	/* does not @Override ?!*/

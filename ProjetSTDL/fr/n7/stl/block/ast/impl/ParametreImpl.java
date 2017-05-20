@@ -17,7 +17,8 @@ public class ParametreImpl implements Parametre {
 		this.type = type;
 	}
 
-	public String getId(){
+
+	public String getName(){
 		return this.id;
 	}
 

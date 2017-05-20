@@ -1,3 +1,6 @@
 interface TestInterface {
+void testFct(String testArg);
 }
 
+interface Testss{
+}

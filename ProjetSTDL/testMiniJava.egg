@@ -65,14 +65,14 @@ inh tdsClasses    : SymbolTable for Interface, Interfaces;
 inh tdsFunctions  : FunctionSymbolTable for Interface, Interfaces;
 inh tdsAttributs  : SymbolTable for Interface, Interfaces;
 inh tds		        : SymbolTable for Interface, Interfaces;
-syn ast 	        : Objet	for Interface;
+syn ast 	        : Interface	for Interface;
 syn ast         	: LinkedList<Interface> for Interfaces;
 
 --Heritage Interface (HeritageInterface, HeritageInterfaces,SuiteHeritageInterface)
 inh tds         	         : SymbolTable for HeritageInterface, SuiteHeritageInterface;
 inh factory                : BlockFactory for HeritageInterface, SuiteHeritageInterface;
 inh tdsInterfaces          : SymbolTable for HeritageInterface, SuiteHeritageInterface;
-inh listInterfacesHeritage : LinkedList<Interface> for SuiteHeritageInterface;
+inh listInterfacesHeritage : LinkedList<String> for SuiteHeritageInterface;
 syn ast 	                 : LinkedList<Interface> for HeritageInterface, SuiteHeritageInterface; --
 
 
@@ -96,7 +96,7 @@ inh tdsFunctions       : FunctionSymbolTable for Signature;
 inh tdsAttributs       : SymbolTable for Signature;
 inh factory            : BlockFactory for Signature;
 inh interfaceCourrante : String for Signature;
-syn ast 	             : ElementInterface for Signature;
+syn ast 	             : Signature for Signature;
 
 -- --Genericite (Genericite,InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite,
 -- --            ParametresGenericite, SuiteParametresGenericite, ParametreGenericite, HeritageGenericite, SuiteHeritageGenericite)
@@ -228,8 +228,8 @@ end
 Interfaces -> Interface #interfaceMultiple Interfaces #ast;
 #interfaceMultiple{
 do
-  if (Interfaces^tds.contains(Interface^ast.getNom())) then
-    error(INTERFACE_already_defined, Interface^ast.getNom());
+  if (Interfaces^tds.contains(Interface^ast.getName())) then
+    error(INTERFACE_already_defined, Interface^ast.getName());
   else
     Interfaces^tds.register(Interface^ast);
   end
@@ -419,7 +419,7 @@ local
   d : Declaration;
 do
   SuiteHeritageInterface^ast := SuiteHeritageInterface1^ast;
-  if(SuiteHeritageInterface^tds.knows(identificateur_type)) then
+  if(SuiteHeritageInterface^tds.knows(identificateur_type^txt)) then
     o := SuiteHeritageInterface^tds.get(identificateur_type^txt);
     d := o.get();
     match d
@@ -523,7 +523,7 @@ do
   if(Signature^tds.knows(identificateur^txt)) then
     error(SIGNATURE_ident_already_defined);
   else
-    Signature^ast := Signature^factory.createSignature(identificateur^txt,Parametres^ast, Signature^interfaceCourrante, Type^ast);
+    Signature^ast := Signature^factory.createSignature(identificateur^txt,Type^ast,Parametres^ast, Signature^interfaceCourrante );
   end
 end
 }  

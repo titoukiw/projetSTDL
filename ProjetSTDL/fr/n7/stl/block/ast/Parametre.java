@@ -4,9 +4,9 @@ package fr.n7.stl.block.ast;
  * @author okeee
  *
  */
-public interface Parametre {
+public interface Parametre extends Declaration{
 
-	public String getId();
+	public String getName();
 	public Type getType();
 
 }
