@@ -23,60 +23,60 @@ int [] sync= new int[0];
   boolean att_eval;
   Type att_ast;
   LEX_testMiniJava att_scanner;
-  private void regle36() throws Exception {
-
-	//declaration
-	T_testMiniJava x_2 = new T_testMiniJava(scanner ) ;
-	//appel
-	x_2.analyser(LEX_testMiniJava.token_type_bool);
-if  (att_eval)	  action_ast_36();
-  }
-  private void regle37() throws Exception {
+  private void regle20() throws Exception {
 
 	//declaration
 	T_testMiniJava x_2 = new T_testMiniJava(scanner ) ;
 	//appel
 	x_2.analyser(LEX_testMiniJava.token_type_int);
-if  (att_eval)	  action_ast_37();
+if  (att_eval)	  action_ast_20();
   }
-  private void regle38() throws Exception {
+  private void regle21() throws Exception {
 
 	//declaration
 	T_testMiniJava x_2 = new T_testMiniJava(scanner ) ;
 	//appel
 	x_2.analyser(LEX_testMiniJava.token_type_char);
-if  (att_eval)	  action_ast_38();
+if  (att_eval)	  action_ast_21();
   }
-  private void regle39() throws Exception {
+  private void regle22() throws Exception {
 
 	//declaration
 	T_testMiniJava x_2 = new T_testMiniJava(scanner ) ;
 	//appel
 	x_2.analyser(LEX_testMiniJava.token_type_String);
-if  (att_eval)	  action_ast_39();
+if  (att_eval)	  action_ast_22();
   }
-private void action_ast_36() throws Exception {
+  private void regle19() throws Exception {
+
+	//declaration
+	T_testMiniJava x_2 = new T_testMiniJava(scanner ) ;
+	//appel
+	x_2.analyser(LEX_testMiniJava.token_type_bool);
+if  (att_eval)	  action_ast_19();
+  }
+private void action_ast_19() throws Exception {
 try {
 // instructions
 this.att_ast=this.att_factory.createBooleanType();
 }catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#ast","TypeAtomique -> type_bool #ast ;", e });
 }
   }
-private void action_ast_37() throws Exception {
+private void action_ast_20() throws Exception {
 try {
 // instructions
 this.att_ast=this.att_factory.createIntegerType();
 }catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#ast","TypeAtomique -> type_int #ast ;", e });
 }
   }
-private void action_ast_38() throws Exception {
+private void action_ast_21() throws Exception {
 try {
 // instructions
 this.att_ast=this.att_factory.createCharType();
 }catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#ast","TypeAtomique -> type_char #ast ;", e });
 }
   }
-private void action_ast_39() throws Exception {
+private void action_ast_22() throws Exception {
 try {
 // instructions
 this.att_ast=this.att_factory.createStringType();
@@ -86,17 +86,17 @@ this.att_ast=this.att_factory.createStringType();
   public void analyser () throws Exception {
     scanner.lit ( 1 ) ;
     switch ( scanner.fenetre[0].code ) {
-      case LEX_testMiniJava.token_type_bool : // 61
-        regle36 () ;
+      case LEX_testMiniJava.token_type_bool : // 51
+        regle19 () ;
       break ;
-      case LEX_testMiniJava.token_type_int : // 60
-        regle37 () ;
+      case LEX_testMiniJava.token_type_int : // 50
+        regle20 () ;
       break ;
-      case LEX_testMiniJava.token_type_char : // 62
-        regle38 () ;
+      case LEX_testMiniJava.token_type_char : // 52
+        regle21 () ;
       break ;
-      case LEX_testMiniJava.token_type_String : // 63
-        regle39 () ;
+      case LEX_testMiniJava.token_type_String : // 53
+        regle22 () ;
       break ;
       default :
         	   scanner._interrompre(IProblem.Syntax, scanner.getBeginLine(), ItestMiniJavaMessages.id_testMiniJava_unexpected_token,testMiniJavaMessages.testMiniJava_unexpected_token,new String[]{scanner.fenetre[0].getNom()});

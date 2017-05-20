@@ -15,15 +15,14 @@ public class testMiniJavaMessages extends NLS {
   return RESOURCE_BUNDLE;
   }		
 
-  public static  String Undefined_ident;
-  public static  String DECL_not_an_object;
-  public static  String GENERICITE_already_defined;
+  public static  String HERITAGE_not_interface;
+  public static  String SIGNATURE_ident_already_defined;
   public static  String testMiniJava_expected_token;
-  public static  String TYPE_not_an_interface;
-  public static  String HERITAGE_already_defined;
   public static  String testMiniJava_expected_eof;
   public static  String PARAMETRE_already_defined;
-  public static  String TYPE_already_defined;
+  public static  String HERITAGE_doesnt_exist;
+  public static  String HERITAGE_dont_exist;
+  public static  String INTERFACE_already_defined;
   public static  String testMiniJava_unexpected_token;
-  public static  String TYPE_unknown;
+  public static  String INTERFACE_unknown_ident;
   }

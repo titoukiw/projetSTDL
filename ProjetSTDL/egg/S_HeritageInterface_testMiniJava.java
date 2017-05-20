@@ -21,23 +21,22 @@ int [] sync= new int[0];
   BlockFactory att_factory;
   SymbolTable att_tds;
   boolean att_eval;
-  LinkedList<Type> att_ast;
+  LinkedList<Interface> att_ast;
+  SymbolTable att_tdsInterfaces;
   LEX_testMiniJava att_scanner;
   private void regle4() throws Exception {
 
 	//declaration
 	T_testMiniJava x_2 = new T_testMiniJava(scanner ) ;
 	T_testMiniJava x_3 = new T_testMiniJava(scanner ) ;
-	S_InstanceGenericite_testMiniJava x_5 = new S_InstanceGenericite_testMiniJava(scanner,att_eval) ;
-	S_SuiteHeritageInterface_testMiniJava x_6 = new S_SuiteHeritageInterface_testMiniJava(scanner,att_eval) ;
+	S_SuiteHeritageInterface_testMiniJava x_5 = new S_SuiteHeritageInterface_testMiniJava(scanner,att_eval) ;
 	//appel
-if  (att_eval)	  action_auto_inh_4(x_3, x_5, x_6);
+if  (att_eval)	  action_auto_inh_4(x_3, x_5);
 	x_2.analyser(LEX_testMiniJava.token_extension);
 	x_3.analyser(LEX_testMiniJava.token_identificateur_type);
-if  (att_eval)	  action_inh_4(x_3, x_5, x_6);
+if  (att_eval)	  action_inh_4(x_3, x_5);
 	x_5.analyser() ;
-	x_6.analyser() ;
-if  (att_eval)	  action_ast_4(x_3, x_5, x_6);
+if  (att_eval)	  action_ast_4(x_3, x_5);
   }
   private void regle5() throws Exception {
 
@@ -45,67 +44,72 @@ if  (att_eval)	  action_ast_4(x_3, x_5, x_6);
 	//appel
 if  (att_eval)	  action_ast_5();
   }
-private void action_inh_4(T_testMiniJava x_3, S_InstanceGenericite_testMiniJava x_5, S_SuiteHeritageInterface_testMiniJava x_6) throws Exception {
+private void action_inh_4(T_testMiniJava x_3, S_SuiteHeritageInterface_testMiniJava x_5) throws Exception {
 try {
+// locales
+LinkedList<String> loc_listInterfaces;
 // instructions
-}catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#inh","HeritageInterface -> extension identificateur_type #inh InstanceGenericite SuiteHeritageInterface #ast ;", e });
+if ((this.att_tdsInterfaces.contains(x_3.att_txt))){
+loc_listInterfaces= new LinkedList<String>();
+loc_listInterfaces.add(x_3.att_txt);
+x_5.att_listInterfacesHeritage=loc_listInterfaces;
+}
+else {
+att_scanner._interrompre(IProblem.Semantic, att_scanner.getBeginLine(), ItestMiniJavaMessages.id_INTERFACE_unknown_ident, testMiniJavaMessages.INTERFACE_unknown_ident,new Object[]{""+x_3.att_txt});
+
+}
+}catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#inh","HeritageInterface -> extension identificateur_type #inh SuiteHeritageInterface #ast ;", e });
 }
   }
 private void action_ast_5() throws Exception {
 try {
 // instructions
-this.att_ast=null;
+this.att_ast= new LinkedList<Interface>();
 }catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#ast","HeritageInterface -> #ast ;", e });
 }
   }
-private void action_auto_inh_4(T_testMiniJava x_3, S_InstanceGenericite_testMiniJava x_5, S_SuiteHeritageInterface_testMiniJava x_6) throws Exception {
+private void action_auto_inh_4(T_testMiniJava x_3, S_SuiteHeritageInterface_testMiniJava x_5) throws Exception {
 try {
 // instructions
 x_5.att_tds=this.att_tds;
-x_6.att_tds=this.att_tds;
 x_5.att_factory=this.att_factory;
-x_6.att_factory=this.att_factory;
-}catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#auto_inh","HeritageInterface -> extension identificateur_type #inh InstanceGenericite SuiteHeritageInterface #ast ;", e });
+x_5.att_tdsInterfaces=this.att_tdsInterfaces;
+}catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#auto_inh","HeritageInterface -> extension identificateur_type #inh SuiteHeritageInterface #ast ;", e });
 }
   }
-private void action_ast_4(T_testMiniJava x_3, S_InstanceGenericite_testMiniJava x_5, S_SuiteHeritageInterface_testMiniJava x_6) throws Exception {
+private void action_ast_4(T_testMiniJava x_3, S_SuiteHeritageInterface_testMiniJava x_5) throws Exception {
 try {
 // locales
 Optional<Declaration> loc_o;
 Declaration loc_d;
 // instructions
-if (this.att_tds.knows(x_3.att_txt)){
-loc_o=this.att_tds.get(x_3.att_txt);
+if ((this.att_tdsInterfaces.knows(x_3.att_txt))){
+loc_o=this.att_tdsInterfaces.get(x_3.att_txt);
 loc_d=loc_o.get();
 if (loc_d instanceof Interface ){
-if ((x_5.att_ast==null)){
-x_6.att_ast.add(this.att_factory.createGenericType(((Interface)loc_d)));
+this.att_ast.addFirst(((Interface)loc_d));
 }
 else {
-x_6.att_ast.add(this.att_factory.createGenericType(((Interface)loc_d), x_5.att_ast));
-}
-this.att_ast=x_6.att_ast;
-}
-else {
-att_scanner._interrompre(IProblem.Semantic, att_scanner.getBeginLine(), ItestMiniJavaMessages.id_TYPE_not_an_interface, testMiniJavaMessages.TYPE_not_an_interface,new Object[]{""+x_3.att_txt});
+att_scanner._interrompre(IProblem.Semantic, att_scanner.getBeginLine(), ItestMiniJavaMessages.id_HERITAGE_not_interface, testMiniJavaMessages.HERITAGE_not_interface,new Object[]{""+x_3.att_txt});
 
 
 }
 }
 else {
-att_scanner._interrompre(IProblem.Semantic, att_scanner.getBeginLine(), ItestMiniJavaMessages.id_TYPE_unknown, testMiniJavaMessages.TYPE_unknown,new Object[]{""+x_3.att_txt});
+att_scanner._interrompre(IProblem.Semantic, att_scanner.getBeginLine(), ItestMiniJavaMessages.id_HERITAGE_doesnt_exist, testMiniJavaMessages.HERITAGE_doesnt_exist,new Object[]{""+x_3.att_txt});
 
 }
-}catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#ast","HeritageInterface -> extension identificateur_type #inh InstanceGenericite SuiteHeritageInterface #ast ;", e });
+this.att_ast=x_5.att_ast;
+}catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#ast","HeritageInterface -> extension identificateur_type #inh SuiteHeritageInterface #ast ;", e });
 }
   }
   public void analyser () throws Exception {
     scanner.lit ( 1 ) ;
     switch ( scanner.fenetre[0].code ) {
-      case LEX_testMiniJava.token_extension : // 70
+      case LEX_testMiniJava.token_extension : // 60
         regle4 () ;
       break ;
-      case LEX_testMiniJava.token_accolade_ouvrante : // 27
+      case LEX_testMiniJava.token_accolade_ouvrante : // 17
         regle5 () ;
       break ;
       default :

@@ -43,16 +43,19 @@ this.att_ast=loc_facto.createProgramme(x_3.att_ast);
 private void action_factory_0(S_Interfaces_testMiniJava x_3) throws Exception {
 try {
 // instructions
+x_3.att_tdsInterfaces= new SymbolTable();
+x_3.att_tdsClasses= new SymbolTable();
+x_3.att_tdsFunctions= new FunctionSymbolTable();
+x_3.att_tdsAttributs= new SymbolTable();
 x_3.att_tds= new SymbolTable();
 x_3.att_factory= new BlockFactoryImpl();
-x_3.att_list= new LinkedList<Objet>();
 }catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#factory","Programme -> #factory Interfaces #ast3 ;", e });
 }
   }
   public void analyser () throws Exception {
     scanner.lit ( 1 ) ;
     switch ( scanner.fenetre[0].code ) {
-      case LEX_testMiniJava.token_interface : // 68
+      case LEX_testMiniJava.token_interface : // 58
         regle0 () ;
       break ;
       case LEX_testMiniJava.EOF :

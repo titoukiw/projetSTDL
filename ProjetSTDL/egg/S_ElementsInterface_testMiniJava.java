@@ -18,11 +18,16 @@ LEX_testMiniJava scanner;
 	this.att_scanner = scanner;
 	}
 int [] sync= new int[0];
+  SymbolTable att_tdsClasses;
   BlockFactory att_factory;
   SymbolTable att_tds;
   boolean att_eval;
   LinkedList<ElementInterface> att_ast;
+  SymbolTable att_tdsInterfaces;
   LEX_testMiniJava att_scanner;
+  SymbolTable att_tdsAttributs;
+  FunctionSymbolTable att_tdsFunctions;
+  String att_interfaceCourrante;
   private void regle9() throws Exception {
 
 	//declaration
@@ -33,12 +38,13 @@ if  (att_eval)	  action_ast_9();
 
 	//declaration
 	S_ElementInterface_testMiniJava x_2 = new S_ElementInterface_testMiniJava(scanner,att_eval) ;
-	S_ElementsInterface_testMiniJava x_3 = new S_ElementsInterface_testMiniJava(scanner,att_eval) ;
+	S_ElementsInterface_testMiniJava x_4 = new S_ElementsInterface_testMiniJava(scanner,att_eval) ;
 	//appel
-if  (att_eval)	  action_auto_inh_8(x_2, x_3);
+if  (att_eval)	  action_auto_inh_8(x_2, x_4);
 	x_2.analyser() ;
-	x_3.analyser() ;
-if  (att_eval)	  action_ast_8(x_2, x_3);
+if  (att_eval)	  action_register_8(x_2, x_4);
+	x_4.analyser() ;
+if  (att_eval)	  action_ast_8(x_2, x_4);
   }
 private void action_ast_9() throws Exception {
 try {
@@ -47,43 +53,60 @@ this.att_ast= new LinkedList<ElementInterface>();
 }catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#ast","ElementsInterface -> #ast ;", e });
 }
   }
-private void action_auto_inh_8(S_ElementInterface_testMiniJava x_2, S_ElementsInterface_testMiniJava x_3) throws Exception {
+private void action_auto_inh_8(S_ElementInterface_testMiniJava x_2, S_ElementsInterface_testMiniJava x_4) throws Exception {
 try {
 // instructions
 x_2.att_factory=this.att_factory;
-x_3.att_factory=this.att_factory;
+x_4.att_factory=this.att_factory;
 x_2.att_tds=this.att_tds;
-x_3.att_tds=this.att_tds;
-}catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#auto_inh","ElementsInterface -> ElementInterface ElementsInterface1 #ast ;", e });
+x_4.att_tds=this.att_tds;
+x_2.att_tdsAttributs=this.att_tdsAttributs;
+x_4.att_tdsAttributs=this.att_tdsAttributs;
+x_2.att_tdsInterfaces=this.att_tdsInterfaces;
+x_4.att_tdsInterfaces=this.att_tdsInterfaces;
+x_2.att_tdsClasses=this.att_tdsClasses;
+x_4.att_tdsClasses=this.att_tdsClasses;
+x_2.att_tdsFunctions=this.att_tdsFunctions;
+x_4.att_tdsFunctions=this.att_tdsFunctions;
+x_2.att_interfaceCourrante=this.att_interfaceCourrante;
+x_4.att_interfaceCourrante=this.att_interfaceCourrante;
+}catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#auto_inh","ElementsInterface -> ElementInterface #register ElementsInterface1 #ast ;", e });
 }
   }
-private void action_ast_8(S_ElementInterface_testMiniJava x_2, S_ElementsInterface_testMiniJava x_3) throws Exception {
+private void action_register_8(S_ElementInterface_testMiniJava x_2, S_ElementsInterface_testMiniJava x_4) throws Exception {
 try {
 // instructions
-x_3.att_ast.addFirst(x_2.att_ast);
-this.att_ast=x_3.att_ast;
-}catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#ast","ElementsInterface -> ElementInterface ElementsInterface1 #ast ;", e });
+this.att_tds.register(x_2.att_ast);
+}catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#register","ElementsInterface -> ElementInterface #register ElementsInterface1 #ast ;", e });
+}
+  }
+private void action_ast_8(S_ElementInterface_testMiniJava x_2, S_ElementsInterface_testMiniJava x_4) throws Exception {
+try {
+// instructions
+x_4.att_ast.addFirst(x_2.att_ast);
+this.att_ast=x_4.att_ast;
+}catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#ast","ElementsInterface -> ElementInterface #register ElementsInterface1 #ast ;", e });
 }
   }
   public void analyser () throws Exception {
     scanner.lit ( 1 ) ;
     switch ( scanner.fenetre[0].code ) {
-      case LEX_testMiniJava.token_vide : // 64
+      case LEX_testMiniJava.token_vide : // 54
         regle8 () ;
       break ;
-      case LEX_testMiniJava.token_type_bool : // 61
+      case LEX_testMiniJava.token_type_bool : // 51
         regle8 () ;
       break ;
-      case LEX_testMiniJava.token_type_int : // 60
+      case LEX_testMiniJava.token_type_int : // 50
         regle8 () ;
       break ;
-      case LEX_testMiniJava.token_type_char : // 62
+      case LEX_testMiniJava.token_type_char : // 52
         regle8 () ;
       break ;
-      case LEX_testMiniJava.token_type_String : // 63
+      case LEX_testMiniJava.token_type_String : // 53
         regle8 () ;
       break ;
-      case LEX_testMiniJava.token_accolade_fermante : // 28
+      case LEX_testMiniJava.token_accolade_fermante : // 18
         regle9 () ;
       break ;
       default :

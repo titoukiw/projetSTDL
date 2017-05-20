@@ -1,4 +1,3 @@
 interface TestInterface {
-void testfct(int a);
 }
 

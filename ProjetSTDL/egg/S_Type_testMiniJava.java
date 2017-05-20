@@ -23,19 +23,33 @@ int [] sync= new int[0];
   boolean att_eval;
   Type att_ast;
   LEX_testMiniJava att_scanner;
-  private void regle35() throws Exception {
+  private void regle18() throws Exception {
 
 	//declaration
 	S_TypeAtomique_testMiniJava x_2 = new S_TypeAtomique_testMiniJava(scanner,att_eval) ;
 	S_SuiteTypeAtomique_testMiniJava x_4 = new S_SuiteTypeAtomique_testMiniJava(scanner,att_eval) ;
 	//appel
-if  (att_eval)	  action_auto_inh_35(x_2, x_4);
+if  (att_eval)	  action_auto_inh_18(x_2, x_4);
 	x_2.analyser() ;
-if  (att_eval)	  action_inhArray_35(x_2, x_4);
+if  (att_eval)	  action_inhArray_18(x_2, x_4);
 	x_4.analyser() ;
-if  (att_eval)	  action_ast_35(x_2, x_4);
+if  (att_eval)	  action_ast_18(x_2, x_4);
   }
-private void action_auto_inh_35(S_TypeAtomique_testMiniJava x_2, S_SuiteTypeAtomique_testMiniJava x_4) throws Exception {
+private void action_inhArray_18(S_TypeAtomique_testMiniJava x_2, S_SuiteTypeAtomique_testMiniJava x_4) throws Exception {
+try {
+// instructions
+x_4.att_innerArray=x_2.att_ast;
+}catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#inhArray","Type -> TypeAtomique #inhArray SuiteTypeAtomique #ast ;", e });
+}
+  }
+private void action_ast_18(S_TypeAtomique_testMiniJava x_2, S_SuiteTypeAtomique_testMiniJava x_4) throws Exception {
+try {
+// instructions
+this.att_ast=x_4.att_ast;
+}catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#ast","Type -> TypeAtomique #inhArray SuiteTypeAtomique #ast ;", e });
+}
+  }
+private void action_auto_inh_18(S_TypeAtomique_testMiniJava x_2, S_SuiteTypeAtomique_testMiniJava x_4) throws Exception {
 try {
 // instructions
 x_2.att_tds=this.att_tds;
@@ -45,21 +59,7 @@ x_4.att_factory=this.att_factory;
 }catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#auto_inh","Type -> TypeAtomique #inhArray SuiteTypeAtomique #ast ;", e });
 }
   }
-private void action_inhArray_35(S_TypeAtomique_testMiniJava x_2, S_SuiteTypeAtomique_testMiniJava x_4) throws Exception {
-try {
-// instructions
-x_4.att_innerArray=x_2.att_ast;
-}catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#inhArray","Type -> TypeAtomique #inhArray SuiteTypeAtomique #ast ;", e });
-}
-  }
-private void action_ast_35(S_TypeAtomique_testMiniJava x_2, S_SuiteTypeAtomique_testMiniJava x_4) throws Exception {
-try {
-// instructions
-this.att_ast=x_4.att_ast;
-}catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "testMiniJava", "#ast","Type -> TypeAtomique #inhArray SuiteTypeAtomique #ast ;", e });
-}
-  }
   public void analyser () throws Exception {
-    regle35 () ;
+    regle18 () ;
   }
   }

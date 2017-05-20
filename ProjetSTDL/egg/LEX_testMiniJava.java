@@ -16,8 +16,8 @@ public class LEX_testMiniJava extends LEXICAL4  {
  public static final int token_faux = 1 ;
  public static final int token_sinon = 2 ;
  public static final int token_vide = 3 ;
- public static final int token_public = 4 ;
- public static final int token_point = 5 ;
+ public static final int token_point = 4 ;
+ public static final int token_public = 5 ;
  public static final int token_accolade_fermante = 6 ;
  public static final int token_accolade_ouvrante = 7 ;
  public static final int token_interface = 8 ;
@@ -50,8 +50,8 @@ public class LEX_testMiniJava extends LEXICAL4  {
  public static final int token_retour = 35 ;
  public static final int token_type_int = 36 ;
  public static final int token_final = 37 ;
- public static final int token_entier = 38 ;
- public static final int token_virgule = 39 ;
+ public static final int token_virgule = 38 ;
+ public static final int token_entier = 39 ;
  public static final int token_crochet_ouvrant = 40 ;
  public static final int token_si = 41 ;
  public static final int token_classe = 42 ;
@@ -76,8 +76,8 @@ public class LEX_testMiniJava extends LEXICAL4  {
 	{"<EOF>"} ,{"faux"},
 {"sinon"},
 {"vide"},
-{"public"},
 {"point"},
+{"public"},
 {"accolade_fermante"},
 {"accolade_ouvrante"},
 {"interface"},
@@ -110,8 +110,8 @@ public class LEX_testMiniJava extends LEXICAL4  {
 {"retour"},
 {"type_int"},
 {"final"},
-    {"entier"} ,
 {"virgule"},
+    {"entier"} ,
 {"crochet_ouvrant"},
 {"si"},
 {"classe"},

@@ -59,53 +59,81 @@ option k=2;
 
 
 --Interface(Interfaces, Interface)
-inh factory : BlockFactory for Interface, Interfaces;
-inh tds		: SymbolTable for Interface, Interfaces;
-inh list 	: LinkedList<Objet> for Interfaces;
-syn ast 	: Objet	for Interface;
-syn ast 	: LinkedList<Objet> for Interfaces;
+inh factory       : BlockFactory for Interface, Interfaces;
+inh tdsInterfaces : SymbolTable for Interface, Interfaces;
+inh tdsClasses    : SymbolTable for Interface, Interfaces;
+inh tdsFunctions  : FunctionSymbolTable for Interface, Interfaces;
+inh tdsAttributs  : SymbolTable for Interface, Interfaces;
+inh tds		        : SymbolTable for Interface, Interfaces;
+syn ast 	        : Objet	for Interface;
+syn ast         	: LinkedList<Interface> for Interfaces;
 
 --Heritage Interface (HeritageInterface, HeritageInterfaces,SuiteHeritageInterface)
-inh tds 	: SymbolTable for HeritageInterface, SuiteHeritageInterface;
-inh factory : BlockFactory for HeritageInterface, SuiteHeritageInterface;
-syn ast 	: LinkedList<Type> for HeritageInterface, SuiteHeritageInterface; --
+inh tds         	         : SymbolTable for HeritageInterface, SuiteHeritageInterface;
+inh factory                : BlockFactory for HeritageInterface, SuiteHeritageInterface;
+inh tdsInterfaces          : SymbolTable for HeritageInterface, SuiteHeritageInterface;
+inh listInterfacesHeritage : LinkedList<Interface> for SuiteHeritageInterface;
+syn ast 	                 : LinkedList<Interface> for HeritageInterface, SuiteHeritageInterface; --
 
 
 --Element Interface (ElementInterface, ElementsInterface)
-inh factory : BlockFactory for ElementInterface, ElementsInterface;
-inh tds		: SymbolTable for ElementInterface, ElementsInterface;
-syn ast 	: ElementInterface for ElementInterface;
-syn ast 	: LinkedList<ElementInterface> for ElementsInterface;
+inh factory             : BlockFactory for ElementInterface, ElementsInterface;
+inh tds		              : SymbolTable for ElementInterface, ElementsInterface;
+inh tdsAttributs        : SymbolTable for ElementInterface, ElementsInterface;
+inh tdsInterfaces       : SymbolTable for ElementInterface, ElementsInterface;
+inh tdsClasses          : SymbolTable for ElementInterface, ElementsInterface;
+inh tdsFunctions        : FunctionSymbolTable for ElementInterface, ElementsInterface;
+inh interfaceCourrante  : String for ElementsInterface, ElementInterface;
+syn ast 	              : ElementInterface for ElementInterface;
+syn ast 	              : LinkedList<ElementInterface> for ElementsInterface;
 
 
 --Signature
-inh tds 	: SymbolTable for Signature;
-inh factory : BlockFactory for Signature;
-syn ast 	: ElementInterface for Signature;
+inh tds 	             : SymbolTable for Signature;
+inh tdsInterfaces      : SymbolTable for Signature;
+inh tdsClasses         : SymbolTable for Signature;
+inh tdsFunctions       : FunctionSymbolTable for Signature;
+inh tdsAttributs       : SymbolTable for Signature;
+inh factory            : BlockFactory for Signature;
+inh interfaceCourrante : String for Signature;
+syn ast 	             : ElementInterface for Signature;
 
---Genericite (Genericite,InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite,
---            ParametresGenericite, SuiteParametresGenericite, ParametreGenericite, HeritageGenericite, SuiteHeritageGenericite)
-inh tds		: SymbolTable for Genericite, InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ParametresGenericite, SuiteParametresGenericite, ParametreGenericite, HeritageGenericite, SuiteHeritageGenericite;
-inh factory : BlockFactory for Genericite, InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ParametresGenericite, SuiteParametresGenericite, ParametreGenericite, HeritageGenericite, SuiteHeritageGenericite;
-syn ast 	: ArgumentGenericite for ArgumentGenericite;
-syn ast   : ParametreGenericite for ParametreGenericite;
-syn ast 	: LinkedList<ParametreGenericite> for Genericite, ParametresGenericite, SuiteParametresGenericite; -- Changé temporairement (on a pas ParamGen..LinkedList<ArgumentGenericite>.) -> LinkedList<ParametreGenericite> for Genericite;
-syn ast 	: LinkedList<ArgumentGenericite> for ArgumentsGenericite, SuiteArgumentsGenericite;
-syn ast 	: LinkedList<ArgumentGenericite> for InstanceGenericite;
-syn ast   : LinkedList<Type> for HeritageGenericite, SuiteHeritageGenericite;
+-- --Genericite (Genericite,InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite,
+-- --            ParametresGenericite, SuiteParametresGenericite, ParametreGenericite, HeritageGenericite, SuiteHeritageGenericite)
+-- inh tds		  : SymbolTable for Genericite, InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ParametresGenericite, SuiteParametresGenericite, ParametreGenericite, HeritageGenericite, SuiteHeritageGenericite;
+-- inh factory : BlockFactory for Genericite, InstanceGenericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ParametresGenericite, SuiteParametresGenericite, ParametreGenericite, HeritageGenericite, SuiteHeritageGenericite;
+-- syn ast 	  : ArgumentGenericite for ArgumentGenericite;
+-- syn ast     : ParametreGenericite for ParametreGenericite;
+-- syn ast 	  : LinkedList<ParametreGenericite> for Genericite, ParametresGenericite, SuiteParametresGenericite; -- Changé temporairement (on a pas ParamGen..LinkedList<ArgumentGenericite>.) -> LinkedList<ParametreGenericite> for Genericite;
+-- syn ast 	  : LinkedList<Type> for ArgumentsGenericite, SuiteArgumentsGenericite;
+-- syn ast 	  : LinkedList<Type> for InstanceGenericite;
+-- syn ast     : LinkedList<Type> for HeritageGenericite, SuiteHeritageGenericite;
 
 --Parametre (Parametres, SuiteParametres)
-inh tds 	: SymbolTable for Parametre, Parametres, SuiteParametres;
-inh factory : BlockFactory for Parametre, Parametres, SuiteParametres;
-syn ast 	: Parametre for Parametre;
-syn ast 	: LinkedList<Parametre> for Parametres, SuiteParametres;
+inh tds 	        : SymbolTable for Parametre, Parametres, SuiteParametres;
+inh tdsInterfaces : SymbolTable for Parametre, Parametres, SuiteParametres;
+inh tdsClasses    : SymbolTable for Parametre, Parametres, SuiteParametres;
+inh tdsFunctions  : FunctionSymbolTable for Parametre, Parametres, SuiteParametres;
+inh tdsAttributs  : SymbolTable for Parametre, Parametres, SuiteParametres;
+inh tdsParametres : SymbolTable for Parametre, Parametres, SuiteParametres;
+inh factory       : BlockFactory for Parametre, Parametres, SuiteParametres;
+syn ast 	        : Parametre for Parametre;
+syn ast 	        : LinkedList<Parametre> for Parametres, SuiteParametres;
 
 --Type (Atomique,SuiteAtomique)
-inh tds 	: SymbolTable for Type, TypeAtomique, SuiteTypeAtomique;
-inh factory : BlockFactory for Type, TypeAtomique, SuiteTypeAtomique;
+inh tds 	     : SymbolTable for Type, TypeAtomique, SuiteTypeAtomique;
+inh factory    : BlockFactory for Type, TypeAtomique, SuiteTypeAtomique;
 inh innerArray : Type for SuiteTypeAtomique;
-syn ast 	: Type for Type, TypeAtomique, SuiteTypeAtomique;
+syn ast 	     : Type for Type, TypeAtomique, SuiteTypeAtomique;
 
+-- --Expression
+-- inh factory       : BlockFactory for Expression;
+-- inh tdsInterfaces : SymbolTable for Expression;
+-- inh tdsClasses    : SymbolTable for Expression;
+-- inh tdsFunctions  : FunctionSymbolTable for Expression;
+-- inh tdsAttributs  : SymbolTable for Expression;
+-- inh tds           : SymbolTable for Expression;
+-- syn ast           : Expression for Expression;
 --Programme
 syn ast 	: Programme for Programme;
 
@@ -175,9 +203,12 @@ term   identificateur_type    is    "[A-Z][a-zA-Z0-9_]*";
 Programme -> #factory Interfaces #ast3;
 #factory {
 do
+  Interfaces^tdsInterfaces := new SymbolTable();
+  Interfaces^tdsClasses := new SymbolTable();
+  Interfaces^tdsFunctions := new FunctionSymbolTable();
+  Interfaces^tdsAttributs := new SymbolTable();
   Interfaces^tds := new SymbolTable();
   Interfaces^factory := new BlockFactoryImpl();
-  Interfaces^list := new LinkedList<Objet>();
   
 end
 }
@@ -194,12 +225,22 @@ end
 
 
 
-Interfaces -> Interface Interfaces #ast;
+Interfaces -> Interface #interfaceMultiple Interfaces #ast;
+#interfaceMultiple{
+do
+  if (Interfaces^tds.contains(Interface^ast.getNom())) then
+    error(INTERFACE_already_defined, Interface^ast.getNom());
+  else
+    Interfaces^tds.register(Interface^ast);
+  end
+end
+}
+
+
 #ast{
 do
-  Interfaces^list.add(Interface^ast);
+  Interfaces1^ast.addFirst(Interface^ast);
   Interfaces^ast := Interfaces1^ast;
-  Interfaces^tds.register(Interface^ast);
 end
 }
 
@@ -207,65 +248,118 @@ end
 Interfaces -> #ast;
 #ast {
 do
-  Interfaces^ast := Interfaces^list;
+  Interfaces^ast := new LinkedList<Interface>();
 end
 }
 
-Interface -> interface identificateur_type Genericite HeritageInterface accolade_ouvrante ElementsInterface accolade_fermante #ast;
-#ast {
+
+
+--interface identificateur_type Genericit HeritageInterface [...]
+Interface -> interface identificateur_type HeritageInterface accolade_ouvrante #inh ElementsInterface accolade_fermante #ast;
+#inh {
 do
-  if (Interface^tds.knows(identificateur_type^txt)) then
-    error(TYPE_already_defined, identificateur_type^txt);
-  else
-    if Genericite^ast = nil then
-      if HeritageInterface^ast = nil then
-        Interface^ast := Interface^factory.createInterface(identificateur_type^txt, ElementsInterface^ast);
-      else
-        Interface^ast := Interface^factory.createInterface(HeritageInterface^ast, identificateur_type^txt,ElementsInterface^ast);
-      end
-    else
-      if HeritageInterface^ast = nil then   --Genericite^ast est un Type ?
-        Interface^ast := Interface^factory.createInterface(identificateur_type^txt,Genericite^ast,ElementsInterface^ast);
-      else
-        Interface^ast := Interface^factory.createInterface(identificateur_type^txt, Genericite^ast, HeritageInterface^ast, ElementsInterface^ast);
-      end
-    end
+  ElementsInterface^tds := new SymbolTable();
+  ElementsInterface^interfaceCourrante := identificateur_type^txt;
+end
+}
+#ast {
+local
+  interface : Interface;
+do
+  interface := Interface^factory.createInterface(identificateur_type^txt, HeritageInterface^ast, ElementsInterface^ast);
+  Interface^ast := interface;
+end 
+}
+
+--#ast {
+--do
+--  if (Interface^tds.knows(identificateur_type^txt)) then
+--    error(TYPE_already_defined, identificateur_type^txt);
+--  else
+--    if Genericite^ast = nil then
+--      if HeritageInterface^ast = nil then
+--        Interface^ast := Interface^factory.createInterface(identificateur_type^txt, ElementsInterface^ast);
+--      else
+--        Interface^ast := Interface^factory.createInterface(HeritageInterface^ast, identificateur_type^txt,ElementsInterface^ast);
+--      end
+--    else
+--      if HeritageInterface^ast = nil then   --Genericite^ast est un Type ?
+--        Interface^ast := Interface^factory.createInterface(identificateur_type^txt,Genericite^ast,ElementsInterface^ast);
+--      else
+--        Interface^ast := Interface^factory.createInterface(identificateur_type^txt, Genericite^ast, HeritageInterface^ast, ElementsInterface^ast);
+--      end
+--    end
+--  end
+--end
+--}
+
+
+
+-- extension identificateur_type InstanceGenericite [...]
+HeritageInterface -> extension identificateur_type #inh SuiteHeritageInterface #ast ;
+-- #ast{
+-- local
+--   o : Optional<Declaration>;
+--   d : Declaration;
+-- do
+--   HeritageInterface^ast := SuiteHeritageInterface^ast;
+--   if HeritageInterface^tds.knows(identificateur_type^txt) then
+--     o := HeritageInterface^tds.get(identificateur_type^txt);
+--     d := o.get();
+--     match d
+--     with Interface then
+--       if InstanceGenericite^ast = nil then
+--         SuiteHeritageInterface^ast.add(HeritageInterface^factory.createGenericType(d));
+--       else
+--         SuiteHeritageInterface^ast.add(HeritageInterface^factory.createGenericType(d,InstanceGenericite^ast));
+--       end
+--        HeritageInterface^ast := SuiteHeritageInterface^ast;
+
+--     else
+--       error(TYPE_not_an_interface, identificateur_type^txt);
+--     end
+--   else
+--     error(TYPE_unknown,identificateur_type^txt);
+--   end
+-- end
+-- }
+
+-- #inh{ --Hh
+-- do
+--     --InstanceGenericite^support := HeritageInterface^ast;
+-- end
+-- }
+#inh{
+local
+  listInterfaces : LinkedList<String>;
+do
+  if(HeritageInterface^tdsInterfaces.contains(identificateur_type^txt)) then
+    listInterfaces := new LinkedList<String>();
+    listInterfaces.add(identificateur_type^txt);
+    SuiteHeritageInterface^listInterfacesHeritage := listInterfaces;
+  else 
+    error(INTERFACE_unknown_ident, identificateur_type^txt);
   end
 end
 }
 
-
-HeritageInterface -> extension identificateur_type #inh InstanceGenericite SuiteHeritageInterface #ast ;
 #ast{
 local
   o : Optional<Declaration>;
   d : Declaration;
 do
-
-  if HeritageInterface^tds.knows(identificateur_type^txt) then
-    o := HeritageInterface^tds.get(identificateur_type^txt);
+  if (HeritageInterface^tdsInterfaces.knows(identificateur_type^txt)) then
+    o := HeritageInterface^tdsInterfaces.get(identificateur_type^txt);
     d := o.get();
-    match d
-    with Interface then
-      if InstanceGenericite^ast = nil then
-        SuiteHeritageInterface^ast.add(HeritageInterface^factory.createGenericType(d));
-      else
-        SuiteHeritageInterface^ast.add(HeritageInterface^factory.createGenericType(d,InstanceGenericite^ast));
-      end
-       HeritageInterface^ast := SuiteHeritageInterface^ast;
-
+    match d 
+      with Interface then HeritageInterface^ast.addFirst(d);
     else
-      error(TYPE_not_an_interface, identificateur_type^txt);
+      error(HERITAGE_not_interface, identificateur_type^txt);
     end
   else
-    error(TYPE_unknown,identificateur_type^txt);
+    error(HERITAGE_doesnt_exist, identificateur_type^txt);
   end
-end
-}
-
-#inh{ --Hh
-do
-    --InstanceGenericite^support := HeritageInterface^ast;
+  HeritageInterface^ast := SuiteHeritageInterface^ast;
 end
 }
 
@@ -273,56 +367,87 @@ end
 HeritageInterface -> #ast;
 #ast{
 do
-  HeritageInterface^ast := nil;
+  HeritageInterface^ast := new LinkedList<Interface>();
 end
 }
 
+--virgule identificateur_type InstanceGenericite [...]
+SuiteHeritageInterface -> virgule identificateur_type #inh SuiteHeritageInterface #ast;
+-- #ast{
+-- local
+--   o : Optional<Declaration>;
+--   d : Declaration;
+-- do
+--   if SuiteHeritageInterface^tds.knows(identificateur_type^txt) then
+--     if SuiteHeritageInterface^tds.contains(identificateur_type^txt) then
+--       error(HERITAGE_already_defined,identificateur_type^txt);
+--     else
+--       o := SuiteHeritageInterface^tds.get(identificateur_type^txt);
+--       d := o.get();
+--       match d
+--       with Interface then
+--         if InstanceGenericite^ast = nil then
+--           SuiteHeritageInterface1^ast.add(SuiteHeritageInterface^factory.createGenericType(d));
+--         else
+--           SuiteHeritageInterface1^ast.add(SuiteHeritageInterface^factory.createGenericType(d,InstanceGenericite^ast));
+--         end
+--       else
+--         error(TYPE_not_an_interface,identificateur_type^txt);
+--       end
+--     end
+--     SuiteHeritageInterface^ast := SuiteHeritageInterface1^ast;  --Hh
+--   else
+--     error(TYPE_unknown,identificateur_type^txt);
+--   end
+-- end
+-- }
 
-SuiteHeritageInterface -> virgule identificateur_type #inh InstanceGenericite SuiteHeritageInterface #ast;
+#inh {
+do
+  if(SuiteHeritageInterface^tdsInterfaces.contains(identificateur_type^txt)) then
+    SuiteHeritageInterface^listInterfacesHeritage.add(identificateur_type^txt);
+    SuiteHeritageInterface1^listInterfacesHeritage := SuiteHeritageInterface^listInterfacesHeritage;
+  else
+    error(HERITAGE_doesnt_exist,identificateur_type^txt);
+  end
+end
+}
+
 #ast{
 local
   o : Optional<Declaration>;
   d : Declaration;
 do
-  if SuiteHeritageInterface^tds.knows(identificateur_type^txt) then
-    if SuiteHeritageInterface^tds.contains(identificateur_type^txt) then
-      error(HERITAGE_already_defined,identificateur_type^txt);
+  SuiteHeritageInterface^ast := SuiteHeritageInterface1^ast;
+  if(SuiteHeritageInterface^tds.knows(identificateur_type)) then
+    o := SuiteHeritageInterface^tds.get(identificateur_type^txt);
+    d := o.get();
+    match d
+      with Interface then SuiteHeritageInterface^ast.addFirst(d); 
     else
-      o := SuiteHeritageInterface^tds.get(identificateur_type^txt);
-      d := o.get();
-      match d
-      with Interface then
-        if InstanceGenericite^ast = nil then
-          SuiteHeritageInterface1^ast.add(SuiteHeritageInterface^factory.createGenericType(d));
-        else
-          SuiteHeritageInterface1^ast.add(SuiteHeritageInterface^factory.createGenericType(d,InstanceGenericite^ast));
-        end
-      else
-        error(TYPE_not_an_interface,identificateur_type^txt);
-      end
+      error(HERITAGE_not_interface, identificateur_type^txt);
     end
-    SuiteHeritageInterface^ast := SuiteHeritageInterface1^ast;  --Hh
   else
-    error(TYPE_unknown,identificateur_type^txt);
+    error(HERITAGE_dont_exist, identificateur_type^txt);
   end
-end
-}
-
-#inh {
-do
-
 end
 }
 
 SuiteHeritageInterface -> #ast;
 #ast{
 do
-  SuiteHeritageInterface^ast := new LinkedList<Type>();
+  SuiteHeritageInterface^ast := new LinkedList<Interface>();
 end
 }
 
 
-ElementsInterface -> ElementInterface ElementsInterface #ast;
+ElementsInterface -> ElementInterface #register ElementsInterface #ast;
+#register {
+do
+  ElementsInterface^tds.register(ElementInterface^ast);
+end
+}
+
 #ast{
 do
   ElementsInterface1^ast.addFirst(ElementInterface^ast);
@@ -337,36 +462,73 @@ do
 end
 }
 
-------------- Pour éviter de s'embeter avec les expressions
---ElementInterface -> final statique Type identificateur affectation Expression point_virgule #ast;
---#ast{
---do
--- final static équivalent à une constante ?? Comment le mettre dans la bonne tds ??
---  ElementInterface^ast := ElementInterface^factory.createFinalStaticField(identificateur^txt,Type^ast, Expression^ast);
---end
---}
+-- ------------- Pour éviter de s'embeter avec les expressions
+-- ElementInterface -> final statique Type identificateur affectation #attribut Expression point_virgule #ast;
+-- #attribut{
+-- do
+--   Expression^tdsAttributs := new SymbolTable();
+-- end
+-- }
+
+
+-- #ast{
+-- local
+--   finalsf : FinalStaticField;
+-- do
+--   if (ElementInterface^tds.knows(identificateur^txt)) then
+--     error(FINALSTATICFIELD_ident_already_defined);
+--   else
+--     finalsf := ElementInterface^factory.createFinalStaticField(identificateur^txt,Type^ast, Expression^ast);
+--     ElementInterface^ast := finalsf;
+--     ElementInterface^tdsAttributs.register(staticField, ElementInterface^interfaceCourrante);
+--   end
+-- end
+-- }
 
 ElementInterface -> Signature point_virgule #ast;
 #ast{
 do
   ElementInterface^ast := Signature^ast;
+  ElementInterface^tdsFunctions.registerSign(Signature^ast,ElementInterface^interfaceCourrante);
 end
 }
 
 
-Signature -> vide identificateur parenthese_ouvrante Parametres parenthese_fermante #ast;
+Signature -> vide identificateur parenthese_ouvrante #tds Parametres parenthese_fermante #ast;
+#tds{
+do
+  Parametres^tdsParametres := new SymbolTable();
+end
+}
+
 #ast{
 do
-  Signature^ast := Signature^factory.createSignature(identificateur^txt,Parametres^ast);
+  if(Signature^tds.knows(identificateur^txt)) then
+    error(SIGNATURE_ident_already_defined);
+  else
+    Signature^ast := Signature^factory.createSignature(identificateur^txt,Parametres^ast, Signature^interfaceCourrante);
+  end
 end
 }  
  
-Signature -> Type identificateur parenthese_ouvrante Parametres parenthese_fermante #ast;
+Signature -> Type identificateur parenthese_ouvrante #tds Parametres parenthese_fermante #ast;
+#tds{
+do
+  Parametres^tdsParametres := new SymbolTable();
+end
+}
+
 #ast{
 do
-  Signature^ast := Signature^factory.createSignature(identificateur^txt,Type^ast,Parametres^ast);
+  if(Signature^tds.knows(identificateur^txt)) then
+    error(SIGNATURE_ident_already_defined);
+  else
+    Signature^ast := Signature^factory.createSignature(identificateur^txt,Parametres^ast, Signature^interfaceCourrante, Type^ast);
+  end
 end
 }  
+
+
 
 Parametres -> #ast ;
 #ast {
@@ -375,24 +537,20 @@ do
 end
 }
 
-Parametres -> Parametre SuiteParametres #ast ;
+Parametres -> Parametre #register SuiteParametres #ast ;
+#register {
+do
+  Parametres^tdsParametres.register(Parametre^ast);
+end
+}
+
 #ast {
 do 
-   Parametres^ast.addFirst(Parametre^ast);
+   SuiteParametres^ast.addFirst(Parametre^ast);
    Parametres^ast := SuiteParametres^ast;  
 end 
 }
 
-Parametre -> Type identificateur #ast;
-#ast {
-do
-	if Parametre^tds.contains(identificateur^txt) then
-		error(PARAMETRE_already_defined, identificateur^txt);
-	else
-		Parametre^ast := Parametre^factory.createParametre(identificateur^txt, Type^ast);
-	end
-end
-}
 
 SuiteParametres -> #ast;
 #ast {
@@ -401,7 +559,14 @@ do
 end
 }
 
-SuiteParametres -> virgule Parametre SuiteParametres #ast;
+SuiteParametres -> virgule Parametre #register SuiteParametres #ast;
+#register {
+do
+  SuiteParametres^tdsParametres.register(Parametre^ast);
+end
+}
+
+
 #ast {
 do
   SuiteParametres1^ast.addFirst(Parametre^ast); 
@@ -409,246 +574,36 @@ do
 end
 }
 
-----------------------------------------------------------------------------------------------------
---
--- Classes, Blocs [...]
---
-----------------------------------------------------------------------------------------------------
-
----------------------------
---l463 > 519 Genericite
----------------------------
-Genericite -> inferieur ParametresGenericite superieur #ast ;
+Parametre -> Type identificateur #ast;
 #ast {
 do
-   Genericite^ast := ParametresGenericite^ast;
-end
-}
-
-Genericite -> #ast;
-#ast {
-do
-  Genericite^ast := nil;
-end
-}
-
-ParametresGenericite -> ParametreGenericite SuiteParametresGenericite #ast;
-#ast {
-do
-  SuiteParametresGenericite^ast.addFirst(ParametreGenericite^ast);
-  ParametresGenericite^ast := SuiteParametresGenericite^ast;
-  ParametreGenericite^tds.register(ParametreGenericite^ast);
-
-end
-}
-
-SuiteParametresGenericite -> virgule ParametreGenericite SuiteParametresGenericite #ast;
-#ast {
-do
-  SuiteParametresGenericite1^ast.addFirst(ParametreGenericite^ast);
-  SuiteParametresGenericite^ast := SuiteParametresGenericite1^ast;
-  SuiteParametresGenericite^tds.register(ParametreGenericite^ast);
-end
-}
-SuiteParametresGenericite -> #ast;
-#ast {
-do
-   SuiteParametresGenericite^ast := new LinkedList<ParametreGenericite>();
-end
-}
-
-ParametreGenericite -> identificateur_type HeritageGenericite #ast ; 
-#ast {
-do
-  if ParametreGenericite^tds.contains(identificateur_type^txt) then
-    error(GENERICITE_already_defined, identificateur_type^txt);
+  if Parametre^tds.contains(identificateur^txt) then
+    error(PARAMETRE_already_defined, identificateur^txt);
   else
-    ParametreGenericite^ast := ParametreGenericite^factory.createGenericParameter(identificateur_type^txt, HeritageGenericite^ast);
+    Parametre^ast := Parametre^factory.createParametre(identificateur^txt, Type^ast);
   end
 end
-} 
- 
-ParametreGenericite -> choix HeritageGenericite #ast ;  
-#ast {
-do
-  ParametreGenericite^ast := ParametreGenericite^factory.createGenericParameter(HeritageGenericite^ast);
-end
 }
 
----------------------------------
---l521 > 564 - HeritageGenericite
----------------------------------
-
--- TODO <? extends T Suite> = on crée un parametre generique qui recupere les trucs de suiteHeritageGenericite
--- Avant HeritageGenericite -> extension identificateur_type SuiteHeritageGenericite #ast;
-HeritageGenericite -> extension identificateur_type InstanceGenericite SuiteHeritageGenericite #ast;
-#ast {
-local
-    f : Optional<Declaration>;
-    d : Declaration;
-do
-    if HeritageGenericite^tds.knows(identificateur_type^txt) then
-        f := HeritageGenericite^tds.get(identificateur_type^txt);
-        d := f.get();
-        if (InstanceGenericite = nil) then
-            match d
-            with Objet then
-                SuiteHeritageGenericite^ast.addFirst(d.getType());
-                HeritageGenericite^ast := SuiteHeritageGenericite^ast;
-            else
-                error(DECL_not_an_object, identificateur_type^txt);
-            end
-        else
-            match d
-            with Objet then
-                SuiteHeritageGenericite^ast.addFirst(HeritageGenericite^factory.createTypeGenerique(d, InstanceGenericite^ast));
-                HeritageGenericite^ast := SuiteHeritageGenericite^ast;
-            else
-                error(DECL_not_an_object, identificateur_type^txt);
-            end
-        end
-    else
-        error(Undefined_ident,identificateur_type^txt);
-    end
-end
-}
-
--- TO DO : <?> = on crée juste un parametre generique quelconque --Hh -> pas sur sur... (Vivian ?)
-HeritageGenericite -> #ast;
-#ast {
-do
-  HeritageGenericite^ast := nil;
-end
-}
-
--- TODO <? extends T & Interface1 (& Interface2 ...) >
--- Avant: SuiteHeritageGenericite -> adresse identificateur_type SuiteHeritageGenericite #ast; ???
-SuiteHeritageGenericite -> adresse identificateur_type InstanceGenericite SuiteHeritageGenericite #ast;
-#ast {
-local
-    f : Optional<Declaration>;
-    d : Declaration;
-do
-    if SuiteHeritageGenericite^tds.knows(identificateur_type^txt) then
-        f := SuiteHeritageGenericite^tds.get(identificateur_type^txt);
-        d := f.get();
-        if (InstanceGenericite = nil) then
-            match d
-            with Objet then 
-                SuiteHeritageGenericite1^ast.addFirst(d.getType());
-                SuiteHeritageGenericite^ast := SuiteHeritageGenericite1^ast;
-            else
-                error(DECL_not_an_object, identificateur_type^txt);
-            end
-        else
-            match d
-            with Objet then 
-                SuiteHeritageGenericite1^ast.addFirst(SuiteHeritageGenericite^factory.createTypeGenerique(d, InstanceGenericite^ast));
-                SuiteHeritageGenericite^ast := SuiteHeritageGenericite1^ast;
-            else
-                error(DECL_not_an_object, identificateur_type^txt);
-            end
-        end
-    else
-        error(Undefined_ident, identificateur_type^txt);
-    end
-end
-}
-
--- TODO <? extends T >
-SuiteHeritageGenericite -> #ast;
-#ast {
-do
-  SuiteHeritageGenericite^ast := new LinkedList<Objet>();
-end
-}
-
-
----------------------------------
---l567 > 599 - InstanceGenericite
----------------------------------
-
-InstanceGenericite -> #ast;
-#ast{
-do
-  InstanceGenericite^ast := nil;
-end
-}
-
-InstanceGenericite -> inferieur ArgumentsGenericite superieur #ast;
-#ast{
-do
-  InstanceGenericite^ast := ArgumentsGenericite^ast;
-end
-}
-
-ArgumentsGenericite -> ArgumentGenericite SuiteArgumentsGenericite #ast;
-#ast {
-do
-	SuiteArgumentsGenericite^ast.addFirst(ArgumentGenericite^ast);
-	ArgumentsGenericite^ast := SuiteArgumentsGenericite^ast;
-end
-}
-
-SuiteArgumentsGenericite -> virgule ArgumentGenericite SuiteArgumentsGenericite #ast;
-#ast {
-do
-	SuiteArgumentsGenericite1^ast.addFirst(ArgumentGenericite^ast);
-	SuiteArgumentsGenericite^ast := SuiteArgumentsGenericite1^ast;
-end
-}
-
-SuiteArgumentsGenericite -> #ast;
-#ast {
-do
-   SuiteArgumentsGenericite^ast := new LinkedList<Type>();
-end
-}
-
-ArgumentGenericite -> identificateur_type InstanceGenericite #ast;
-#ast {
-local
-	o : Optional<Declaration>;
-	d : Declaration;
-do
-	if ArgumentGenericite^tds.knows(identificateur_type^txt) then
-		o := ArgumentGenericite^tds.get(identificateur_type^txt);
-		d := o.get();
-		match d
-		--Autre chose que Objet ? Type ?    --Hh j'ai ajouté extends Type pour les ArgumentsGénéricité
-                                        -- cf erreur error: incompatible types: ArgumentGenericite cannot be converted to Type
-                                        -- this.att_ast=this.att_factory.createArgumentGenericite(((Objet)loc_d));
-		with Objet then
-			if InstanceGenericite^ast = nil then
-				ArgumentGenericite^ast := ArgumentGenericite^factory.createArgumentGenericite(d);
-			else
-				ArgumentGenericite^ast := ArgumentGenericite^factory.createArgumentGenericite(d,InstanceGenericite^ast);
-			end
-		end
-	end
-end
-}
-
-
---TO DO
---ArgumentGenericite -> type_String ;
 
 --------------------------------------
 --l 664 > 702 (TYPES)
 --------------------------------------
 
 Type -> TypeAtomique #inhArray SuiteTypeAtomique #ast;
-#ast {
+#inhArray {
 do
-	Type^ast := SuiteTypeAtomique^ast;
+  SuiteTypeAtomique^innerArray := TypeAtomique^ast;
 end
 }
 
-#inhArray {
+#ast {
 do
-	SuiteTypeAtomique^innerArray := TypeAtomique^ast;
+  Type^ast := SuiteTypeAtomique^ast;
 end
 }
+
+
 
 
 TypeAtomique -> type_bool #ast ;
@@ -684,22 +639,249 @@ end
 SuiteTypeAtomique -> crochet_ouvrant crochet_fermant #inhArray SuiteTypeAtomique #ast;
 #inhArray {
 do
-	SuiteTypeAtomique1^innerArray := SuiteTypeAtomique^factory.createArrayType(SuiteTypeAtomique^innerArray);
+  SuiteTypeAtomique1^innerArray := SuiteTypeAtomique^factory.createArrayType(SuiteTypeAtomique^innerArray);
 end
 }
 
 #ast {
 do
-	SuiteTypeAtomique^ast := SuiteTypeAtomique1^ast;
+  SuiteTypeAtomique^ast := SuiteTypeAtomique1^ast;
 end
 }
 
 SuiteTypeAtomique -> #ast;
 #ast {
 do
-	SuiteTypeAtomique^ast := SuiteTypeAtomique^innerArray;
+  SuiteTypeAtomique^ast := SuiteTypeAtomique^innerArray;
 end
 }
+
+
+----------------------------------------------------------------------------------------------------
+--
+-- Classes, Blocs [...]
+--
+----------------------------------------------------------------------------------------------------
+
+---------------------------
+--l463 > 519 Genericite
+---------------------------
+-- Genericite -> inferieur ParametresGenericite superieur #ast ;
+-- #ast {
+-- do
+--    Genericite^ast := ParametresGenericite^ast;
+-- end
+-- }
+
+-- Genericite -> #ast;
+-- #ast {
+-- do
+--   Genericite^ast := nil;
+-- end
+-- }
+
+-- ParametresGenericite -> ParametreGenericite SuiteParametresGenericite #ast;
+-- #ast {
+-- do
+--   SuiteParametresGenericite^ast.addFirst(ParametreGenericite^ast);
+--   ParametresGenericite^ast := SuiteParametresGenericite^ast;
+--   ParametreGenericite^tds.register(ParametreGenericite^ast);
+
+-- end
+-- }
+
+-- SuiteParametresGenericite -> virgule ParametreGenericite SuiteParametresGenericite #ast;
+-- #ast {
+-- do
+--   SuiteParametresGenericite1^ast.addFirst(ParametreGenericite^ast);
+--   SuiteParametresGenericite^ast := SuiteParametresGenericite1^ast;
+--   SuiteParametresGenericite^tds.register(ParametreGenericite^ast);
+-- end
+-- }
+-- SuiteParametresGenericite -> #ast;
+-- #ast {
+-- do
+--    SuiteParametresGenericite^ast := new LinkedList<ParametreGenericite>();
+-- end
+-- }
+
+-- ParametreGenericite -> identificateur_type HeritageGenericite #ast ; 
+-- #ast {
+-- do
+--   if ParametreGenericite^tds.contains(identificateur_type^txt) then
+--     error(GENERICITE_already_defined, identificateur_type^txt);
+--   else
+--     ParametreGenericite^ast := ParametreGenericite^factory.createGenericParameter(identificateur_type^txt, HeritageGenericite^ast);
+--   end
+-- end
+-- } 
+ 
+-- ParametreGenericite -> choix HeritageGenericite #ast ;  
+-- #ast {
+-- do
+--   ParametreGenericite^ast := ParametreGenericite^factory.createGenericParameter(HeritageGenericite^ast);
+-- end
+-- }
+
+---------------------------------
+--l521 > 564 - HeritageGenericite
+---------------------------------
+
+-- TODO <? extends T Suite> = on crée un parametre generique qui recupere les trucs de suiteHeritageGenericite
+-- Avant HeritageGenericite -> extension identificateur_type SuiteHeritageGenericite #ast;
+-- HeritageGenericite -> extension identificateur_type InstanceGenericite SuiteHeritageGenericite #ast;
+-- #ast {
+-- local
+--     f : Optional<Declaration>;
+--     d : Declaration;
+-- do
+--     if HeritageGenericite^tds.knows(identificateur_type^txt) then
+--         f := HeritageGenericite^tds.get(identificateur_type^txt);
+--         d := f.get();
+--         if (InstanceGenericite^ast = nil) then
+--             match d
+--             with Objet then
+--                 SuiteHeritageGenericite^ast.addFirst(d.getType());
+--                 HeritageGenericite^ast := SuiteHeritageGenericite^ast;
+--             else
+--                 error(DECL_not_an_object, identificateur_type^txt);
+--             end
+--         else
+--             match d
+--             with Objet then
+--                 SuiteHeritageGenericite^ast.addFirst(HeritageGenericite^factory.createTypeGenerique(d, InstanceGenericite^ast));
+--                 HeritageGenericite^ast := SuiteHeritageGenericite^ast;
+--             else
+--                 error(DECL_not_an_object, identificateur_type^txt);
+--             end
+--         end
+--     else
+--         error(Undefined_ident,identificateur_type^txt);
+--     end
+-- end
+-- }
+
+-- TO DO : <?> = on crée juste un parametre generique quelconque --Hh -> pas sur sur... (Vivian ?)
+-- HeritageGenericite -> #ast;
+-- #ast {
+-- do
+--   HeritageGenericite^ast := nil;
+-- end
+-- }
+
+-- TODO <? extends T & Interface1 (& Interface2 ...) >
+-- Avant: SuiteHeritageGenericite -> adresse identificateur_type SuiteHeritageGenericite #ast; ???
+-- SuiteHeritageGenericite -> adresse identificateur_type InstanceGenericite SuiteHeritageGenericite #ast;
+-- #ast {
+-- local
+--     f : Optional<Declaration>;
+--     d : Declaration;
+-- do
+--     if SuiteHeritageGenericite^tds.knows(identificateur_type^txt) then
+--         f := SuiteHeritageGenericite^tds.get(identificateur_type^txt);
+--         d := f.get();
+--         if (InstanceGenericite = nil) then
+--             match d
+--             with Objet then 
+--                 SuiteHeritageGenericite1^ast.addFirst(d.getType());
+--                 SuiteHeritageGenericite^ast := SuiteHeritageGenericite1^ast;
+--             else
+--                 error(DECL_not_an_object, identificateur_type^txt);
+--             end
+--         else
+--             match d
+--             with Objet then 
+--                 SuiteHeritageGenericite1^ast.addFirst(SuiteHeritageGenericite^factory.createTypeGenerique(d, InstanceGenericite^ast));
+--                 SuiteHeritageGenericite^ast := SuiteHeritageGenericite1^ast;
+--             else
+--                 error(DECL_not_an_object, identificateur_type^txt);
+--             end
+--         end
+--     else
+--         error(Undefined_ident, identificateur_type^txt);
+--     end
+-- end
+-- }
+
+-- -- TODO <? extends T >
+-- SuiteHeritageGenericite -> #ast;
+-- #ast {
+-- do
+--   SuiteHeritageGenericite^ast := new LinkedList<Objet>();
+-- end
+-- }
+
+
+---------------------------------
+--l567 > 599 - InstanceGenericite
+---------------------------------
+
+-- InstanceGenericite -> #ast;
+-- #ast{
+-- do
+--   InstanceGenericite^ast := nil;
+-- end
+-- }
+
+-- InstanceGenericite -> inferieur ArgumentsGenericite superieur #ast;
+-- #ast{
+-- do
+--   InstanceGenericite^ast := ArgumentsGenericite^ast;
+-- end
+-- }
+
+-- ArgumentsGenericite -> ArgumentGenericite SuiteArgumentsGenericite #ast;
+-- #ast {
+-- do
+-- 	SuiteArgumentsGenericite^ast.addFirst(ArgumentGenericite^ast);
+-- 	ArgumentsGenericite^ast := SuiteArgumentsGenericite^ast;
+-- end
+-- }
+
+-- SuiteArgumentsGenericite -> virgule ArgumentGenericite SuiteArgumentsGenericite #ast;
+-- #ast {
+-- do
+-- 	SuiteArgumentsGenericite1^ast.addFirst(ArgumentGenericite^ast);
+-- 	SuiteArgumentsGenericite^ast := SuiteArgumentsGenericite1^ast;
+-- end
+-- }
+
+-- SuiteArgumentsGenericite -> #ast;
+-- #ast {
+-- do
+--    SuiteArgumentsGenericite^ast := new LinkedList<Type>();
+-- end
+-- }
+
+-- ArgumentGenericite -> identificateur_type InstanceGenericite #ast;
+-- #ast {
+-- local
+-- 	o : Optional<Declaration>;
+-- 	d : Declaration;
+-- do
+-- 	if ArgumentGenericite^tds.knows(identificateur_type^txt) then
+-- 		o := ArgumentGenericite^tds.get(identificateur_type^txt);
+-- 		d := o.get();
+-- 		match d
+-- 		--Autre chose que Objet ? Type ?    --Hh j'ai ajouté extends Type pour les ArgumentsGénéricité
+--                                         -- cf erreur error: incompatible types: ArgumentGenericite cannot be converted to Type
+--                                         -- this.att_ast=this.att_factory.createArgumentGenericite(((Objet)loc_d));
+-- 		with Objet then
+-- 			if InstanceGenericite^ast = nil then
+-- 				ArgumentGenericite^ast := ArgumentGenericite^factory.createArgumentGenericite(d);
+-- 			else
+-- 				ArgumentGenericite^ast := ArgumentGenericite^factory.createArgumentGenericite(d,InstanceGenericite^ast);
+-- 			end
+-- 		end
+-- 	end
+-- end
+-- }
+
+
+--TO DO
+--ArgumentGenericite -> type_String ;
+
+
 
 
 --------------------------------------
