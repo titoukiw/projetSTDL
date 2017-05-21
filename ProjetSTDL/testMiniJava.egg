@@ -977,7 +977,7 @@ local
   cons : Constructeur;
 do
   if(Constructeur^classeCourrante = identificateur_type^txt) then
-    cons := Constructeur^factory.createConstructeur(identificateur_type^txt, Constructeur^droit, Parametres^ast, Bloc^ast);
+    cons := Constructeur^factory.createConstructeur(identificateur_type^txt, Constructeur^classeCourrante, Constructeur^droit, Parametres^ast, Bloc^ast);
     if(Constructeur^tdsFunctions.containCons(cons)) then
       error(CONSTRUCTOR_signature_already_exists,identificateur_type^txt);
     else
