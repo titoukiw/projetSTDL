@@ -6,7 +6,7 @@ package fr.n7.stl.block.ast;
  */
 public interface Constructeur extends ElementClasse {
 
-	public boolean isEqual(Methode meth);
+	public boolean isEqual(Constructeur cons);
 
 	public LinkedList<Parametre> getParametres();
 
