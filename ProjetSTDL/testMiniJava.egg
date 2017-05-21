@@ -936,7 +936,7 @@ do
   if(SuiteAttributOuMethode^tdsAttributs.knows(SuiteAttributOuMethode^ident)) then
     error(IDENT_already_used, SuiteAttributOuMethode^ident);
   else
-    att := SuiteAttributOuMethode^factory.createAttribut(SuiteAttributOuMethode^ident, SuiteAttributOuMethode^type, SuiteAttributOuMethode^droit, SuiteAttributOuMethode^static);
+    att := SuiteAttributOuMethode^factory.createAttribut(SuiteAttributOuMethode^ident, SuiteAttributOuMethode^classeCourrante, SuiteAttributOuMethode^type, SuiteAttributOuMethode^droit, SuiteAttributOuMethode^static);
     SuiteAttributOuMethode^ast := att;
     SuiteAttributOuMethode^tdsAttributs.register(att);
   end
