@@ -17,7 +17,7 @@ public interface ClasseFactory {
 	/* Elements Classe*/
 	public Constructeur createConstructeur(String id, String classeCourante, DroitAcces droit, LinkedList<Parametre> listParam, Block body);
 	public Methode createMethode(String id, String classeCourante, DroitAcces droit, 
-							     LinkedList<Parametre> listParam, Bloc body, boolean statique, Type returnType);
+							     LinkedList<Parametre> listParam, Block body, boolean statique, Type returnType);
 	public Attribut createAttribut(String id, String classeCourante, Type type, DroitAcces droit, boolean statique);
 
 
