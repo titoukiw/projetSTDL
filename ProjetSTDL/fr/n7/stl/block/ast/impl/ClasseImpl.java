@@ -5,29 +5,56 @@ package fr.n7.stl.block.ast.impl;
  *
  */
 
-import fr.n7.stl.block.ast.Classe;
+import fr.n7.stl.block.ast.*;
+import fr.n7.stl.block.ast.impl.*;
 import java.util.LinkedList;
 
 public class ClasseImpl implements Classe {
 
 		private String nom;
-		//private LinkedList<Methode> listMethodes;
-		private LinkedList<Attribut> listAttributs;
-		//PublicStaticFields ?????
+		private LinkedList<Interface> implementsInterfaces;
+		private LinkedList<Classe> extendsClasses;
+		private LinkedList<ElementClasse> elements;
 
-		public ClasseImpl(String nom, LinkedList<ElementClasse> elements){
+		public ClasseImpl(String nom, LinkedList<Interface> implementsInterfaces, LinkedList<Classe> extendsClasses, LinkedList<ElementClasse> elements){
 			this.nom = nom;
-			// for (ElementClasse e : elements){
-			// 	if (e instanceof Methode ){
-			// 		listMethodes.append(e);
-			// 	} else {
-			// 		listAttributs.append(e);
-			// 	}
-			// }
+			this.implementsInterfaces = implementsInterfaces;
+			this.extendsClasses = extendsClasses;
+			this.elements = elements;
 		}
 
 		public String getName(){
-			return "(Classe)" + this.nom;
+			return this.nom;
+		}
+
+		public Type getType(){
+			return new ClassTypeImpl(this);
+		}
+
+		public String toString(){
+			String toString = "(Classe) " + this.nom;
+			if(this.implementsInterfaces.size() > 0){
+				toString += " extends";
+				for (Interface inter : this.implementsInterfaces) {
+					toString += " " + inter.getName() + " ," ;
+				}
+			}
+
+			if(this.implementsClasses.size() > 0) {
+				toString += "implements";
+				for(Classe classe : this.extendsClasses){
+					toString += " " + classe.getName() + " ,";
+				}
+			}
+
+			toString += " { \n";
+
+			for(ElementClasse element : this.elements) {
+				toString += "\n\t" + element.toString();
+			}
+
+			toString += "\n }";
+			return toString;
 		}
 
 }
