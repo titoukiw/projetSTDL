@@ -33,7 +33,7 @@ public class ClasseImpl implements Classe {
 		}
 
 		public String toString(){
-			String toString = "(Classe) " + this.nom;
+			String toString = "\n (Classe) " + this.nom;
 			if(this.implementsInterfaces.size() > 0){
 				toString += " extends";
 				for (Interface inter : this.implementsInterfaces) {

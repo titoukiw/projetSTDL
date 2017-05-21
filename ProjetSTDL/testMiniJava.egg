@@ -736,7 +736,9 @@ do
   o := HeritageClasse^tdsClasses.get(identificateur_type^txt);
   d := o.get();
   match d
-    with Classe then HeritageClasse^ast := new LinkedList<Classe>(o); --Il ne peut y avoir qu'un seul heritageClasse -> optionnal ?!
+    with Classe then 
+      HeritageClasse^ast := new LinkedList<Classe>(); --Il ne peut y avoir qu'un seul heritageClasse -> optionnal ?!
+      HeritageClasse^ast.add(d);
     else
       error (HERITAGE_not_classe,identificateur_type^txt);
     end
@@ -917,12 +919,12 @@ end
 local
   met : Methode;
 do
-  met := AttributOuMethode^factory.createMethode(identificateur^txt,AttributOuMethode^classeCourrante,AtomicType.VoidType,AttributOuMethode^droit,AttributOuMethode^static,Parametres^ast,Bloc^ast);
+  met := AttributOuMethode^factory.createMethode(identificateur^txt,AttributOuMethode^classeCourrante,AttributOuMethode^droit,Parametres^ast,Bloc^ast,AttributOuMethode^static, AtomicType.VoidType);
   if AttributOuMethode^tdsFunctions.containFun(met) then --(contains ou knows je sais plus ?)
     error(IDENT_already_used, identificateur^txt);
   else
     AttributOuMethode^ast := met;
-    AttributOuMethode^tdsFunctions.registerFunction(met);
+    AttributOuMethode^tdsFunctions.registerFun(met);
   end
 end
 }
@@ -955,12 +957,12 @@ end
 local
   met : Methode;
 do
-  met := SuiteAttributOuMethode^factory.createMethode(SuiteAttributOuMethode^ident, SuiteAttributOuMethode^classeCourrante, SuiteAttributOuMethode^type, SuiteAttributOuMethode^droit, SuiteAttributOuMethode^static, Parametres^ast,Bloc^ast);
+  met := SuiteAttributOuMethode^factory.createMethode(SuiteAttributOuMethode^ident, SuiteAttributOuMethode^classeCourrante, SuiteAttributOuMethode^droit,  Parametres^ast,Bloc^ast,SuiteAttributOuMethode^static, SuiteAttributOuMethode^type);
   if(SuiteAttributOuMethode^tdsFunctions.containFun(met)) then
     error(IDENT_already_used, SuiteAttributOuMethode^ident);
   else
     SuiteAttributOuMethode^ast := met;
-    SuiteAttributOuMethode^tdsFunctions.registerFunction(met);
+    SuiteAttributOuMethode^tdsFunctions.registerFun(met);
   end
 end
 }
@@ -976,7 +978,7 @@ end
 local
   cons : Constructeur;
 do
-  if(Constructeur^classeCourrante = identificateur_type^txt) then
+  if(Constructeur^classeCourrante.equals(identificateur_type^txt)) then
     cons := Constructeur^factory.createConstructeur(identificateur_type^txt, Constructeur^classeCourrante, Constructeur^droit, Parametres^ast, Bloc^ast);
     if(Constructeur^tdsFunctions.containCons(cons)) then
       error(CONSTRUCTOR_signature_already_exists,identificateur_type^txt);

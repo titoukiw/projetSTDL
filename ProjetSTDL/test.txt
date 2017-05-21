@@ -4,3 +4,11 @@ void testFct(String testArg);
 
 interface Testss extends TestInterface{
 }
+class TestClass {
+	
+	private boolean testBool;
+
+	protected TestClass()
+	
+	public void testFct(String tesst)
+}
