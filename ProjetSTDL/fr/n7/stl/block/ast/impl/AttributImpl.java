@@ -15,15 +15,19 @@ public class AttributImpl implements Attribut {
 	private Type type;
 	private DroitAcces droit;
 	private boolean statique;
+	private String classeCourante;
 
-	public AttributImpl(String id, Type type, DroitAcces droit, boolean statique){
+	public AttributImpl(String id, String classeCourante, Type type, DroitAcces droit, boolean statique){
 		this.id = id;
 		this.type = type;
 		this.droit = droit;
 		this.statique = statique;
+		this.classeCourante = classeCourante;
 	}
 
-	public setValue(Expression expr){
-	} //mtn?
+	public String getClasseCourante(){
+		return this.classeCourante;
+	}
+
 
 }
