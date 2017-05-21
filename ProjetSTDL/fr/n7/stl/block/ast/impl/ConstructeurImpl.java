@@ -32,7 +32,7 @@ public class ConstructeurImpl implements Constructeur {
 		return this.classeCourante;
 	}
 
-	public boolean isEqual(Methode meth){
+	public boolean isEqual(Constructeur cons){
 		if(this.id == meth.getName() && this.classeCourante == meth.getClasseCourante() 
 									 && this.listParam.size() == meth.getParametres().size()){
 			for(int i=0;i<this.listParam.size();i++){
