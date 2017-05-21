@@ -914,12 +914,15 @@ end
 }
 
 #ast {
+local
+  met : Methode;
 do
-  if AttributOuMethode^tdsFunctions.knows(identificateur^txt) then --(contains ou knows je sais plus ?)
+  met := AttributOuMethode^factory.createMethode(identificateur^txt,AttributOuMethode^classeCourrante,AtomicType.VoidType,AttributOuMethode^droit,AttributOuMethode^static,Parametres^ast,Bloc^ast);
+  if AttributOuMethode^tdsFunctions.containFun(met) then --(contains ou knows je sais plus ?)
     error(IDENT_already_used, identificateur^txt);
   else
-    AttributOuMethode^ast := AttributOuMethode^factory.createMethode(identificateur^txt,AttributOuMethode^classeCourrante,AtomicType.VoidType,AttributOuMethode^droit,AttributOuMethode^static,Parametres^ast,Bloc^ast);
-    AttributOuMethode^tdsFunctions.registerFunction(TODO);
+    AttributOuMethode^ast := met;
+    AttributOuMethode^tdsFunctions.registerFunction(met);
   end
 end
 }
@@ -949,12 +952,15 @@ end
 }
 
 #ast {
+local
+  met : Methode;
 do
-  if(SuiteAttributOuMethode^tdsFunctions.knowsSignature(SuiteAttributOuMethode^ident,Parametres^ast)) then
+  met := SuiteAttributOuMethode^factory.createMethode(SuiteAttributOuMethode^ident, SuiteAttributOuMethode^classeCourrante, SuiteAttributOuMethode^type, SuiteAttributOuMethode^droit, SuiteAttributOuMethode^static, Parametres^ast,Bloc^ast);
+  if(SuiteAttributOuMethode^tdsFunctions.containFun(met)) then
     error(IDENT_already_used, SuiteAttributOuMethode^ident);
   else
-    SuiteAttributOuMethode^ast := SuiteAttributOuMethode^factory.createMethode(SuiteAttributOuMethode^ident, SuiteAttributOuMethode^classeCourrante, SuiteAttributOuMethode^type, SuiteAttributOuMethode^droit, SuiteAttributOuMethode^static, Parametres^ast,Bloc^ast);
-    SuiteAttributOuMethode^tdsFunctions.registerFunction(TODO);
+    SuiteAttributOuMethode^ast := met;
+    SuiteAttributOuMethode^tdsFunctions.registerFunction(met);
   end
 end
 }
