@@ -131,7 +131,7 @@ syn ast           : Classe for Classe;
 
 
 --Implantation Interface
-syn ast           : Classe for ImplantationInterface;
+syn ast           : LinkedList<Interface> for ImplantationInterface;
 inh tds           : SymbolTable for ImplantationInterface;
 inh tdsClasses    : SymbolTable for ImplantationInterface;
 inh tdsAttributs  : SymbolTable for ImplantationInterface;
@@ -690,7 +690,7 @@ end
 Classe -> classe  identificateur_type HeritageClasse #inhlist ImplantationInterface accolade_ouvrante #inh ElementsClasse accolade_fermante #ast;
 #inhlist {
 do
-  ImplantationInterface^listInterfacesHeritage := new LinkedList<Interface>();
+  ImplantationInterface^listInterfacesHeritage := new LinkedList<String>();
 end
 }
 #inh {
