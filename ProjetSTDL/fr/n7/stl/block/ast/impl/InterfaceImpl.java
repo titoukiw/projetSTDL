@@ -47,7 +47,7 @@ public class InterfaceImpl implements Interface {
 		String toString =  "\n (Interface)" + this.getName();
 
 
-		if(listHeritage != null){
+		if(listHeritage.size() >0){
 			toString += " extends ";
 			for(Interface herit : this.listHeritage){
 				toString +=  herit.getName() + ",";
@@ -55,7 +55,7 @@ public class InterfaceImpl implements Interface {
 		}
 
 		toString += "{";
-		if (listElements != null){
+		if (listElements.size() > 0){
 			for (ElementInterface ei : this.listElements) {
 				toString += "\n\t" + ei.toString() ;
 			}
