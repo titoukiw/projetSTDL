@@ -9,7 +9,7 @@ import java.util.LinkedList;
 public interface ClasseFactory {
 
 	/* createClasse */
-	public Classe createClasse(String nom, String classeCourante, LinkedList<Classe> heritages, LinkedList<Interface> impl,LinkedList<ElementClasse> elements);
+	public Classe createClasse(String nom, LinkedList<Classe> heritages, LinkedList<Interface> impl,LinkedList<ElementClasse> elements);
 
 
 	/* Genericite*/
