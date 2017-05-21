@@ -33,10 +33,10 @@ public class ConstructeurImpl implements Constructeur {
 	}
 
 	public boolean isEqual(Constructeur cons){
-		if(this.id == meth.getName() && this.classeCourante == meth.getClasseCourante() 
-									 && this.listParam.size() == meth.getParametres().size()){
+		if(this.id == cons.getName() && this.classeCourante == cons.getClasseCourante() 
+									 && this.listParam.size() == cons.getParametres().size()){
 			for(int i=0;i<this.listParam.size();i++){
-				if(!this.listParam.get(i).getType().equals(meth.getParametres().get(i).getType())){
+				if(!this.listParam.get(i).getType().equals(cons.getParametres().get(i).getType())){
 					return false;
 				}
 			}
