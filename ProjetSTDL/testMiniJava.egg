@@ -112,7 +112,6 @@ syn ast 	             : Signature for Signature;
 --Parametre (Parametres, SuiteParametres)
 inh tds 	        : SymbolTable for Parametre, Parametres, SuiteParametres;
 inh tdsInterfaces : SymbolTable for Parametre, Parametres, SuiteParametres;
-inh tdsClasses    : SymbolTable for Parametre, Parametres, SuiteParametres;
 inh tdsFunctions  : FunctionSymbolTable for Parametre, Parametres, SuiteParametres;
 inh tdsAttributs  : SymbolTable for Parametre, Parametres, SuiteParametres;
 inh tdsParametres : SymbolTable for Parametre, Parametres, SuiteParametres;
@@ -120,11 +119,42 @@ inh factory       : BlockFactory for Parametre, Parametres, SuiteParametres;
 syn ast 	        : Parametre for Parametre;
 syn ast 	        : LinkedList<Parametre> for Parametres, SuiteParametres;
 
+--Classe (Classe, Classes)
+inh tdsClasses    : SymbolTable for Classes;
+inh tds           : SymbolTable for Classe;
+syn ast           : Classe for Classe;
+inh factory       : BlockFactory for Classe;
+syn ast           : LinkedList<Classe> for Classes;
+syn list          : LinkedList<Classe> for Classes;
+
+--Implantation Interface
+syn ast           : Classe for ImplantationInterface;
+inh tds           : SymbolTable for ImplantationInterface;
+inh factory       : BlockFactory for ImplantationInterface;
+
+--Heritage Classe
+syn ast           : LinkedList<Classe> for HeritageClasse;
+inh tds           : SymbolTable for HeritageClasse;
+inh factory       : BlockFactory for HeritageClasse;
+
+--Elements Classe (ElementClasse, AttributOuMethode, Constructeur)
+inh factory       : BlockFactory for ElementClasse, AttributOuMethode, SuiteAttributOuMethode, Constructeur;
+syn ast           : ElementClasse for ElementClasse, AttributOuMethode, Constructeur, SuiteAttributOuMethode;
+syn ast           : LinkedList<ElementClasse> for ElementsClasse;
+inh tds           : SymbolTable for AttributOuMethode, Constructeur;
+
+
+--DroitAcces
+syn acces           : DroitAcces for DroitAcces;
+
 --Type (Atomique,SuiteAtomique)
 inh tds 	     : SymbolTable for Type, TypeAtomique, SuiteTypeAtomique;
 inh factory    : BlockFactory for Type, TypeAtomique, SuiteTypeAtomique;
 inh innerArray : Type for SuiteTypeAtomique;
 syn ast 	     : Type for Type, TypeAtomique, SuiteTypeAtomique;
+
+-- Bloc
+syn ast        : Block for Bloc;
 
 -- --Expression
 -- inh factory       : BlockFactory for Expression;
@@ -200,7 +230,7 @@ term   identificateur_type    is    "[A-Z][a-zA-Z0-9_]*";
 
 
 
-Programme -> #factory Interfaces #ast3;
+Programme -> #factory Interfaces Classes #ast3;
 #factory {
 do
   Interfaces^tdsInterfaces := new SymbolTable();
@@ -258,7 +288,7 @@ end
 Interface -> interface identificateur_type HeritageInterface accolade_ouvrante #inh ElementsInterface accolade_fermante #ast;
 #inh {
 do
-  ElementsInterface^tds := new SymbolTable();
+  ElementsInterface^tds := new SymbolTable(); -- Dans règle l228 ?
   ElementsInterface^interfaceCourrante := identificateur_type^txt;
 end
 }
@@ -585,6 +615,238 @@ do
 end
 }
 
+--------------------------------------
+--l 348 > 441 (CLASSES)
+--------------------------------------
+
+
+Classes -> Classe #list Classes #ast;
+#ast {
+do
+  Classes^ast := Classes1^ast;
+end
+}
+
+#list {
+do
+  Classes^list.add(Classe^ast);
+  Classes^tdsClasses.register(Classe^ast);
+end
+}
+
+Classes -> #ast;
+#ast {
+do
+  Classes^ast := Classes^list;
+end
+}
+
+--Classe -> classe  identificateur_type Genericite HeritageClasse ImplantationInterface accolade_ouvrante ElementsClasse accolade_fermante #ast;
+Classe -> classe  identificateur_type HeritageClasse ImplantationInterface accolade_ouvrante ElementsClasse accolade_fermante #ast;
+#ast {
+do
+  if (Classe^tds.knows(identificateur_type^txt)) then
+    error(TYPE_already_defined, identificateur_type^txt);
+  else
+    --if Genericite^ast = nil then
+      if HeritageClasse^ast = nil then
+        Classe^ast := Classe^factory.createClasse(identificateur_type^txt, ElementsClasse^ast);
+      else
+        Classe^ast := Classe^factory.createClasse(identificateur_type^txt,HeritageClasse^ast,ElementsClasse^ast);
+      end
+    --else
+    --  if HeritageClasse^ast = nil then
+    --    Classe^ast := Classe^factory.createClasse(identificateur_type^txt,Genericite^ast,ElementsClasse^ast);
+    --  else
+    --    Classe^ast := Classe^factory.createClasse(identificateur_type^txt, Genericite^ast, HeritageClasse^ast, ElementsClasse^ast);
+    --  end
+    --end
+  end
+end
+}
+
+--HeritageClasse -> extension identificateur_type #inh InstanceGenericite #ast ;
+HeritageClasse -> extension identificateur_type #inh #ast ;
+--#inh {
+--local
+--  f : Optional<Declaration>;
+--  d : Declaration;
+--do
+--   if HeritageClasse^tds.knows(identificateur_type^txt) then
+--     f := HeritageClasse^tds.get(identificateur_type^txt);
+--     d := f.get();
+--     match d
+--     with GenericType then InstanceGenericite^support := HeritageClasse^factory.createGenericTypeUse(d);
+--     end
+--   else
+--     error(TYPE_unknown,identificateur_type^txt);
+--   end
+-- end
+-- }
+
+#ast {
+do
+  HeritageClasse^ast := nil; --InstanceGenericite^ast;
+end
+}
+
+
+HeritageClasse -> #ast;
+#ast {
+do
+  HeritageClasse^ast := nil;
+end
+}
+
+-- TODO
+-- ImplantationInterface -> implantation identificateur_type InstanceGenericite SuiteHeritageInterface #ast; 
+ImplantationInterface -> implantation identificateur_type SuiteHeritageInterface #ast;
+#ast {
+do
+  if ImplantationInterface^tds.contains(identificateur_type^txt) then
+    -- peut etre enlever identificateurètype^txt dans la createImplantation ?
+    ImplantationInterface^ast := ImplantationInterface^factory.createImplantation(identificateur_type^txt, SuiteHeritageInterface^ast);
+  else
+    error(TYPE_unknown,identificateur_type^txt);
+    end
+end
+}
+
+-- TODO
+ImplantationInterface -> #ast;
+#ast {
+do
+  ImplantationInterface^ast := nil;
+end
+}
+
+--------------------------------------
+--l 602 > 714 (ELMTS CLASSES)
+--------------------------------------
+
+ElementsClasse -> DroitAcces ElementClasse ElementsClasse ;
+  
+ElementsClasse -> #ast ;
+#ast {
+do
+   ElementsClasse^ast := new LinkedList<ElementClasse>();
+end
+}
+
+DroitAcces -> public #ast ;
+#ast {
+do
+   DroitAcces^acces := DroitAcces.Public;
+end
+}
+
+DroitAcces -> protege #ast ;
+#ast {
+do
+   DroitAcces^acces := DroitAcces.Protected;
+end
+}
+ 
+DroitAcces -> prive #ast ;  
+#ast {
+do
+   DroitAcces^acces := DroitAcces.Private;
+end
+}
+ 
+-- TODO
+ElementClasse -> statique AttributOuMethode #ast;
+#ast {
+do
+  ElementClasse^ast := ElementClasse^factory.createElementStatique(AttributOuMethode^ast);
+end
+}
+ 
+-- TODO 
+ElementClasse -> AttributOuMethode #ast;
+#ast {
+do
+  ElementClasse^ast := ElementClasse^factory.createElement(AttributOuMethode^ast);
+end
+}
+ 
+-- TODO 
+ElementClasse -> Constructeur #ast;  
+#ast {
+do
+  ElementClasse^ast := ElementClasse^factory.createConstructeur(Constructeur^ast);
+end
+}
+    
+-- TODO créer une méthode, définie ou non
+AttributOuMethode -> Type identificateur SuiteAttributOuMethode #ast;
+#ast {
+do
+  if AttributOuMethode^tds.knows(identificateur^txt) then --(contains ou knows je sais plus ?)
+    error(P_00, identificateur^txt);
+  else
+    -- on crée la méthode avec son nom + AttributOuMethode (nil ou (Parametres) {Bloc})
+    AttributOuMethode^ast := ElementClasse^factory.createMethode(identificateur^txt,AttributOuMethode^ast);
+    AttributOuMethode^tds.register(identificateur^txt);
+  end
+end
+}
+ 
+-- TODO créer une méthode void
+AttributOuMethode -> vide identificateur parenthese_ouvrante Parametres parenthese_fermante Bloc #ast ;
+#ast {
+do
+  if AttributOuMethode^tds.knows(identificateur^txt) then --(contains ou knows je sais plus ?)
+    error(P_00, identificateur^txt);
+  else
+    AttributOuMethode^ast := AttributOuMethode^factory.createVoidMethode(identificateur^txt,Parametres^ast,Bloc^ast);
+    AttributOuMethode^tds.register(identificateur^txt);
+  end
+end
+}
+ 
+-- TODO DroitAcces Type nom_Methode ;
+SuiteAttributOuMethode -> point_virgule #ast;
+#ast {
+do
+  SuiteAttributOuMethode^ast := nil;
+end
+}
+ 
+-- TODO DroitAcces Type nom_Methode (Parametres) { }
+SuiteAttributOuMethode -> parenthese_ouvrante Parametres parenthese_fermante Bloc #ast ;
+#ast {
+do
+  -- on crée les élements qui composent la méthode : parametres et bloc
+  SuiteAttributOuMethode^ast := SuiteAttributOuMethode^factory.createElementsMethode(Parametres^ast,Bloc^ast);
+end
+}
+
+Constructeur -> identificateur_type parenthese_ouvrante Parametres parenthese_fermante Bloc #ast ;
+#ast {
+do
+   if (Constructeur^tds.knows(identificateur_type^txt)) then
+      error(CONSTRUCTOR_already_defined, identificateur_type^txt);
+   else
+      if (Constructeur^tds.knows(identificateur_type^txt)) then
+            Constructeur^ast := Constructeur^factory.createConstructor(identificateur_type^txt,Bloc^ast);
+      else
+            error(CONSTRUCTOR_wrong_name, identificateur_type^txt);
+      end
+   end
+end
+}
+
+--------------------------------------
+-- l XXX  Bloc
+--------------------------------------
+
+Bloc -> #ast ;
+#ast{
+do
+  Bloc^ast := nil;
+end
+}
 
 --------------------------------------
 --l 664 > 702 (TYPES)
