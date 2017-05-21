@@ -17,7 +17,7 @@ public class ConstructeurImpl implements Constructeur {
 	private DroitAcces droit;
 	private String classeCourante;
 
-	public ConstructeurImpl(String id, DroitAcces droit, LinkedList<Parametre> listParam, Bloc body, String classeCourante){
+	public ConstructeurImpl(String id, String classeCourante, DroitAcces droit, LinkedList<Parametre> listParam, Bloc body){
 		this.id = id;
 		this.droit = droit;
 		this.listParam = listParam;
@@ -44,4 +44,10 @@ public class ConstructeurImpl implements Constructeur {
 		return true;
 	}
 }
+
+
+
+
+
+
 

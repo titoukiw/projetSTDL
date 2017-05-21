@@ -19,8 +19,8 @@ public class MethodeImpl implements Methode {
 	private Type returnType;
 	private String classeCourante;
 
-	public ConstructeurImpl(String id, DroitAcces droit, LinkedList<Parametre> listParam,
-							Bloc body, Boolean statique, Type returnType, String classeCourante){
+	public ConstructeurImpl(String id, String classeCourante, DroitAcces droit, LinkedList<Parametre> listParam,
+							Bloc body, boolean statique, Type returnType){
 		this.id = id;
 		this.droit = droit;
 		this.listParam = listParam;

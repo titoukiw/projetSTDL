@@ -425,28 +425,9 @@ public class BlockFactoryImpl implements BlockFactory {
     /* PROJET ------------------------------------------------------------>>>>>>>>>>>>>>>>>> */
 
     /* createInterface */
-/*    public Interface createInterface(String nom, LinkedList<ArgumentGenericite> parametresGen, 
-    									LinkedList<Type> heritages, LinkedList<ElementInterface> elements){
-			return new InterfaceGenHeritImpl( nom, parametresGen, heritages, elements);
-	}
-
-	public Interface createInterface(String nom, LinkedList<ArgumentGenericite> parametresGen, 
-										LinkedList<ElementInterface> elements){ 
-		return new InterfaceGenImpl( nom, parametresGen, elements);
-	}
-
-	public Interface createInterface(LinkedList<Type> heritages, String nom, LinkedList<ElementInterface> elements){
-		return new InterfaceHeritImpl( nom, heritages, elements);
-	}
-
-	public Interface createInterface(String nom, LinkedList<ElementInterface> elements){
-		return new InterfaceImpl( nom, elements);
-	}*/
-
 	public Interface createInterface(String nom, LinkedList<Interface> heritages, LinkedList<ElementInterface> elements){
 		return new InterfaceImpl(nom,heritages,elements);
 	}
-	
 	/* END createInterface */
 
 	/* Genericite */
@@ -479,8 +460,8 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new ParametreImpl(id,type);
 	}
 
-	public Programme createProgramme(LinkedList<Interface> interfaces) {
-		return new ProgrammeImpl(interfaces);
+	public Programme createProgramme(LinkedList<Interface> interfaces, LinkedList<Classe> classes) {
+		return new ProgrammeImpl(interfaces, classes);
 	}
 	// Classes TypeGenerique ArgumentGenericite 
 	/*public ElementInterface createFinalStaticField(String id,Type type, Expression expr){
@@ -489,8 +470,26 @@ public class BlockFactoryImpl implements BlockFactory {
 
 	/*  Objet....*/
 
+	/* Classe */
+	public Classe createClasse(String nom, LinkedList<Classe> heritages, LinkedList<Interface> impl,LinkedList<ElementClasse> elements){
+		return new ClasseImpl(String nom, LinkedList<Interface> impl, LinkedList<Classe> heritages, LinkedList<ElementClasse> elements);
+	}
+	/*END Classe*/
 
+	/*Elements Classe*/
+	public Constructeur createConstructeur(String id, String classeCourante, DroitAcces droit, LinkedList<Parametre> listParam, Bloc body){
+		reutrn new ConstructeurImpl(id, classeCourante, droit, listParam, body);
+	}
+	
+	public Methode createMethode(String id, String classeCourante, DroitAcces droit, 
+							     LinkedList<Parametre> listParam, Bloc body, boolean statique, Type returnType){
+		return new Methode(id, classeCourante, droit, listParam, body, statique, returnType);
+	}
 
+	public Attribut createAttribut(String id, Type type, DroitAcces droit, boolean statique){
+		return new AttributImpl(id, type, droit, statique);
+	}
+	/*END Elements Classe*/
 
 
 }

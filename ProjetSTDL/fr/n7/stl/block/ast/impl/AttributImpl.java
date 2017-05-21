@@ -14,9 +14,9 @@ public class AttributImpl implements Attribut {
 	private String id;
 	private Type type;
 	private DroitAcces droit;
-	private Boolean statique;
+	private boolean statique;
 
-	public AttributImpl(String id, Type type, DroitAcces droit, Boolean statique){
+	public AttributImpl(String id, Type type, DroitAcces droit, boolean statique){
 		this.id = id;
 		this.type = type;
 		this.droit = droit;
