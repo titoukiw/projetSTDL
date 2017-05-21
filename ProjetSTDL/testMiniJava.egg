@@ -973,13 +973,16 @@ end
 }
 
 #ast {
+local
+  cons : Constructeur;
 do
   if(Constructeur^classeCourrante = identificateur_type^txt) then
-    if(Constructeur^tdsFunctions.knowsSignature(identificateur_type^txt, Parametres^ast)) then
+    cons := Constructeur^factory.createConstructeur(identificateur_type^txt, Constructeur^droit, Parametres^ast, Bloc^ast);
+    if(Constructeur^tdsFunctions.containCons(cons)) then
       error(CONSTRUCTOR_signature_already_exists,identificateur_type^txt);
     else
-      Constructeur^ast := Constructeur^factory.createConstructeur(identificateur_type^txt, Constructeur^droit, Parametres^ast, Bloc^ast);
-      Constructeur^tdsFunctions.registerConstructeur(TODO);
+      Constructeur^ast := cons;
+      Constructeur^tdsFunctions.registerConstructeur(cons);
     end
   else
     error(CONSTRUCTOR_name_missmatch, identificateur_type^txt);
