@@ -28,7 +28,8 @@ public class ClasseImpl implements Classe {
 		}
 
 		public Type getType(){
-			return new ClassTypeImpl(this);
+			return null;
+			//return new ClassTypeImpl(this);
 		}
 
 		public String toString(){
@@ -40,7 +41,7 @@ public class ClasseImpl implements Classe {
 				}
 			}
 
-			if(this.implementsClasses.size() > 0) {
+			if(this.extendsClasses.size() > 0) {
 				toString += "implements";
 				for(Classe classe : this.extendsClasses){
 					toString += " " + classe.getName() + " ,";
