@@ -20,7 +20,7 @@ public class ProgrammeImpl implements Programme {
 			result += obj.toString();
 		}
 		for(Classe classe : this.classes) {
-			result += classe.toString)();
+			result += classe.toString();
 		}
 		return result;
 	}
