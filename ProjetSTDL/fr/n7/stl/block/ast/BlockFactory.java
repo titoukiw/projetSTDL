@@ -10,7 +10,7 @@ import java.util.LinkedList;
  * @author Marc Pantel
  *
  */
-public interface BlockFactory extends ExpressionFactory, InstructionFactory, TypeFactory, InterfaceFactory {
+public interface BlockFactory extends ExpressionFactory, InstructionFactory, TypeFactory, InterfaceFactory, ClasseFactory {
 
-	public Programme createProgramme(LinkedList<Interface> interfaces);
+	public Programme createProgramme(LinkedList<Interface> interfaces, LinkedList<Classe> classes);
 }
