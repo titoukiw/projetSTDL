@@ -13,11 +13,11 @@ public class ConstructeurImpl implements Constructeur {
 
 	private String id; //le même que la classe courante
 	private LinkedList<Parametre> listParam;
-	private Bloc body;
+	private Block body;
 	private DroitAcces droit;
 	private String classeCourante;
 
-	public ConstructeurImpl(String id, String classeCourante, DroitAcces droit, LinkedList<Parametre> listParam, Bloc body){
+	public ConstructeurImpl(String id, String classeCourante, DroitAcces droit, LinkedList<Parametre> listParam, Block body){
 		this.id = id;
 		this.droit = droit;
 		this.listParam = listParam;
@@ -43,7 +43,14 @@ public class ConstructeurImpl implements Constructeur {
 		}
 		return true;
 	}
+
+		public String getName(){
+		return this.id;
+	}
+
+
 }
+
 
 
 

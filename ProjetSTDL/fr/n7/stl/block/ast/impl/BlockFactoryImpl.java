@@ -472,22 +472,22 @@ public class BlockFactoryImpl implements BlockFactory {
 
 	/* Classe */
 	public Classe createClasse(String nom, LinkedList<Classe> heritages, LinkedList<Interface> impl,LinkedList<ElementClasse> elements){
-		return new ClasseImpl(String nom, LinkedList<Interface> impl, LinkedList<Classe> heritages, LinkedList<ElementClasse> elements);
+		return new ClasseImpl(nom, impl, heritages, elements);
 	}
 	/*END Classe*/
 
 	/*Elements Classe*/
-	public Constructeur createConstructeur(String id, String classeCourante, DroitAcces droit, LinkedList<Parametre> listParam, Bloc body){
-		reutrn new ConstructeurImpl(id, classeCourante, droit, listParam, body);
+	public Constructeur createConstructeur(String id, String classeCourante, DroitAcces droit, LinkedList<Parametre> listParam, Block body){
+		return new ConstructeurImpl(id, classeCourante, droit, listParam, body);
 	}
 	
 	public Methode createMethode(String id, String classeCourante, DroitAcces droit, 
-							     LinkedList<Parametre> listParam, Bloc body, boolean statique, Type returnType){
-		return new Methode(id, classeCourante, droit, listParam, body, statique, returnType);
+							     LinkedList<Parametre> listParam, Block body, boolean statique, Type returnType){
+		return new MethodeImpl(id, classeCourante, droit, listParam, body, statique, returnType);
 	}
 
-	public Attribut createAttribut(String id, Type type, DroitAcces droit, boolean statique){
-		return new AttributImpl(id, type, droit, statique);
+	public Attribut createAttribut(String id, String classeCourante, Type type, DroitAcces droit, boolean statique){
+		return new AttributImpl(id, classeCourante, type, droit, statique);
 	}
 	/*END Elements Classe*/
 

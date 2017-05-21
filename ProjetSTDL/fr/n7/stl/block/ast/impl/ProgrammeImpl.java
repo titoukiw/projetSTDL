@@ -7,7 +7,7 @@ import fr.n7.stl.block.ast.*;
 public class ProgrammeImpl implements Programme {
 
 	private LinkedList<Interface> interfaces;
-	private LinkedList<Classe> classes
+	private LinkedList<Classe> classes;
 
 	public ProgrammeImpl(LinkedList<Interface> interfaces, LinkedList<Classe> classes) {
 		this.interfaces = interfaces;
