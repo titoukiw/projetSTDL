@@ -13,14 +13,14 @@ public class MethodeImpl implements Methode {
 
 	private String id;
 	private LinkedList<Parametre> listParam;
-	private Bloc body;
+	private Block body;
 	private DroitAcces droit;
 	private boolean statique;
 	private Type returnType;
 	private String classeCourante;
 
-	public ConstructeurImpl(String id, String classeCourante, DroitAcces droit, LinkedList<Parametre> listParam,
-							Bloc body, boolean statique, Type returnType){
+	public MethodeImpl(String id, String classeCourante, DroitAcces droit, LinkedList<Parametre> listParam,
+							Block body, boolean statique, Type returnType){
 		this.id = id;
 		this.droit = droit;
 		this.listParam = listParam;
@@ -47,6 +47,10 @@ public class MethodeImpl implements Methode {
 			}
 		}
 		return true;
+	}
+
+	public String getName(){
+		return this.id;
 	}
 
 }

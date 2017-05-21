@@ -29,5 +29,8 @@ public class AttributImpl implements Attribut {
 		return this.classeCourante;
 	}
 
+	public String getName(){
+		return this.id;
+	}
 
 }
