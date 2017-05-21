@@ -15,13 +15,33 @@ public class ConstructeurImpl implements Constructeur {
 	private LinkedList<Parametre> listParam;
 	private Bloc body;
 	private DroitAcces droit;
+	private String classeCourante;
 
-	public ConstructeurImpl(String id, DroitAcces droit, LinkedList<Parametre> listParam, Bloc body){
+	public ConstructeurImpl(String id, DroitAcces droit, LinkedList<Parametre> listParam, Bloc body, String classeCourante){
 		this.id = id;
 		this.droit = droit;
 		this.listParam = listParam;
 		this.body = body;
 	}
 
+	public LinkedList<Parametre> getParametres(){
+		return this.listParam;
+	}
+
+	public String getClasseCourante(){
+		return this.classeCourante;
+	}
+
+	public boolean isEqual(Methode meth){
+		if(this.id == meth.getName() && this.classeCourante == meth.getClasseCourante() 
+									 && this.listParam.size() == meth.getParametres().size()){
+			for(int i=0;i<this.listParam.size();i++){
+				if(!this.listParam.get(i).getType().equals(meth.getParametres().get(i).getType())){
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 }
 
