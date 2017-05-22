@@ -10,10 +10,11 @@ public class FinalStaticFieldImpl extends VariableDeclarationImpl implements Ele
 	private String name;
 	private Expression value;
 	private Type type;
+	private String objetCourant;
 
-
-	public FinalStaticFieldImpl(String name, Type type, Expression expr){
+	public FinalStaticFieldImpl(String name, String objetCourant, Type type, Expression expr){
 		super(name,type,expr);
+		this.objetCourant = objetCourant;
 	}
 
 	@Override
