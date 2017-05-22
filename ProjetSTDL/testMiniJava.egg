@@ -1943,7 +1943,7 @@ end
 
 
 
-
+--A REVOIR A PARTIR D'ICI !!!!
 Facteur -> identificateur #inh AppelOuAcces #ast ;
 #inh {
 local
