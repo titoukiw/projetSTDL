@@ -4,7 +4,7 @@ void testFct(String testArg);
 
 interface Testss extends TestInterface{
 }
-class TestClass {
+class TestClass implements Testss {
 	
 	private boolean testBool;
 

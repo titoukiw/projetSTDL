@@ -22,6 +22,10 @@ public class ParametreImpl implements Parametre {
 		return this.id;
 	}
 
+	public String toString(){
+		return "(Parametre) " + this.type + " " + this.id;
+	}
+
 	public Type getType(){
 		return this.type;
 	}

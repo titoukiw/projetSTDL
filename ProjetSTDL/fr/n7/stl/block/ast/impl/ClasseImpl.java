@@ -35,14 +35,14 @@ public class ClasseImpl implements Classe {
 		public String toString(){
 			String toString = "\n (Classe) " + this.nom;
 			if(this.implementsInterfaces.size() > 0){
-				toString += " extends";
+				toString += " implements";
 				for (Interface inter : this.implementsInterfaces) {
 					toString += " " + inter.getName() + " ," ;
 				}
 			}
 
 			if(this.extendsClasses.size() > 0) {
-				toString += "implements";
+				toString += " extends";
 				for(Classe classe : this.extendsClasses){
 					toString += " " + classe.getName() + " ,";
 				}

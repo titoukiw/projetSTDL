@@ -29,6 +29,14 @@ public class AttributImpl implements Attribut {
 		return this.classeCourante;
 	}
 
+	public String toString(){
+		String toString = "(AttributImpl) "+ this.droit ;
+		if (this.statique){
+			toString += " static";
+		}
+		toString += " " + this.type + " " + this.id +";";
+		return toString;
+	}
 	public String getName(){
 		return this.id;
 	}

@@ -37,6 +37,19 @@ public class MethodeImpl implements Methode {
 		return this.classeCourante;
 	}
 
+	public String toString(){
+		String toString = "(Methode) " + this.droit;
+		if(this.statique){
+			toString += " static";
+		}
+		toString += " " + this.returnType + " " + this.id + " (";
+		for(Parametre param : this.listParam){
+			toString += " " + param + ",";
+		}
+		toString += ")" + "{ " + this.body + "}";
+		return toString;
+	}
+
 	public boolean isEqual(Methode meth){
 		if(this.id == meth.getName() && this.classeCourante == meth.getClasseCourante() 
 									 && this.listParam.size() == meth.getParametres().size()){

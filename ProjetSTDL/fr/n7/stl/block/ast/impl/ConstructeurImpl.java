@@ -32,6 +32,15 @@ public class ConstructeurImpl implements Constructeur {
 		return this.classeCourante;
 	}
 
+	public String toString(){
+		String toString = "(Constructeur)" + this.droit + " " + this.id + " (";
+		for(Parametre param : this.listParam){
+			toString += " " + param + ",";
+		}
+		toString += ")" + " { " + this.body + " }";
+		return toString;
+	}
+
 	public boolean isEqual(Constructeur cons){
 		if(this.id == cons.getName() && this.classeCourante == cons.getClasseCourante() 
 									 && this.listParam.size() == cons.getParametres().size()){
