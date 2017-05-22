@@ -111,6 +111,7 @@ syn ast 	             : Signature for Signature;
 
 --Parametre (Parametres, SuiteParametres)
 inh tds 	        : SymbolTable for Parametre, Parametres, SuiteParametres;
+inh tdsClasses    : SymbolTable for Parametre, Parametres, SuiteParametres; --Hh
 inh tdsInterfaces : SymbolTable for Parametre, Parametres, SuiteParametres;
 inh tdsFunctions  : FunctionSymbolTable for Parametre, Parametres, SuiteParametres;
 inh tdsAttributs  : SymbolTable for Parametre, Parametres, SuiteParametres;
@@ -169,10 +170,14 @@ inh type          : Type for SuiteAttributOuMethode;
 syn acces           : DroitAcces for DroitAcces;
 
 --Type (Atomique,SuiteAtomique)
-inh tds 	     : SymbolTable for Type, TypeAtomique, SuiteTypeAtomique;
-inh factory    : BlockFactory for Type, TypeAtomique, SuiteTypeAtomique;
-inh innerArray : Type for SuiteTypeAtomique;
-syn ast 	     : Type for Type, TypeAtomique, SuiteTypeAtomique;
+inh tdsInterfaces : SymbolTable for Type, TypeAtomique, SuiteTypeAtomique;
+inh tdsClasses    : SymbolTable for Type, TypeAtomique, SuiteTypeAtomique;
+inh tdsFunctions  : FunctionSymbolTable for Type, TypeAtomique, SuiteTypeAtomique;
+inh tdsAttributs  : SymbolTable for Type, TypeAtomique, SuiteTypeAtomique;
+inh tds           : SymbolTable for Type, TypeAtomique, SuiteTypeAtomique;
+inh factory       : BlockFactory for Type, TypeAtomique, SuiteTypeAtomique;
+inh innerArray    : Type for SuiteTypeAtomique;
+syn ast 	        : Type for Type, TypeAtomique, SuiteTypeAtomique;
 
 --Principale, Methode Principale
 inh factory       : BlockFactory for Principale, MethodePrincipale;
@@ -186,13 +191,13 @@ syn ast           : MethodePrincipale for MethodePrincipale;
 
 
 -- Bloc
-inh factory    : BlockFactory for Bloc;
-inh tds        : SymbolTable for Bloc;
+inh factory       : BlockFactory for Bloc;
+inh tds           : SymbolTable for Bloc;
 inh tdsInterfaces : SymbolTable for Bloc;
 inh tdsClasses    : SymbolTable for Bloc;
 inh tdsFunctions  : FunctionSymbolTable for Bloc;
 inh tdsAttributs  : SymbolTable for Bloc;
-syn ast        : Block for Bloc;
+syn ast           : Block for Bloc;
 
 --Expression, Expressions, SuiteExpressions
 inh factory       : BlockFactory for Expression, Expressions, SuiteExpressions;
@@ -202,15 +207,16 @@ inh tdsFunctions  : FunctionSymbolTable for Expression, Expressions, SuiteExpres
 inh tdsAttributs  : SymbolTable for Expression, Expressions, SuiteExpressions;
 inh tds           : SymbolTable for Expression, Expressions, SuiteExpressions;
 syn ast           : Expression for Expression;
-syn expressions   : LinkedList<Expression> for Expressions, SuiteExpressions;
+syn ast           : LinkedList<Expression> for Expressions, SuiteExpressions; --Hh
+--syn expressions   : LinkedList<Expression> for Expressions, SuiteExpressions; ça pue
 
 -- Instruction, Instructions
 inh factory       : BlockFactory for Instruction, Instructions;
-inh tdsInterfaces : SymbolTable for Instruction;
-inh tdsClasses    : SymbolTable for Instruction;
-inh tdsFunctions  : FunctionSymbolTable for Instruction;
-inh tdsAttributs  : SymbolTable for Instruction;
-inh tds           : SymbolTable for Instruction;
+inh tdsInterfaces : SymbolTable for Instruction, Instructions;
+inh tdsClasses    : SymbolTable for Instruction, Instructions;
+inh tdsFunctions  : FunctionSymbolTable for Instruction, Instructions;
+inh tdsAttributs  : SymbolTable for Instruction, Instructions;
+inh tds           : SymbolTable for Instruction, Instructions;
 syn ast           : Instruction for Instruction;
 syn list          : LinkedList<Instruction> for Instructions;
 
@@ -251,6 +257,14 @@ inh tds           : SymbolTable for Facteur, SuiteFacteur;
 syn ast           : Expression for Facteur, SuiteFacteur;
 
 -- Affectation, SuiteAffectation
+inh gauche        : Expression for SuiteAffectation;
+inh factory       : BlockFactory for Affectation, SuiteAffectation;
+inh tdsInterfaces : SymbolTable for Affectation, SuiteAffectation;
+inh tdsClasses    : SymbolTable for Affectation, SuiteAffectation;
+inh tdsFunctions  : FunctionSymbolTable for Affectation, SuiteAffectation;
+inh tdsAttributs  : SymbolTable for Affectation, SuiteAffectation;
+inh tds           : SymbolTable for Affectation, SuiteAffectation;
+syn ast           : Expression for Affectation, SuiteAffectation;
 
 -- SuiteNouveau
 inh type          : Type for SuiteNouveau;
@@ -271,9 +285,24 @@ inh tdsAttributs  : SymbolTable for Valeur;
 inh tds           : SymbolTable for Valeur;
 syn ast           : Expression for Valeur;
 
--- Acces
-inh support       : Expression for Acces;
-syn ast           : Expression for Acces;
+-- Acces AppelOuAcces
+inh factory       : BlockFactory for Acces, AppelOuAcces, Appel;
+inh tdsInterfaces : SymbolTable for Appel, AppelOuAcces, Acces;
+inh tdsClasses    : SymbolTable for Appel, AppelOuAcces, Acces;
+inh tdsFunctions  : FunctionSymbolTable for Appel, AppelOuAcces, Acces;
+inh tdsAttributs  : SymbolTable for Appel, AppelOuAcces, Acces;
+inh tds           : SymbolTable for Appel, AppelOuAcces, Acces;
+inh support       : Expression for Acces, AppelOuAcces, Appel;
+syn ast           : Expression for Acces, AppelOuAcces, Appel;
+
+-- Arguments
+inh factory       : BlockFactory for Arguments;
+inh tdsInterfaces : SymbolTable for Arguments;
+inh tdsClasses    : SymbolTable for Arguments;
+inh tdsFunctions  : FunctionSymbolTable for Arguments;
+inh tdsAttributs  : SymbolTable for Arguments;
+inh tds           : SymbolTable for Arguments;
+syn ast           : Arguments for Arguments; -- C'est pas moi c'est louis
 
 
 
@@ -1177,18 +1206,19 @@ do
 		match d 
 			with Classe then
 				TypeAtomique^ast := TypeAtomique^factory.createClasseType(d);
-		end
-	elsif(TypeAtomique^tdsInterfaces.contains(identificateur_type^txt)) then
+      end
+	else
+    if (TypeAtomique^tdsInterfaces.contains(identificateur_type^txt)) then
 		o := TypeAtomique^tdsInterfaces.get(identificateur_type^txt);
 		d := o.get();
 		match d
 			with Interface then
 				TypeAtomique^ast := TypeAtomique^factory.createInterfaceType(d);
-		end
-	else
-		error(TYPE_unknown,identificateur_type^txt);
+      end
+	  else
+		  error(TYPE_unknown,identificateur_type^txt);
+    end
 	end
-
 end
 }
 
@@ -1798,30 +1828,30 @@ end
 Facteur -> accolade_ouvrante Expressions accolade_fermante #ast ;
 #ast {
 do
-   Facteur^ast := Facteur^factory.createSequence( Expressions^expressions );
+   Facteur^ast := Facteur^factory.createSequence( Expressions^ast );
 end
 }
 
 Expressions -> Expression SuiteExpressions #ast ;
 #ast {
 do 
-   SuiteExpressions^expressions.addFirst(Expression^ast); 
-   Expressions^expressions := SuiteExpressions^expressions; 
+   SuiteExpressions^ast.addFirst(Expression^ast); 
+   Expressions^ast := SuiteExpressions^ast; 
 end 
 }
 
 SuiteExpressions -> virgule Expression SuiteExpressions #ast ;
 #ast {
 do 
-   SuiteExpressions1^expressions.addFirst(Expression^ast); 
-   SuiteExpressions^expressions := SuiteExpressions1^expressions; 
+   SuiteExpressions1^ast.addFirst(Expression^ast); 
+   SuiteExpressions^ast := SuiteExpressions1^ast; 
 end 
 }
 
 SuiteExpressions -> #ast ;
 #ast {
 do
-   SuiteExpressions^expressions := new LinkedList<Expression>();
+   SuiteExpressions^ast := new LinkedList<Expression>();
 end
 }
 
@@ -1863,7 +1893,7 @@ end
 SuiteNouveau -> Arguments #ast ;
 #ast {
 do
-	SuiteNouvea^ast := SuiteNouveau^factory.createObjetAllocation(SuiteNouveau^type,Arguments^ast);
+	SuiteNouveau^ast := SuiteNouveau^factory.createObjetAllocation(SuiteNouveau^type,Arguments^ast);
 end
 }
 
@@ -1990,7 +2020,7 @@ do
 				end
 		end
 	else 
-		erro(IDENT_unknown, identificateur_type^txt);
+		error(IDENT_unknown, identificateur_type^txt);
 	end
 end
 }
@@ -2061,9 +2091,13 @@ end
 }
 
 
--- TODO
-Acces -> point identificateur  Acces ;
-
+-- TODO --trèèèèèèèèèèèès compliquêêêêêêêêêêêêêê
+Acces -> point identificateur  Acces #ast;
+#ast{
+do
+  Acces^ast := nil;
+end
+}
 
 
 Appel -> Arguments Acces #ast;
@@ -2074,6 +2108,7 @@ do
 		Appel^ast := Appel^factory.createFunctionCall(Appel^support, Arguments^ast);
 	else
 		error(FUNCTION_call);
+  end
 end
 }
 
