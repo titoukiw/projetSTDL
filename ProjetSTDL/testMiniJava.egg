@@ -944,7 +944,7 @@ do
 end
 }
  
--- TODO
+
 ElementClasse -> statique #inh AttributOuMethode #ast;
 #inh {
 do
@@ -958,7 +958,7 @@ do
 end
 }
  
--- TODO 
+
 ElementClasse -> #inh AttributOuMethode #ast;
 #inh {
 do
@@ -1164,7 +1164,33 @@ do
 end
 }
 
---TypeAtomique -> identificateur_type InstanceGenericite ; -- A DECOMMENTER TODO
+--TypeAtomique -> identificateur_type InstanceGenericite 
+TypeAtomique -> identificateur_type #ast;
+#ast {
+local
+	o : Optional<Declaration>;
+	d : Declaration;
+do
+	if(TypeAtomique^tdsClasses.contains(identificateur_type^txt)) then
+		o := TypeAtomique^tdsClasses.get(identificateur_type^txt);
+		d := o.get();
+		match d 
+			with Classe then
+				TypeAtomique^ast := TypeAtomique^factory.createClasseType(d);
+		end
+	elsif(TypeAtomique^tdsInterfaces.contains(identificateur_type^txt)) then
+		o := TypeAtomique^tdsInterfaces.get(identificateur_type^txt);
+		d := o.get();
+		match d
+			with Interface then
+				TypeAtomique^ast := TypeAtomique^factory.createInterfaceType(d);
+		end
+	else
+		error(TYPE_unknown,identificateur_type^txt);
+	end
+
+end
+}
 
 SuiteTypeAtomique -> crochet_ouvrant crochet_fermant #inhArray SuiteTypeAtomique #ast;
 #inhArray {
@@ -1437,21 +1463,20 @@ end
 Instruction -> Type identificateur affectation Expression point_virgule #ast;
 #ast {
 local
-  d : Declaration;
+  d : VariableDeclaration;
 do
-  d := Instruction^factory.createVariableDeclaration(identificateur^txt,Type^ast,Expression^ast);
-  if ( Instruction^tds.accepts(d) ) then
-       Instruction^tds.register(d);
-       match d
-               with Instruction then
-                       Instruction^ast := d;
-               else
-                       error(DECL_pas_une_instruction,identificateur^txt);
-        end
- else
-       error(DECL_pas_acceptee, identificateur^txt);
- end
-       
+    if Instruction^tds.contains(identificateur^txt) then
+    	error(IDENT_already_used);
+    else
+    	match Type^ast
+    		with ClasseTypeImpl then
+    			d := Instruction^factory.createClasseDeclaration(identificateur^txt,Type^ast,Expression^ast);
+    		else
+    			d := Instruction^factory.createVariableDeclaration(identificateur^txt,Type^ast,Expression^ast);
+    	end
+    	Instruction^tds.register(d);
+    	Instruction^ast := d ;
+    end
 end
 }
 
@@ -1507,12 +1532,23 @@ do
 end
 }
 
+
+
 Instruction -> tant_que parenthese_ouvrante Expression parenthese_fermante #inh Bloc #ast ;
 #inh {
 do
    Bloc^tds := new SymbolTable(Instruction^tds);
 end
 }
+
+#ast {
+do
+	Instruction^ast := Instruction^factory.createRepetition(Expression^ast,Bloc^ast);
+end
+}
+
+
+
 
 Instruction -> afficher Expression point_virgule #ast ;
 #ast {
@@ -1521,12 +1557,16 @@ do
 end
 }
 
+
+
 Instruction -> retour Expression point_virgule #ast ;
 #ast {
 do
-   Instruction^ast := Instruction^factory.createReturn(Expression^ast);
+   Instruction^ast := Instruction^factory.createReturn(Expression^ast); -- (classe TODO)
 end
 }
+
+
 
 Expression -> Affectation #inh SuiteAffectation #ast;
 #inh {
@@ -1534,6 +1574,7 @@ do
    SuiteAffectation^gauche := Affectation^ast ;
 end 
 }
+
 #ast {
 do
     Expression^ast := SuiteAffectation^ast;
@@ -1552,11 +1593,21 @@ do
 end 
 }
 
---TODO
-SuiteAffectation -> affectation Expression ;
 
---TODO
-SuiteAffectation -> ;
+SuiteAffectation -> affectation Expression #ast;
+#ast {
+do
+	SuiteAffectation^ast := SuiteAffectation^factory.createAssignment(SuiteAffectation^gauche, Expression^ast);
+end
+}
+
+
+SuiteAffectation ->  #ast;
+#ast {
+do
+	SuiteAffectation^ast := SuiteAffectation^gauche;
+end
+}
 
 SuiteCondition -> Comparatif Condition #ast ;
 #ast {
@@ -1617,7 +1668,9 @@ do
    Comparatif^bin_op := BinaryOperator.GreaterOrEqual;    
 end  
 }
-   
+ 
+
+
 Condition -> Terme #ast_inh SuiteTerme #ast_syn ;
 #ast_inh {
 do 
@@ -1740,6 +1793,8 @@ do
 end 
 }
   
+
+
 Facteur -> accolade_ouvrante Expressions accolade_fermante #ast ;
 #ast {
 do
@@ -1803,18 +1858,39 @@ do
 end  
 }
 
-SuiteNouveau -> Arguments ;
 
-Arguments -> parenthese_ouvrante parenthese_fermante ;
 
-Arguments -> parenthese_ouvrante Expressions parenthese_fermante ;
-
-SuiteNouveau -> #ast ; 
+SuiteNouveau -> Arguments #ast ;
 #ast {
-do 
-   SuiteNouveau^ast := SuiteNouveau^factory.createPointerAllocation(SuiteNouveau^type); 
-end 
+do
+	SuiteNouvea^ast := SuiteNouveau^factory.createObjetAllocation(SuiteNouveau^type,Arguments^ast);
+end
 }
+
+Arguments -> parenthese_ouvrante parenthese_fermante #ast;
+#ast {
+do
+	Arguments^ast := Arguments^factory.createArguments();
+end	
+}
+
+
+Arguments -> parenthese_ouvrante Expressions parenthese_fermante #ast ;
+#ast {
+do
+	Arguments^ast := Arguments^factory.createArguments(Expressions^ast);
+end	
+}
+
+
+
+--pas de pointeur en Java ?!
+-- SuiteNouveau -> #ast ; 
+-- #ast {
+-- do 
+--    SuiteNouveau^ast := SuiteNouveau^factory.createPointerAllocation(SuiteNouveau^type); 
+-- end 
+-- }
 
 Facteur -> Valeur #ast;
 #ast {
@@ -1858,6 +1934,16 @@ do
 end
 }
 
+
+
+
+
+
+
+
+
+
+
 Facteur -> identificateur #inh AppelOuAcces #ast ;
 #inh {
 local
@@ -1870,6 +1956,7 @@ do
       match d
       with ConstantDeclaration then AppelOuAcces^support := d.getValue();
       with VariableDeclaration then AppelOuAcces^support := Facteur^factory.createVariableUse(d);
+      with ClasseDeclaration then AppelOuAcces^support := Facteur^factory.createClasseUse(d);
       end
    else
       error(BLOC_undefined_ident, identificateur^txt);
@@ -1882,22 +1969,75 @@ do
 end  
 }
 
--- TODO
-Facteur -> identificateur_type point identificateur AppelOuAcces ;
 
-Facteur -> parenthese_ouvrante Expression parenthese_fermante #ast;
-#ast {
+
+--Considere comme un appel a une constante d'une interface ?!
+Facteur -> identificateur_type point identificateur #inh AppelOuAcces #ast ;
+#inh {
+local
+	o : Optional<Declaration>;
+	d : Declaration;
 do
-   Facteur^ast := Facteur^factory.createSequence( Expression^expressions );
+	if Facteur^tdsInterfaces.knows(identificateur_type^txt) then
+		o := Facteur^tdsInterfaces.get(identificateur_type^txt);
+		d := o.get();
+		match d 
+			with Interface then 
+				if(d.hasFinalStaticField(identificateur^txt)) then
+					AppelOuAcces^support := d.getFinalStaticField(identificateur^txt);
+				else
+					error(IDENT_unknown, identificateur^txt);
+				end
+		end
+	else 
+		erro(IDENT_unknown, identificateur_type^txt);
+	end
 end
 }
 
--- TODO
-AppelOuAcces -> Acces ;
+#ast {
+do
+	Facteur^ast := AppelOuAcces^ast;
+end
+}
 
--- TODO
-AppelOuAcces -> Appel ;
 
+--TODO
+Facteur -> parenthese_ouvrante Expression parenthese_fermante #ast;
+#ast {
+do
+	Facteur^ast := Expression^ast;
+end
+}
+
+
+
+AppelOuAcces -> #inh Acces #ast;
+#inh {
+do
+	Acces^support := AppelOuAcces^support;
+end
+}
+
+#ast {
+do
+	AppelOuAcces^ast := Acces^ast;
+end
+}
+
+
+AppelOuAcces -> #inh Appel #ast ;
+#inh {
+do
+	Appel^support := AppelOuAcces^support;
+end
+}
+
+#ast {
+do
+	AppelOuAcces^ast := Appel^ast;
+end
+}
 
 Acces -> #ast ;
 #ast { 
@@ -1906,28 +2046,36 @@ do
 end  
 }
 
--- TODO
-Acces -> crochet_ouvrant Expression crochet_fermant Acces #ast;
-#ast {
-do
-    Acces^ast := Acces1^ast; --Hh ajouter l'ast de l'axpression ?
-end
-}
 
-Acces -> point identificateur #inh Acces #ast;
+Acces -> crochet_ouvrant Expression crochet_fermant #inh Acces #ast;
 #inh {
 do
-   Acces1^support := Acces^factory.createFieldAccess(Acces^support,identificateur^txt);
+	Acces1^support := Acces^factory.createArrayAcces(Acces^support,Expression^ast);
 end
 }
-#ast { 
-do  
-   Acces^ast := Acces1^ast;  
-end  
+
+#ast {
+do
+    Acces^ast := Acces1^ast; 
+end
 }
 
+
 -- TODO
-Appel -> Arguments Acces ;  
+Acces -> point identificateur  Acces ;
+
+
+
+Appel -> Arguments Acces #ast;
+#ast {
+do
+	match Acces^support 
+	with FunctionDeclaration then
+		Appel^ast := Appel^factory.createFunctionCall(Appel^support, Arguments^ast);
+	else
+		error(FUNCTION_call);
+end
+}
 
 
 
