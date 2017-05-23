@@ -1,6 +1,12 @@
-public class A {
+interface Interf{}
+
+class InterfImpl implements Interf {
+	
+	InterfImpl(){
+	}
 }
 
-public class B extends A {
-	
+public class MainClasse {
+    public static void main(String[] args){
+	}
 }
