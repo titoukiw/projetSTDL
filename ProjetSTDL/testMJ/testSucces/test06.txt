@@ -1,0 +1,7 @@
+											// Ceci est un commentaire
+public class MainClasse {					// Ceci est un commentaire
+											// Ceci est un commentaire
+    public static void main(String[] args){ // Ceci est un commentaire
+    										// Ceci est un commentaire
+   	}
+}

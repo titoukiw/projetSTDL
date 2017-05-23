@@ -304,9 +304,6 @@ inh tdsAttributs  : SymbolTable for Arguments;
 inh tds           : SymbolTable for Arguments;
 syn ast           : LinkedList<Expression> for Arguments; 
 
-
-
-
 --Programme
 syn ast 	: Programme for Programme;
 

@@ -26,7 +26,7 @@ compile :
 	$(JAVAC) -classpath $(EGGJAR):. Main.java
 
 exec :
-	$(JAVA) -classpath $(EGGJAR):. Main ./test.txt
+	$(JAVA) -classpath $(EGGJAR):. Main ./testMJ/test_default.txt
 
 clean :
 	-rm Main.class
