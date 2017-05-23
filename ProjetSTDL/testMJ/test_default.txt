@@ -19,7 +19,8 @@ public class MainClasse {
     	InterfImpl in = new InterfImpl();
     	print(in);
     	in.myInt = 5;
-    	//in.meth1(a);
-    	//int b = in.meth2();
+    	int c = in.myInt;
+    	in.meth2();
+    	int b = in.meth2();
 	}
 }

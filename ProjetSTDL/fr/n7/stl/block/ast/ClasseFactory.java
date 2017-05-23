@@ -27,6 +27,8 @@ public interface ClasseFactory {
 
 	public ClassePrincipale createClassePrincipale(String nom,Block bloc);
 
+	public Expression createMethodeUse(Methode methode,ClasseUseImpl classe);
+
 
 	public Expression createAttributUse(ElementClasse attribut);
 

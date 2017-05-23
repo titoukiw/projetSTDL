@@ -5,7 +5,7 @@ import fr.n7.stl.tam.ast.*;
 import fr.n7.stl.block.ast.*;
 
 
-public class ClasseUseImpl implements Expression {
+public class ClasseUseImpl implements Expression, Instruction {
 
 	private ClasseDeclaration classe;
 
@@ -30,6 +30,14 @@ public class ClasseUseImpl implements Expression {
 		return this.classe;
 	}
 
+	public boolean containsMethode(String id){
+		return this.classe.getClasse().containsMethode(id);
+	}
+
+	public Methode getMethode(String id){
+		return this.classe.getClasse().getMethode(id);
+	}
+
 	public boolean containsAttribut(String id){
 		return this.classe.getClasse().containsAttribut(id);
 	}
@@ -37,6 +45,16 @@ public class ClasseUseImpl implements Expression {
 	public Expression getAttribut(String id){
 		return this.classe.getClasse().getAttribut(id);
 	}
+
+	public boolean checkType(){
+		throw new SemanticsUndefinedException("checkType() ClasseUseImpl");
+	}
+	
+
+	public int allocateMemory(Register _register, int _offset){
+		throw new SemanticsUndefinedException("allocateMemory() ClasseUseImpl");
+	}
+	
 
 	public Fragment getCode(TAMFactory _factory){
 		throw new SemanticsUndefinedException("getCode() ClasseUseImpl");

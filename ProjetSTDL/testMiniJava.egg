@@ -2132,6 +2132,12 @@ do
 					with ElementClasse then
 						AppelOuAcces^support := Acces^factory.createAttributUse(expAtt);
 				end
+			elseif (exp.containsMethode(identificateur^txt)) then
+				expAtt := exp.getMethode(identificateur^txt);
+				match expAtt
+					with Methode then
+						AppelOuAcces^support := Acces^factory.createMethodeUse(expAtt,exp);
+				end
 			else
 				error(ATTRIBUT_doesnt_exist,exp.getName(),identificateur^txt);
 			end
@@ -2140,7 +2146,19 @@ end
 }
 
 
-Appel -> Arguments  Acces #ast;
+Appel -> Arguments  #inh Acces #ast;
+#inh {
+local
+	exp : Expression;
+do
+	exp := Appel^support;
+	match exp
+		with MethodeUseImpl then
+			exp.setArguments(Arguments^ast);
+			Acces^support := exp;
+	end
+end
+}
 #ast {
 do
 	Appel^ast := Acces^ast;

@@ -35,6 +35,25 @@ public class ClasseImpl implements Classe {
 			return this.nom.equals(classe.getName());
 		}
 
+
+		public boolean containsMethode(String id){
+			for(ElementClasse elem : this.elements){
+				if(elem instanceof MethodeImpl && elem.getName().equals(id)){
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public Methode getMethode(String id){
+			for(ElementClasse elem : this.elements){
+				if(elem instanceof MethodeImpl && elem.getName().equals(id)){
+					return ((Methode)elem);
+				}
+			}
+			return null;
+		}
+
 		public boolean containsAttribut(String id){
 			for(ElementClasse elem : this.elements){
 				if (elem instanceof AttributImpl && elem.getName().equals(id)){

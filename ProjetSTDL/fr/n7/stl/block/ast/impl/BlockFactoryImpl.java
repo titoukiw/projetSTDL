@@ -526,6 +526,10 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new MethodeImpl(id, classeCourante, droit, listParam, body, statique, returnType);
 	}
 
+	public Expression createMethodeUse(Methode methode,ClasseUseImpl classe){
+		return new MethodeUseImpl(methode,classe);
+	}
+
 	public Attribut createAttribut(String id, String classeCourante, Type type, DroitAcces droit, boolean statique){
 		return new AttributImpl(id, classeCourante, type, droit, statique);
 	}
