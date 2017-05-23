@@ -1,0 +1,18 @@
+interface Interf{
+	
+}
+
+class InterfImpl implements Interf {
+
+	private String id;
+	
+	InterfImpl(String id){
+		this.id = id;
+	}
+
+}
+
+public class MainClasse {
+    public static void main(String[] args){
+	}
+}

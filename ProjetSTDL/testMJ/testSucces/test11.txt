@@ -1,0 +1,12 @@
+
+class A {
+}
+
+class B extends A {
+	
+}
+
+public class MainClasse {
+    public static void main(String[] args){
+	}
+}
