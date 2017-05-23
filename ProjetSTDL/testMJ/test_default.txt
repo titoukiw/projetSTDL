@@ -2,11 +2,20 @@ interface Interf{}
 
 class InterfImpl implements Interf {
 	
-	public InterfImpl(){
+	public InterfImpl(){}
+
+	public void meth1(String a){}
+
+	public int meth2(){
+		return 3;
 	}
 }
 
 public class MainClasse {
     public static void main(String[] args){
+    	String a = "a";
+    	Interf in = new InterfImpl();
+    	in.meth1(a);
+    	int b = in.meth2();
 	}
 }
