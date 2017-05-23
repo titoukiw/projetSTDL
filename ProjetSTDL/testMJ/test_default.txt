@@ -1,8 +1,10 @@
 interface Interf{}
 
 class InterfImpl implements Interf {
-	
-	public InterfImpl(){}
+	public int myInt;
+	public InterfImpl(){
+		myInt = 3;
+	}
 
 	public void meth1(String a){}
 
@@ -16,6 +18,7 @@ public class MainClasse {
     	String a = "a";
     	InterfImpl in = new InterfImpl();
     	print(in);
+    	in.myInt = 5;
     	//in.meth1(a);
     	//int b = in.meth2();
 	}

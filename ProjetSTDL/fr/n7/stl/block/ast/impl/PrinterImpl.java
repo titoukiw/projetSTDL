@@ -29,7 +29,7 @@ public class PrinterImpl implements Instruction {
 	 */
 	@Override
 	public String toString() {
-		return "print" + this.parameter + ";";
+		return "print" + this.parameter + ";\n";
 	}
 
 	/* (non-Javadoc)
