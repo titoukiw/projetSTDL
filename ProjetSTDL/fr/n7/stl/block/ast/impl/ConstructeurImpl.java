@@ -49,8 +49,9 @@ public class ConstructeurImpl implements Constructeur {
 					return false;
 				}
 			}
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 		public String getName(){

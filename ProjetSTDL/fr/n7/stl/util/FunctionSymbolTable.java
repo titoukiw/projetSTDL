@@ -38,6 +38,8 @@ public class FunctionSymbolTable{
 	public boolean containFun(Methode met) {
 		for(Methode m_element : this.listMethodes){
 			if(m_element.isEqual(met)){
+				// System.out.println(m_element);
+				// System.out.println(met);
 				return true;
 			}
 		}

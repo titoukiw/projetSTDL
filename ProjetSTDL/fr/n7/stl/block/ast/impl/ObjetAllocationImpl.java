@@ -19,6 +19,10 @@ public class ObjetAllocationImpl implements Expression {
 		return this.type;
 	}
 
+	public String toString() {
+		String toString = "(Allocation) new " + this.type + " ( " + this.expressions + " );";
+		return toString;
+	}
 
 	public Fragment getCode(TAMFactory _factory){
 		throw new SemanticsUndefinedException("getcode() ObjetAllocationImpl");

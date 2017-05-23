@@ -51,15 +51,16 @@ public class MethodeImpl implements Methode {
 	}
 
 	public boolean isEqual(Methode meth){
-		if(this.id == meth.getName() && this.classeCourante == meth.getClasseCourante() 
+		if(this.id.equals(meth.getName()) && this.classeCourante.equals(meth.getClasseCourante()) 
 									 && this.listParam.size() == meth.getParametres().size()){
 			for(int i=0;i<this.listParam.size();i++){
 				if(!this.listParam.get(i).getType().equals(meth.getParametres().get(i).getType())){
 					return false;
 				}
 			}
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	public String getName(){

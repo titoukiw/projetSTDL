@@ -933,17 +933,17 @@ end
 --l 602 > 714 (ELMTS CLASSES)
 --------------------------------------
 
-ElementsClasse -> DroitAcces #inh ElementClasse #register ElementsClasse #ast ;
+ElementsClasse -> DroitAcces #inh ElementClasse ElementsClasse #ast ;
 #inh {
 do
   ElementClasse^droit := DroitAcces^acces;
 end
 }
-#register {
-do
-  ElementsClasse^tds.register(ElementClasse^ast);
-end
-}
+-- #register {
+-- do
+--   ElementsClasse^tds.register(ElementClasse^ast);
+-- end
+-- }
 
 #ast {
 do
