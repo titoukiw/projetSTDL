@@ -35,6 +35,24 @@ public class ClasseImpl implements Classe {
 			return this.nom.equals(classe.getName());
 		}
 
+		public boolean containsAttribut(String id){
+			for(ElementClasse elem : this.elements){
+				if (elem instanceof AttributImpl && elem.getName().equals(id)){
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public Expression getAttribut(String id){
+			for(ElementClasse elem : this.elements){
+				if (elem instanceof AttributImpl && elem.getName().equals(id)){
+					return elem;
+				}
+			}
+			return null;
+		}
+
 		public String toString(){
 			String toString = "\n (Classe) " + this.nom;
 			if(this.implementsInterfaces.size() > 0){

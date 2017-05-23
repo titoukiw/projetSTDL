@@ -18,6 +18,10 @@ public class ClasseUseImpl implements Expression {
 		return this.classe.getType();
 	}
 
+	public String getName(){
+		return this.classe.getClasse().getName();
+	}
+
 	public String toString() {
 		return "(ClasseUse) @{" + this.classe.getName() + "}";
 	}
@@ -26,7 +30,13 @@ public class ClasseUseImpl implements Expression {
 		return this.classe;
 	}
 
+	public boolean containsAttribut(String id){
+		return this.classe.getClasse().containsAttribut(id);
+	}
 	
+	public Expression getAttribut(String id){
+		return this.classe.getClasse().getAttribut(id);
+	}
 
 	public Fragment getCode(TAMFactory _factory){
 		throw new SemanticsUndefinedException("getCode() ClasseUseImpl");

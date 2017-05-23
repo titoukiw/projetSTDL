@@ -5,7 +5,7 @@ package fr.n7.stl.block.ast;
  *
  */
 
-public interface ElementClasse extends Declaration {
+public interface ElementClasse extends Declaration, Expression {
 
 	public String getClasseCourante();
 	public Type getType();

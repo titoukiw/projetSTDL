@@ -6,7 +6,7 @@ package fr.n7.stl.block.ast.impl;
  */
 
 import fr.n7.stl.block.ast.*;
-import fr.n7.stl.block.ast.AtomicType;
+import fr.n7.stl.tam.ast.*;
 import java.util.LinkedList;
 
 public class MethodeImpl implements Methode {
@@ -70,6 +70,12 @@ public class MethodeImpl implements Methode {
 	public String getName(){
 		return this.id;
 	}
+
+
+	public Fragment getCode(TAMFactory factory){
+		throw new SemanticsUndefinedException("getCode AttributImpl");
+	}
+
 
 }
 

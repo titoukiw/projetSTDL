@@ -19,7 +19,7 @@ public class AttributUseImpl implements Expression {
 	}
 
 	public String toString() {
-		return "(AttributUse)@{" + this.attribut.getName() + "}";
+		return "(AttributUse From " + this.attribut.getClasseCourante() +  " )@{" + this.attribut.getName() + "}";
 	}
 
 	public ElementClasse getDeclaration() {

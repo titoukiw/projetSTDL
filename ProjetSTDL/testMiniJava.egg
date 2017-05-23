@@ -2111,10 +2111,31 @@ end
 
 
 -- TODO --trèèèèèèèèèèèès compliquêêêêêêêêêêêêêê
-Acces -> point identificateur  Acces #ast;
+Acces -> point identificateur #inh AppelOuAcces #ast;
 #ast{
 do
-  Acces^ast := nil;
+  Acces^ast := AppelOuAcces^ast;
+end
+}
+
+#inh{
+local
+	exp : Expression;
+	expAtt : Expression;
+do
+	exp := Acces^support;
+	match exp
+		with ClasseUseImpl then 
+			if(exp.containsAttribut(identificateur^txt)) then
+				expAtt := exp.getAttribut(identificateur^txt);
+				match expAtt
+					with ElementClasse then
+						AppelOuAcces^support := Acces^factory.createAttributUse(expAtt);
+				end
+			else
+				error(ATTRIBUT_doesnt_exist,exp.getName(),identificateur^txt);
+			end
+	end
 end
 }
 
