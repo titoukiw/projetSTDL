@@ -2,7 +2,7 @@ interface Interf{}
 
 class InterfImpl implements Interf {
 	
-	InterfImpl(){
+	public InterfImpl(){
 	}
 }
 
