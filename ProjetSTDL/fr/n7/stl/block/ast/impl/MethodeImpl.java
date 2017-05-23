@@ -46,7 +46,7 @@ public class MethodeImpl implements Methode {
 		for(Parametre param : this.listParam){
 			toString += " " + param + ",";
 		}
-		toString += ")" + "{ " + this.body + "}";
+		toString += ")" + this.body ;
 		return toString;
 	}
 

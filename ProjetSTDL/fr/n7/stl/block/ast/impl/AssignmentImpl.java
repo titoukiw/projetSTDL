@@ -3,10 +3,7 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.Assignable;
-import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.Instruction;
-import fr.n7.stl.block.ast.VariableDeclaration;
+import fr.n7.stl.block.ast.*;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -16,10 +13,11 @@ import fr.n7.stl.tam.ast.TAMFactory;
  * @author Marc Pantel
  *
  */
-public class AssignmentImpl implements Instruction {
+public class AssignmentImpl implements Instruction, Expression {
 
 	protected VariableDeclaration declaration;
 	protected Expression value;
+	protected Expression assignable_expr;
 	protected Assignable assignable;
 
 	/**
@@ -44,14 +42,34 @@ public class AssignmentImpl implements Instruction {
 		this.value = _value;
 	}
 
+	public AssignmentImpl(Expression assignable, Expression value){
+		this.assignable_expr = assignable;
+		this.value = value;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return ((this.declaration != null)
-				?this.declaration.getName()
-				:this.assignable) + " = " + this.value.toString() + ";\n";
+		if(this.assignable != null){
+			return ((this.declaration != null)
+					?this.declaration.getName()
+					:this.assignable) + " = " + this.value.toString() + ";\n";
+		} else {
+			return ((this.declaration != null)
+					?this.declaration.getName()
+					:this.assignable_expr) + " = " + this.value.toString() + ";\n";
+		}
+	}
+
+
+	public Type getType(){
+		if(this.assignable != null){
+			return this.assignable.getType();
+		} else {
+			return this.assignable_expr.getType();
+		}
 	}
 
 	/* (non-Javadoc)

@@ -37,6 +37,14 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new IntegerValueImpl(_texte);
 	}
 
+	public Value createCharacterValue(String _texte){
+		return new CharacterValueImpl(_texte);
+	}
+
+	public Value createStringValue(String _texte){
+		return new StringValueImpl(_texte);
+	}
+
 	/* (non-Javadoc)
 	 * @see fr.n7.block.ast.ASTFactory#createBlock()
 	 */
@@ -53,12 +61,24 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new VariableDeclarationImpl(_name,_type,_initialValue);
 	}
 
+	public ClasseDeclaration createClasseDeclaration(String name, Type type, Expression expr){
+		return new ClasseDeclarationImpl(name,type,expr);
+	}
+
 	/* (non-Javadoc)
 	 * @see fr.n7.block.ast.ASTFactory#createIntegerType()
 	 */
 	@Override
 	public Type createIntegerType() {
 		return AtomicType.IntegerType;
+	}
+
+	public Type createInterfaceType(Interface inter){
+		return new InterfaceTypeImpl(inter);
+	}
+
+	public Type createClasseType(Classe classe) {
+		return new ClasseTypeImpl(classe);
 	}
 
 	/* (non-Javadoc)
@@ -76,7 +96,15 @@ public class BlockFactoryImpl implements BlockFactory {
 	public Expression createVariableUse(VariableDeclaration _declaration) {
 		return new VariableUseImpl(_declaration);
 	}
+
+	public Expression createClasseUse(ClasseDeclaration _declaration){
+		return new ClasseUseImpl(_declaration);
+	}
 	
+	public ClassePrincipale createClassePrincipale(String nom, Block bloc){
+		return new ClassePrincipaleImpl(nom,bloc);
+	}
+
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.ExpressionFactory#createVariableAssignment(fr.n7.stl.block.ast.VariableDeclaration)
 	 */
@@ -99,6 +127,10 @@ public class BlockFactoryImpl implements BlockFactory {
 	@Override
 	public Instruction createRepetition(Expression _condition, Block _body) {
 		return new RepetitionImpl(_condition,_body);
+	}
+
+	public Instruction createReturn(Expression _value) {
+		return new ReturnImpl(_value);
 	}
 
 	/* (non-Javadoc)
@@ -163,6 +195,10 @@ public class BlockFactoryImpl implements BlockFactory {
 	@Override
 	public Instruction createAssignment(Assignable _assignable, Expression _value) {
 		return new AssignmentImpl(_assignable,_value);
+	}
+
+	public Expression createAssignment(Expression assignable, Expression value) {
+		return new AssignmentImpl(assignable,value);
 	}
 
 	/* (non-Javadoc)
@@ -422,6 +458,10 @@ public class BlockFactoryImpl implements BlockFactory {
     	return new PointerAllocationImpl(_type);
     }
 
+    public Expression createObjetAllocation(Type type, LinkedList<Expression> expressions){
+    	return new ObjetAllocationImpl(type,expressions);
+    }
+
     /* PROJET ------------------------------------------------------------>>>>>>>>>>>>>>>>>> */
 
     /* createInterface */
@@ -460,13 +500,13 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new ParametreImpl(id,type);
 	}
 
-	public Programme createProgramme(LinkedList<Interface> interfaces, LinkedList<Classe> classes) {
-		return new ProgrammeImpl(interfaces, classes);
+	public Programme createProgramme(LinkedList<Interface> interfaces, LinkedList<Classe> classes, ClassePrincipale classePrincipale) {
+		return new ProgrammeImpl(interfaces, classes, classePrincipale);
 	}
 	// Classes TypeGenerique ArgumentGenericite 
-	/*public ElementInterface createFinalStaticField(String id,Type type, Expression expr){
-		return new FinalStaticField(id, type, expr);
-	}*/
+	public FinalStaticField createFinalStaticField(String id,String objetCourrant,Type type, Expression expr){
+		return new FinalStaticFieldImpl(id, objetCourrant,type, expr);
+	}
 
 	/*  Objet....*/
 
@@ -490,6 +530,8 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new AttributImpl(id, classeCourante, type, droit, statique);
 	}
 	/*END Elements Classe*/
+
+
 
 
 }

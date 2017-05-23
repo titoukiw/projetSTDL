@@ -39,8 +39,28 @@ public class InterfaceImpl implements Interface {
 		return this.nom;
 	}
 
-	public Type getType(){
+	public boolean hasFinalStaticField(String name){
+		for(ElementInterface elem : this.listElements){
+			if (elem instanceof FinalStaticFieldImpl && name.equals(elem.getName())){
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+	public Expression getFinalStaticField(String name){
+		for(ElementInterface elem : this.listElements){
+			if (elem instanceof FinalStaticFieldImpl && name.equals(elem.getName())){
+				return ((FinalStaticField) elem).getExpression();
+			}
+
+		}
 		return null;
+	}
+
+	public Type getType(){
+		return new InterfaceTypeImpl(this);
 	}
 
 	public String toString(){
@@ -77,6 +97,10 @@ public class InterfaceImpl implements Interface {
 	/* does not @Override ?!*/
 	public boolean compatibleWith(Type type) {
 		return true;
+	}
+
+	public boolean equalsTo(Interface inter){
+		return this.nom.equals(inter.getName());
 	}
 
 	/* does not @Override ?!*/

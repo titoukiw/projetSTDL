@@ -8,7 +8,15 @@ class TestClass implements Testss {
 	
 	private boolean testBool;
 
-	protected TestClass()
+	protected TestClass(){}
 	
-	public void testFct(String tesst)
+	public void testFct(String tesst){
+		String testString = "ceci";	
+}
+}
+
+public class MainClasse {
+	public static void main(String[] args){
+		String mainString = "on est dans le main";
+}
 }

@@ -28,8 +28,11 @@ public class ClasseImpl implements Classe {
 		}
 
 		public Type getType(){
-			return null;
-			//return new ClassTypeImpl(this);
+			return new ClasseTypeImpl(this);
+		}
+
+		public boolean equalsTo(Classe classe){
+			return this.nom.equals(classe.getName());
 		}
 
 		public String toString(){

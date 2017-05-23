@@ -20,5 +20,11 @@ public interface ClasseFactory {
 							     LinkedList<Parametre> listParam, Block body, boolean statique, Type returnType);
 	public Attribut createAttribut(String id, String classeCourante, Type type, DroitAcces droit, boolean statique);
 
+	public Type createClasseType(Classe classe);
+	public ClasseDeclaration createClasseDeclaration(String name, Type type, Expression expression);
+
+	public Expression createClasseUse(ClasseDeclaration classe);
+
+	public ClassePrincipale createClassePrincipale(String nom,Block bloc);
 
 }

@@ -8,10 +8,12 @@ public class ProgrammeImpl implements Programme {
 
 	private LinkedList<Interface> interfaces;
 	private LinkedList<Classe> classes;
+	private ClassePrincipale classePrincipale;
 
-	public ProgrammeImpl(LinkedList<Interface> interfaces, LinkedList<Classe> classes) {
+	public ProgrammeImpl(LinkedList<Interface> interfaces, LinkedList<Classe> classes, ClassePrincipale classePrincipale) {
 		this.interfaces = interfaces;
 		this.classes = classes;
+		this.classePrincipale = classePrincipale;
 	}
 
 	public String toString() {
@@ -22,6 +24,7 @@ public class ProgrammeImpl implements Programme {
 		for(Classe classe : this.classes) {
 			result += classe.toString();
 		}
+		result += "\n " + this.classePrincipale.toString();
 		return result;
 	}
 }

@@ -186,8 +186,8 @@ inh tdsClasses    : SymbolTable for Principale, MethodePrincipale;
 inh tdsFunctions  : FunctionSymbolTable for Principale, MethodePrincipale;
 inh tdsAttributs  : SymbolTable for Principale, MethodePrincipale;
 inh tds           : SymbolTable for Principale, MethodePrincipale;
-syn ast           : Principale for Principale;
-syn ast           : MethodePrincipale for MethodePrincipale;
+syn ast           : ClassePrincipale for Principale;
+syn ast           : Block for MethodePrincipale;
 
 
 -- Bloc
@@ -221,7 +221,7 @@ syn ast           : Instruction for Instruction;
 syn list          : LinkedList<Instruction> for Instructions;
 
 -- Condition, SuiteCondition, SuiteConditionnelle,
-inh alors         : Bloc for SuiteConditionnelle;
+inh alors         : Block for SuiteConditionnelle;
 inh condition     : Expression for SuiteConditionnelle;
 inh factory       : BlockFactory for Condition, SuiteConditionnelle, SuiteCondition;
 inh tdsInterfaces : SymbolTable for Condition, SuiteConditionnelle, SuiteCondition;
@@ -302,7 +302,7 @@ inh tdsClasses    : SymbolTable for Arguments;
 inh tdsFunctions  : FunctionSymbolTable for Arguments;
 inh tdsAttributs  : SymbolTable for Arguments;
 inh tds           : SymbolTable for Arguments;
-syn ast           : Arguments for Arguments; -- C'est pas moi c'est louis
+syn ast           : LinkedList<Expression> for Arguments; 
 
 
 
@@ -373,7 +373,7 @@ term   identificateur_type    is    "[A-Z][a-zA-Z0-9_]*";
 
 
 
-Programme -> #factory Interfaces #factory2 Classes #ast3;
+Programme -> #factory Interfaces #factory2 Classes #factory3 Principale #ast3 ;
 global
   tds_Interfaces :SymbolTable;
   tds_Classes : SymbolTable;
@@ -406,13 +406,23 @@ do
   Classes^factory := new BlockFactoryImpl();
 end
 }
+
+#factory3 {
+do
+  Principale^tdsInterfaces := tds_Interfaces;
+  Principale^tdsClasses := tds_Classes;
+  Principale^tdsFunctions := tds_Functions;
+  Principale^tdsAttributs := tds_Attributs;
+  Principale^tds := new SymbolTable();
+  Principale^factory := new BlockFactoryImpl();
+end
+}
 #ast3 {
 local
   facto : BlockFactory;
 do
   facto := new BlockFactoryImpl();
-  Programme^ast := facto.createProgramme(Interfaces^ast,Classes^ast);
-  --Plus tard createProgramme(Interfaces^ast,Classes^ast,Princiapel^ast) !? --Hh non
+  Programme^ast := facto.createProgramme(Interfaces^ast,Classes^ast,Principale^ast);
 end
 }
 
@@ -1120,10 +1130,10 @@ end
 Principale -> public classe identificateur_type accolade_ouvrante MethodePrincipale accolade_fermante #ast;
 #ast {
 do
-   if (Principale^tds.knows(identificateur_type^txt)) then
+   if (Principale^tdsClasses.contains(identificateur_type^txt)) then
       error(TYPE_already_defined, identificateur_type^txt);
    else
-      Principale^ast := Principale^factory.createPrincipale(identificateur_type^txt,MethodePrincipale^ast);
+      Principale^ast := Principale^factory.createClassePrincipale(identificateur_type^txt,MethodePrincipale^ast);
    end
 end
 }
@@ -1131,7 +1141,7 @@ end
 MethodePrincipale -> public statique vide principale parenthese_ouvrante type_String crochet_ouvrant crochet_fermant identificateur parenthese_fermante Bloc #ast;
 #ast {
 do
-   MethodePrincipale^ast := MethodePrincipale^factory.createMethodePrincipale(identificateur^txt,Bloc^ast);
+   MethodePrincipale^ast := Bloc^ast;
 end
 }
 --------------------------------------
@@ -1498,15 +1508,18 @@ do
     if Instruction^tds.contains(identificateur^txt) then
     	error(IDENT_already_used);
     else
-    	match Type^ast
+    	match Type^ast 
     		with ClasseTypeImpl then
     			d := Instruction^factory.createClasseDeclaration(identificateur^txt,Type^ast,Expression^ast);
+    			Instruction^tds.register(d);
+    			Instruction^ast := d ;
     		else
     			d := Instruction^factory.createVariableDeclaration(identificateur^txt,Type^ast,Expression^ast);
-    	end
-    	Instruction^tds.register(d);
-    	Instruction^ast := d ;
+    		    Instruction^tds.register(d);
+    			Instruction^ast := d ;
+    		end
     end
+
 end
 }
 
@@ -1660,7 +1673,7 @@ end
 Comparatif -> egalite #texte;  
 #texte {  
 do  
-   Comparatif^bin_op := BinaryOperator.Equal;   
+   Comparatif^bin_op := BinaryOperator.Equals;   
 end  
 }
 
@@ -1755,7 +1768,7 @@ end
 Additif -> addition #ast;  
 #ast {  
 do  
-   Additif^bin_op := BinaryOperator.Addition;   
+   Additif^bin_op := BinaryOperator.Add;   
 end  
 }
 
@@ -1798,7 +1811,7 @@ end
 Multiplicatif -> multiplication #ast; 
 #ast { 
 do 
-   Multiplicatif^bin_op := BinaryOperator.Multiple;  
+   Multiplicatif^bin_op := BinaryOperator.Multiply;  
 end 
 }
 
@@ -1900,7 +1913,7 @@ end
 Arguments -> parenthese_ouvrante parenthese_fermante #ast;
 #ast {
 do
-	Arguments^ast := Arguments^factory.createArguments();
+	Arguments^ast := new LinkedList<Expression>();
 end	
 }
 
@@ -1908,7 +1921,7 @@ end
 Arguments -> parenthese_ouvrante Expressions parenthese_fermante #ast ;
 #ast {
 do
-	Arguments^ast := Arguments^factory.createArguments(Expressions^ast);
+	Arguments^ast := Expressions^ast;
 end	
 }
 
@@ -2080,7 +2093,7 @@ end
 Acces -> crochet_ouvrant Expression crochet_fermant #inh Acces #ast;
 #inh {
 do
-	Acces1^support := Acces^factory.createArrayAcces(Acces^support,Expression^ast);
+	Acces1^support := Acces^factory.createArrayAccess(Acces^support,Expression^ast);
 end
 }
 
@@ -2100,17 +2113,13 @@ end
 }
 
 
-Appel -> Arguments Acces #ast;
+Appel -> Arguments  Acces #ast;
 #ast {
 do
-	match Acces^support 
-	with FunctionDeclaration then
-		Appel^ast := Appel^factory.createFunctionCall(Appel^support, Arguments^ast);
-	else
-		error(FUNCTION_call);
-  end
+	Appel^ast := Acces^ast;
 end
 }
+
 
 
 

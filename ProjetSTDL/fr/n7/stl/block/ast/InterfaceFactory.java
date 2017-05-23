@@ -22,12 +22,15 @@ public interface InterfaceFactory {
 	public ArgumentGenericite createArgumentGenericite(Objet obj);
 	public Type createGenericType(Objet obj);
 	public Type createGenericType(Objet obj, LinkedList<Type> instGen);
-
+	public Type createInterfaceType(Interface inter);
 
 	/* ElementInterface*/
 	public Signature createSignature(String id, LinkedList<Parametre> listParam, String nomInterface);
 	public Signature createSignature(String id, Type type, LinkedList<Parametre> listParam, String nomInterface);
 	public Parametre createParametre(String id, Type type);
+
+	/* Final Static Field */
+	public FinalStaticField createFinalStaticField(String id, String objetCourrante, Type type, Expression expression);
 
 }
 

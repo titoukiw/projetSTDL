@@ -85,6 +85,8 @@ public interface InstructionFactory {
 	 * @return An Assignment node in the Abstract Syntax Tree.
 	 */
 	public Instruction createAssignment(Assignable _assignable, Expression _value);
+
+	public Expression createAssignment(Expression assignable, Expression value);
 	
 	/**
 	 * Create a conditional node in the Abstract Syntax Tree.
@@ -128,5 +130,7 @@ public interface InstructionFactory {
 	 * @return A Printer node in the Abstract Syntax Tree.
 	 */
 	public Instruction createPrinter(Expression _value);
+
+	public Instruction createReturn(Expression _value);
 
 }

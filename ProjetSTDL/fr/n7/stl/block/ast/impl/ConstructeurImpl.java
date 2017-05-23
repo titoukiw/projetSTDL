@@ -37,7 +37,7 @@ public class ConstructeurImpl implements Constructeur {
 		for(Parametre param : this.listParam){
 			toString += " " + param + ",";
 		}
-		toString += ")" + " { " + this.body + " }";
+		toString += ")" + this.body ;
 		return toString;
 	}
 

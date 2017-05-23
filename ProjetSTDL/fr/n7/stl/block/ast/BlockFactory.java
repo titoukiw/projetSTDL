@@ -12,5 +12,5 @@ import java.util.LinkedList;
  */
 public interface BlockFactory extends ExpressionFactory, InstructionFactory, TypeFactory, InterfaceFactory, ClasseFactory {
 
-	public Programme createProgramme(LinkedList<Interface> interfaces, LinkedList<Classe> classes);
+	public Programme createProgramme(LinkedList<Interface> interfaces, LinkedList<Classe> classes,ClassePrincipale classePrincipale);
 }

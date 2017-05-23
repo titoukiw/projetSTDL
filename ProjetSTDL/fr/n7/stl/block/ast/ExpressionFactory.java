@@ -2,7 +2,7 @@
  * 
  */
 package fr.n7.stl.block.ast;
-
+import java.util.LinkedList;
 /**
  * Factory to create Abstract Syntax Tree nodes for common expressions in programming languages.
  * @author Marc Pantel
@@ -33,6 +33,10 @@ public interface ExpressionFactory {
 	 * @return Abstract Syntax Tree node for the integer constant.
 	 */
 	public Value createIntegerValue(String _texte);
+
+	public Value createCharacterValue(String _texte);
+
+	public Value createStringValue(String _texte);
 	
 	/**
 	 * Create a node for a boolean value expression in the Abstract Syntax Tree.
@@ -193,5 +197,8 @@ public interface ExpressionFactory {
     * @param _type The Type of the element pointed
     */
     public Expression createPointerAllocation(Type _type);
+
+
+    public Expression createObjetAllocation(Type type, LinkedList<Expression> expressions);
 
 }
