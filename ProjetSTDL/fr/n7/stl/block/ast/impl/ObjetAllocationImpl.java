@@ -20,7 +20,7 @@ public class ObjetAllocationImpl implements Expression {
 	}
 
 	public String toString() {
-		String toString = "(Allocation) new " + this.type + " ( " + this.expressions + " );";
+		String toString = "(Allocation) new " + this.type + " ( " + this.expressions + " )";
 		return toString;
 	}
 

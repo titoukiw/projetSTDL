@@ -32,7 +32,7 @@ public class VariableUseImpl implements Expression {
 	 */
 	@Override
 	public String toString() {
-		return ("@{" + this.declaration.getName() + "}");
+		return ("(VariableUse)@{" + this.declaration.getName() + "}");
 	}
 
 	public VariableDeclaration getDeclaration() {

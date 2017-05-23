@@ -14,8 +14,9 @@ class InterfImpl implements Interf {
 public class MainClasse {
     public static void main(String[] args){
     	String a = "a";
-    	Interf in = new InterfImpl();
-    	in.meth1(a);
+    	InterfImpl in = new InterfImpl();
+    	print(in);
+    	//in.meth1(a);
     	//int b = in.meth2();
 	}
 }

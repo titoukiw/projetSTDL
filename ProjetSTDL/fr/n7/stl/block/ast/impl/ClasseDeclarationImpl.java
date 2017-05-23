@@ -35,6 +35,11 @@ public class ClasseDeclarationImpl implements ClasseDeclaration {
 		return this.register;
 	}
 
+	public String toString(){
+		String toString = "(ClasseDeclaration)" + this.type + " " + this.nom + " = " + this.value + ";\n";
+		return toString;
+	}
+
 	public String getName(){
 		return this.nom;
 	}

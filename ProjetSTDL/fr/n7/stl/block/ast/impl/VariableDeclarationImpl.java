@@ -40,7 +40,7 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 	 */
 	@Override
 	public String toString() {
-		return this.type + " " + this.name + " = " + this.value + ";\n";
+		return "(VariableDeclaration)" + this.type + " " + this.name + " = " + this.value + ";\n";
 	}
 
 	/* (non-Javadoc)

@@ -77,7 +77,7 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new InterfaceTypeImpl(inter);
 	}
 
-	public Type createClasseType(Classe classe) {
+	public ClasseTypeImpl createClasseType(Classe classe) {
 		return new ClasseTypeImpl(classe);
 	}
 
@@ -528,6 +528,10 @@ public class BlockFactoryImpl implements BlockFactory {
 
 	public Attribut createAttribut(String id, String classeCourante, Type type, DroitAcces droit, boolean statique){
 		return new AttributImpl(id, classeCourante, type, droit, statique);
+	}
+
+	public Expression createAttributUse(ElementClasse attribut){
+		return new AttributUseImpl(attribut);
 	}
 	/*END Elements Classe*/
 

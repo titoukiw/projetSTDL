@@ -1165,7 +1165,7 @@ end
 
 #ast {
 do
-  Type^ast := SuiteTypeAtomique^ast;
+  Type^ast := TypeAtomique^ast;
 end
 }
 
@@ -1987,18 +1987,27 @@ end
 Facteur -> identificateur #inh AppelOuAcces #ast ;
 #inh {
 local
-   f : Optional<Declaration>;
+   o : Optional<Declaration>;
    d : Declaration;
 do
-   if (Facteur^tds.knows(identificateur^txt)) then
-      f := Facteur^tds.get(identificateur^txt);
-      d := f.get();
+   if (Facteur^tds.contains(identificateur^txt)) then
+      o := Facteur^tds.get(identificateur^txt);
+      d := o.get();
       match d
       with ConstantDeclaration then AppelOuAcces^support := d.getValue();
-      with VariableDeclaration then AppelOuAcces^support := Facteur^factory.createVariableUse(d);
+      with FinalStaticField then AppelOuAcces^support := d.getValue();
       with ClasseDeclaration then AppelOuAcces^support := Facteur^factory.createClasseUse(d);
+      with VariableDeclaration then AppelOuAcces^support := Facteur^factory.createVariableUse(d);
       end
-   else
+    elseif (Facteur^tdsAttributs.contains(identificateur^txt)) then
+    	o := Facteur^tdsAttributs.get(identificateur^txt);
+    	d := o.get();
+    	match d
+    	with Attribut then AppelOuAcces^support := Facteur^factory.createAttributUse(d);
+    	with FinalStaticField then AppelOuAcces^support := d.getValue();
+    	else error(UNDEFINED_attribut_staticfield, identificateur^txt);
+    	end
+    else
       error(BLOC_undefined_ident, identificateur^txt);
    end
 end

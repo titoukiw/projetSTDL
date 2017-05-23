@@ -23,7 +23,7 @@ public class FinalStaticFieldImpl extends VariableDeclarationImpl implements Fin
 		return type;
 	}
 	
-	public Expression getExpression() {
+	public Expression getValue() {
 		return value;
 	}
 	

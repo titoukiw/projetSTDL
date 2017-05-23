@@ -37,6 +37,10 @@ public class MethodeImpl implements Methode {
 		return this.classeCourante;
 	}
 
+	public Type getType(){
+		return this.returnType;
+	}
+
 	public String toString(){
 		String toString = "(Methode) " + this.droit;
 		if(this.statique){

@@ -19,7 +19,7 @@ public class ClasseUseImpl implements Expression {
 	}
 
 	public String toString() {
-		return "@{" + this.classe.getName() + "}";
+		return "(ClasseUse) @{" + this.classe.getName() + "}";
 	}
 
 	public ClasseDeclaration getDeclaration() {

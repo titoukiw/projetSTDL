@@ -41,6 +41,11 @@ public class ConstructeurImpl implements Constructeur {
 		return toString;
 	}
 
+	public Type getType()
+	{
+		throw new SemanticsUndefinedException("getType ConstructeurImpl");
+	}
+
 	public boolean isEqual(Constructeur cons){
 		if(this.id == cons.getName() && this.classeCourante == cons.getClasseCourante() 
 									 && this.listParam.size() == cons.getParametres().size()){

@@ -52,7 +52,7 @@ public class InterfaceImpl implements Interface {
 	public Expression getFinalStaticField(String name){
 		for(ElementInterface elem : this.listElements){
 			if (elem instanceof FinalStaticFieldImpl && name.equals(elem.getName())){
-				return ((FinalStaticField) elem).getExpression();
+				return ((FinalStaticField) elem).getValue();
 			}
 
 		}
