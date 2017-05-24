@@ -543,7 +543,6 @@ HeritageInterface -> extension identificateur_type #inh SuiteHeritageInterface #
 --         SuiteHeritageInterface^ast.add(HeritageInterface^factory.createGenericType(d,InstanceGenericite^ast));
 --       end
 --        HeritageInterface^ast := SuiteHeritageInterface^ast;
-
 --     else
 --       error(TYPE_not_an_interface, identificateur_type^txt);
 --     end
@@ -1975,7 +1974,7 @@ end
 Facteur -> negation Facteur #ast ;  
 #ast { 
 do  
-   Facteur^ast := Facteur ^factory. createUnaryExpression(UnaryOperator.Negate,Facteur1^ast);  
+   Facteur^ast := Facteur ^factory.createUnaryExpression(UnaryOperator.Negate,Facteur1^ast);  
 end  
 }
 
