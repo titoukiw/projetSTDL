@@ -32,5 +32,6 @@ public interface ClasseFactory {
 
 	public Expression createAttributUse(ElementClasse attribut);
 	public Expression createAttributAcces(ElementClasse attribut);
+	public Expression createParametreUse(Parametre parametre);
 
 }

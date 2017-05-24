@@ -1043,14 +1043,17 @@ end
  
 
 AttributOuMethode -> vide identificateur parenthese_ouvrante #inh Parametres parenthese_fermante #inhBloc Bloc #ast ;
+global
+	tdsBlocParam : SymbolTable;
 #inh {
 do
-  Parametres^tdsParametres := new SymbolTable();
+  tdsBlocParam := new SymbolTable();
+  Parametres^tdsParametres := tdsBlocParam;
 end
 }
 #inhBloc {
 do 
-	--Bloc^tdsParametres := Parametres^tdsParametres; --Pb: le bloc ne connait pas les parametres !! => Parametres^support ?
+	Bloc^tds := tdsBlocParam; --Pb: le bloc ne connait pas les parametres !! => Parametres^support ?
 end
 }
 #ast {
@@ -1085,17 +1088,20 @@ end
  
 
 SuiteAttributOuMethode -> parenthese_ouvrante #inh Parametres parenthese_fermante #inhBloc Bloc #ast ;
-#inhBloc {
-do 
-	--Bloc^tdsParametres := Parametres^tdsParametres; --Pb: le bloc ne connait pas les parametres !! (encore)
-end
-}
+
+global
+	tdsBlocParam : SymbolTable;
 #inh {
 do
-  Parametres^tdsParametres := new SymbolTable();
+  tdsBlocParam := new SymbolTable();
+  Parametres^tdsParametres := tdsBlocParam;
 end
 }
-
+#inhBloc {
+do 
+	Bloc^tds := tdsBlocParam; --Pb: le bloc ne connait pas les parametres !! => Parametres^support ?
+end
+}
 #ast {
 local
   met : Methode;
@@ -1110,13 +1116,20 @@ do
 end
 }
 
-Constructeur -> identificateur_type parenthese_ouvrante #inh Parametres parenthese_fermante Bloc #ast ;
+Constructeur -> identificateur_type parenthese_ouvrante #inh Parametres parenthese_fermante #inhBloc Bloc #ast ;
+global
+	tdsBlocParam : SymbolTable;
 #inh {
 do
-  Parametres^tdsParametres := new SymbolTable();
+  tdsBlocParam := new SymbolTable();
+  Parametres^tdsParametres := tdsBlocParam;
 end
 }
-
+#inhBloc {
+do 
+	Bloc^tds := tdsBlocParam; --Pb: le bloc ne connait pas les parametres !! => Parametres^support ?
+end
+}
 #ast {
 local
   cons : Constructeur;
@@ -2056,6 +2069,7 @@ do
       with FinalStaticField then AppelOuAcces^support := d.getValue();
       with ClasseDeclaration then AppelOuAcces^support := Facteur^factory.createClasseUse(d);
       with VariableDeclaration then AppelOuAcces^support := Facteur^factory.createVariableUse(d);
+      with Parametre then AppelOuAcces^support := Facteur^factory.createParametreUse(d);
       end
     elseif (Facteur^tdsAttributs.contains(identificateur^txt)) then
     	o := Facteur^tdsAttributs.get(identificateur^txt);

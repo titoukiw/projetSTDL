@@ -5,8 +5,8 @@ class Atype {
 	public String stringA;
 
 	public Atype(String a){
-		interf = new InterfImpl();
-		stringA = a;  					// ERREUR: bloc_undefined_identa
+		//interf = new InterfImpl();
+		String b = a;  					// ERREUR: bloc_undefined_identa
 	}
 }
 
@@ -19,7 +19,7 @@ class InterfImpl implements Interf {
 	}
 
 	public void methCreateAtype(String a){
-		//Atype = new Atype(a);			// ERREUR GrosPêtage de plomb
+		atype = new Atype(a);			// ERREUR GrosPêtage de plomb
 	}
 
 	public int meth2(){

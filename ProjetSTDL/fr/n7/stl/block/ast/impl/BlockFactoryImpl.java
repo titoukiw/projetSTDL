@@ -500,6 +500,9 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new ParametreImpl(id,type);
 	}
 
+	public Expression createParametreUse(Parametre param){
+		return new ParametreUseImpl(param);
+	}
 	public Programme createProgramme(LinkedList<Interface> interfaces, LinkedList<Classe> classes, ClassePrincipale classePrincipale) {
 		return new ProgrammeImpl(interfaces, classes, classePrincipale);
 	}
