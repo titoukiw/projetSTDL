@@ -1,12 +1,26 @@
 interface Interf{}
 
+class Atype {
+	public Interf interf; 				// ERREUR: type_unknownInterfImpl
+	public String stringA;
+
+	public Atype(String a){
+		interf = new InterfImpl();
+		stringA = a;  					// ERREUR: bloc_undefined_identa
+	}
+}
+
 class InterfImpl implements Interf {
 	public int myInt;
+	public Atype atype;
+
 	public InterfImpl(){
 		myInt = 3;
 	}
 
-	public void meth1(String a){}
+	public void methCreateAtype(String a){
+		//Atype = new Atype(a);			// ERREUR GrosPêtage de plomb
+	}
 
 	public int meth2(){
 		return 3;

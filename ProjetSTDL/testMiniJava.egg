@@ -206,7 +206,7 @@ inh tdsClasses    : SymbolTable for Expression, Expressions, SuiteExpressions;
 inh tdsFunctions  : FunctionSymbolTable for Expression, Expressions, SuiteExpressions;
 inh tdsAttributs  : SymbolTable for Expression, Expressions, SuiteExpressions;
 inh tds           : SymbolTable for Expression, Expressions, SuiteExpressions;
-inh droiteAffectation : boolean for Expression; --Hh
+inh droiteAffectation : boolean for Expression; --Hh Acces lorsqu'on est à droite du signe =. (à surveiller)
 syn ast           : Expression for Expression;
 syn ast           : LinkedList<Expression> for Expressions, SuiteExpressions; --Hh
 --syn expressions   : LinkedList<Expression> for Expressions, SuiteExpressions; ça pue
@@ -233,6 +233,7 @@ inh tds           : SymbolTable for Condition, SuiteConditionnelle, SuiteConditi
 syn ast           : Instruction for SuiteConditionnelle;
 syn ast           : Expression for Condition, SuiteCondition;
 inh gauche        : Expression for SuiteCondition;
+inh droiteAffectation : boolean for Condition, SuiteCondition;
 
 -- Comparatif, Additif, Multiplicatif
 syn bin_op        : BinaryOperator for Comparatif, Multiplicatif, Additif;
@@ -245,6 +246,7 @@ inh tdsClasses    : SymbolTable for Terme, SuiteTerme;
 inh tdsFunctions  : FunctionSymbolTable for Terme, SuiteTerme;
 inh tdsAttributs  : SymbolTable for Terme, SuiteTerme;
 inh tds           : SymbolTable for Terme, SuiteTerme;
+inh droiteAffectation : boolean for Terme, SuiteTerme;
 syn ast           : Expression for Terme, SuiteTerme;
 
 --Facteur, SuiteFacteur
@@ -255,6 +257,7 @@ inh tdsClasses    : SymbolTable for Facteur, SuiteFacteur;
 inh tdsFunctions  : FunctionSymbolTable for Facteur, SuiteFacteur;
 inh tdsAttributs  : SymbolTable for Facteur, SuiteFacteur;
 inh tds           : SymbolTable for Facteur, SuiteFacteur;
+inh droiteAffectation : boolean for Facteur, SuiteFacteur;
 syn ast           : Expression for Facteur, SuiteFacteur;
 
 -- Affectation, SuiteAffectation
@@ -265,6 +268,7 @@ inh tdsClasses    : SymbolTable for Affectation, SuiteAffectation;
 inh tdsFunctions  : FunctionSymbolTable for Affectation, SuiteAffectation;
 inh tdsAttributs  : SymbolTable for Affectation, SuiteAffectation;
 inh tds           : SymbolTable for Affectation, SuiteAffectation;
+inh droiteAffectation : boolean for Affectation, SuiteAffectation;
 syn ast           : Expression for Affectation, SuiteAffectation;
 
 -- SuiteNouveau
@@ -294,6 +298,7 @@ inh tdsFunctions  : FunctionSymbolTable for Appel, AppelOuAcces, Acces;
 inh tdsAttributs  : SymbolTable for Appel, AppelOuAcces, Acces;
 inh tds           : SymbolTable for Appel, AppelOuAcces, Acces;
 inh support       : Expression for Acces, AppelOuAcces, Appel;
+inh droiteAffectation : boolean for Acces, AppelOuAcces, Appel;
 syn ast           : Expression for Acces, AppelOuAcces, Appel;
 
 -- Arguments
@@ -1037,13 +1042,17 @@ end
 }
  
 
-AttributOuMethode -> vide identificateur parenthese_ouvrante #inh Parametres parenthese_fermante Bloc #ast ;
+AttributOuMethode -> vide identificateur parenthese_ouvrante #inh Parametres parenthese_fermante #inhBloc Bloc #ast ;
 #inh {
 do
   Parametres^tdsParametres := new SymbolTable();
 end
 }
-
+#inhBloc {
+do 
+	--Bloc^tdsParametres := Parametres^tdsParametres; --Pb: le bloc ne connait pas les parametres !! => Parametres^support ?
+end
+}
 #ast {
 local
   met : Methode;
@@ -1075,7 +1084,12 @@ end
 }
  
 
-SuiteAttributOuMethode -> parenthese_ouvrante #inh Parametres parenthese_fermante Bloc #ast ;
+SuiteAttributOuMethode -> parenthese_ouvrante #inh Parametres parenthese_fermante #inhBloc Bloc #ast ;
+#inhBloc {
+do 
+	--Bloc^tdsParametres := Parametres^tdsParametres; --Pb: le bloc ne connait pas les parametres !! (encore)
+end
+}
 #inh {
 do
   Parametres^tdsParametres := new SymbolTable();
@@ -1223,7 +1237,7 @@ do
 			with Interface then
 				TypeAtomique^ast := TypeAtomique^factory.createInterfaceType(d);
       end
-	  else
+	  else --LiaisonTardive ...
 		  error(TYPE_unknown,identificateur_type^txt);
     end
 	end
@@ -2047,7 +2061,12 @@ do
     	o := Facteur^tdsAttributs.get(identificateur^txt);
     	d := o.get();
     	match d
-    	with Attribut then AppelOuAcces^support := Facteur^factory.createAttributUse(d);
+    	with Attribut then
+    		if (Facteur^droiteAffectation) then
+    			AppelOuAcces^support := Facteur^factory.createAttributUse(d);
+    		else 
+    			AppelOuAcces^support := Facteur^factory.createAttributAcces(d);
+    		end
     	with FinalStaticField then AppelOuAcces^support := d.getValue();
     	else error(UNDEFINED_attribut_staticfield, identificateur^txt);
     	end
@@ -2184,7 +2203,11 @@ do
 				expAtt := exp.getAttribut(identificateur^txt);
 				match expAtt
 					with ElementClasse then
-						AppelOuAcces^support := Acces^factory.createAttributUse(expAtt);
+						if (Acces^droiteAffectation) then --Hh
+							AppelOuAcces^support := Acces^factory.createAttributUse(expAtt);
+						else 
+							AppelOuAcces^support := Acces^factory.createAttributAcces(expAtt);
+						end
 				end
 			elseif (exp.containsMethode(identificateur^txt)) then
 				expAtt := exp.getMethode(identificateur^txt);

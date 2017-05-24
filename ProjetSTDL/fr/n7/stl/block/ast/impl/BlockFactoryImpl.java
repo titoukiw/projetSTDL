@@ -537,6 +537,11 @@ public class BlockFactoryImpl implements BlockFactory {
 	public Expression createAttributUse(ElementClasse attribut){
 		return new AttributUseImpl(attribut);
 	}
+	
+	public Expression createAttributAcces(ElementClasse attribut){
+		return new AttributAccesImpl(attribut);
+	}
+
 	/*END Elements Classe*/
 
 
