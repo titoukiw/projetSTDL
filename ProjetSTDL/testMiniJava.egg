@@ -1251,7 +1251,7 @@ do
       end
 	  else --LiaisonTardive ...
 
-	  	  TypeAtomique^ast := TypeAtomique^factory.createUndeclaredType(d);
+	  	  TypeAtomique^ast := TypeAtomique^factory.createUndeclaredType(identificateur_type^txt);
 	  	  error(LiaisonTardive_,identificateur_type^txt);
 		  --error(TYPE_unknown,identificateur_type^txt);
     end
