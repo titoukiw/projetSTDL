@@ -17,7 +17,7 @@ public class UndeclaredTypeImpl implements Type {
 		return this.nom;
 	}
 
-	public equalsTo(Type _other){
+	public boolean equalsTo(Type _other){
 		throw new SemanticsUndefinedException("equalsTo no meaning for UndeclaredTypeImpl");
 	}
 
