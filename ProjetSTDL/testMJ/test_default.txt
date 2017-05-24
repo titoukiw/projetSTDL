@@ -31,15 +31,17 @@ class InterfImpl implements Interf {
 public class MainClasse {
     public static void main(String[] args){
     	//int entier; pas possible dans le main pour cette grammaire
+    	int c = 7;
     	String a = "a";
     	InterfImpl in = new InterfImpl();
     	a = in.atype.stringA;
     	in.atype.stringA = "c";
     	print(in);
     	in.myInt = 5;
-    	int c = in.myInt;
+    	c = in.myInt;
     	in.meth2();
     	int b = in.meth2();
+    	c = b ;
 
 	}
 }
