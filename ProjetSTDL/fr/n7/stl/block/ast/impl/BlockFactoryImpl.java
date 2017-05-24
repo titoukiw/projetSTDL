@@ -97,6 +97,10 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new VariableUseImpl(_declaration);
 	}
 
+	public Expression createVariableAcces(VariableDeclaration _declaration) {
+		return new VariableAccesImpl(_declaration);
+	}
+
 	public Expression createClasseUse(ClasseDeclaration _declaration){
 		return new ClasseUseImpl(_declaration);
 	}

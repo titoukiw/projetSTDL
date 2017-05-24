@@ -52,6 +52,7 @@ public interface ExpressionFactory {
 	 * @return Abstract Syntax Tree node for the access to a variable.
 	 */
 	public Expression createVariableUse(VariableDeclaration _declaration);
+	public Expression createVariableAcces(VariableDeclaration _declaration);
 	
 	/**
 	 * Create a node for a variable assignment in the Abstract Syntax Tree.
