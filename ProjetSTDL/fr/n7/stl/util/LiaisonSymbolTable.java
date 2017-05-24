@@ -22,12 +22,12 @@ public class LiaisonSymbolTable implements HierarchicalScope<Declaration> {
 	private Map<String, Declaration> declarations;
 	private Optional<SymbolTable> context;
 
-	public SymbolTable() {
+	public LiaisonSymbolTable() {
 		this.declarations = new HashMap<String,Declaration>();
 		this.context = Optional.empty();
 	}
 	
-	public SymbolTable(SymbolTable _context) {
+	public LiaisonSymbolTable(SymbolTable _context) {
 		this();
 		if (_context != null) {
 			this.context = Optional.of(_context);
