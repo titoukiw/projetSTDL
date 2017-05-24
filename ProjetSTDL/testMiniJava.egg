@@ -206,6 +206,7 @@ inh tdsClasses    : SymbolTable for Expression, Expressions, SuiteExpressions;
 inh tdsFunctions  : FunctionSymbolTable for Expression, Expressions, SuiteExpressions;
 inh tdsAttributs  : SymbolTable for Expression, Expressions, SuiteExpressions;
 inh tds           : SymbolTable for Expression, Expressions, SuiteExpressions;
+inh droiteAffectation : boolean for Expression; --Hh
 syn ast           : Expression for Expression;
 syn ast           : LinkedList<Expression> for Expressions, SuiteExpressions; --Hh
 --syn expressions   : LinkedList<Expression> for Expressions, SuiteExpressions; ça pue
@@ -662,11 +663,11 @@ do
 end
 }
 
--- ------------- Pour éviter de s'embeter avec les expressions
 ElementInterface -> final statique Type identificateur affectation #attribut Expression point_virgule #ast;
 #attribut{
 do
   Expression^tds := new SymbolTable();
+  Expression^droiteAffectation := true;
 end
 }
 
@@ -1497,7 +1498,13 @@ do
 end
 }
 
-Instruction -> Type identificateur affectation Expression point_virgule #ast;
+Instruction -> Type identificateur affectation #inh Expression point_virgule #ast;
+#inh{
+do
+	Expression^droiteAffectation := true;
+end
+}
+
 #ast {
 local
   d : VariableDeclaration;
@@ -1521,7 +1528,12 @@ end
 }
 
 
-Instruction -> Expression point_virgule #ast;
+Instruction -> #inh Expression point_virgule #ast;
+#inh{
+do
+	Expression^droiteAffectation := false;
+end
+}
 #ast{
 do
   match Expression^ast 
@@ -1532,7 +1544,12 @@ end
 }
 
 
-Instruction -> si parenthese_ouvrante Expression parenthese_fermante #inhB Bloc #inh SuiteConditionnelle #ast;
+Instruction -> si parenthese_ouvrante #inhExpr Expression parenthese_fermante #inhB Bloc #inh SuiteConditionnelle #ast;
+#inhExpr{
+do
+	Expression^droiteAffectation := false;
+end	
+}
 #inhB {
 do
         Bloc^tds := new SymbolTable(Instruction^tds);
@@ -1574,7 +1591,12 @@ end
 
 
 
-Instruction -> tant_que parenthese_ouvrante Expression parenthese_fermante #inh Bloc #ast ;
+Instruction -> tant_que parenthese_ouvrante #inhExpr Expression parenthese_fermante #inh Bloc #ast ;
+#inhExpr{
+do
+	Expression^droiteAffectation := false;
+end
+}
 #inh {
 do
    Bloc^tds := new SymbolTable(Instruction^tds);
@@ -1590,7 +1612,12 @@ end
 
 
 
-Instruction -> afficher Expression point_virgule #ast ;
+Instruction -> afficher #inhExpr Expression point_virgule #ast ;
+#inhExpr{
+do
+	Expression^droiteAffectation := false;
+end
+}
 #ast {
 do
    Instruction^ast := Instruction^factory.createPrinter(Expression^ast);
@@ -1599,7 +1626,12 @@ end
 
 
 
-Instruction -> retour Expression point_virgule #ast ;
+Instruction -> retour #inhExpr Expression point_virgule #ast ;
+#inhExpr{
+do
+	Expression^droiteAffectation := false;
+end
+}
 #ast {
 do
    Instruction^ast := Instruction^factory.createReturn(Expression^ast); -- (classe TODO)
@@ -1634,10 +1666,15 @@ end
 }
 
 
-SuiteAffectation -> affectation Expression #ast;
+SuiteAffectation -> affectation #inh Expression #ast;
 #ast {
 do
 	SuiteAffectation^ast := SuiteAffectation^factory.createAssignment(SuiteAffectation^gauche, Expression^ast);
+end
+}
+#inh {
+do
+	Expression^droiteAffectation := true;
 end
 }
 
@@ -1842,7 +1879,12 @@ do
 end
 }
 
-Expressions -> Expression SuiteExpressions #ast ;
+Expressions -> #inhExpr Expression SuiteExpressions #ast ;
+#inhExpr{
+do
+	Expression^droiteAffectation := false;
+end
+}
 #ast {
 do 
    SuiteExpressions^ast.addFirst(Expression^ast); 
@@ -1850,7 +1892,12 @@ do
 end 
 }
 
-SuiteExpressions -> virgule Expression SuiteExpressions #ast ;
+SuiteExpressions -> virgule #inhExpr Expression SuiteExpressions #ast ;
+#inhExpr{
+do
+	Expression^droiteAffectation := false;
+end
+}
 #ast {
 do 
    SuiteExpressions1^ast.addFirst(Expression^ast); 
@@ -1891,7 +1938,12 @@ do
 end 
 }
 
-SuiteNouveau -> crochet_ouvrant Expression crochet_fermant #ast ; 
+SuiteNouveau -> crochet_ouvrant #inhExpr Expression crochet_fermant #ast ; 
+#inhExpr{
+do
+	Expression^droiteAffectation := false;
+end
+}
 #ast {
 do  
    SuiteNouveau^ast := SuiteNouveau^factory.createArrayAllocation(SuiteNouveau^type,Expression^ast);  
@@ -1976,14 +2028,6 @@ end
 
 
 
-
-
-
-
-
-
-
---A REVOIR A PARTIR D'ICI !!!!
 Facteur -> identificateur #inh AppelOuAcces #ast ;
 #inh {
 local
@@ -2052,7 +2096,12 @@ end
 
 
 --TODO
-Facteur -> parenthese_ouvrante Expression parenthese_fermante #ast;
+Facteur -> parenthese_ouvrante #inhExpr Expression parenthese_fermante #ast;
+#inhExpr{
+do
+	Expression^droiteAffectation := false;
+end
+}
 #ast {
 do
 	Facteur^ast := Expression^ast;
@@ -2096,7 +2145,12 @@ end
 }
 
 
-Acces -> crochet_ouvrant Expression crochet_fermant #inh Acces #ast;
+Acces -> crochet_ouvrant #inhExpr Expression crochet_fermant #inh Acces #ast;
+#inhExpr{
+do
+	Expression^droiteAffectation := false;
+end
+}
 #inh {
 do
 	Acces1^support := Acces^factory.createArrayAccess(Acces^support,Expression^ast);
