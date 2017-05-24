@@ -2077,9 +2077,9 @@ do
     	match d
     	with Attribut then
     		if (Facteur^droiteAffectation) then
-    			AppelOuAcces^support := Facteur^factory.createAttributUse(d);
+    			AppelOuAcces^support := Facteur^factory.createAttributUse(d,null);
     		else 
-    			AppelOuAcces^support := Facteur^factory.createAttributAcces(d);
+    			AppelOuAcces^support := Facteur^factory.createAttributAcces(d,null);
     		end
     	with FinalStaticField then AppelOuAcces^support := d.getValue();
     	else error(UNDEFINED_attribut_staticfield, identificateur^txt);
@@ -2209,6 +2209,10 @@ end
 local
 	exp : Expression;
 	expAtt : Expression;
+
+	tmpcti : Type;
+	tmpc : Classe;
+
 do
 	exp := Acces^support;
 	match exp
@@ -2218,9 +2222,9 @@ do
 				match expAtt
 					with ElementClasse then
 						if (Acces^droiteAffectation) then --Hh
-							AppelOuAcces^support := Acces^factory.createAttributUse(expAtt);
+							AppelOuAcces^support := Acces^factory.createAttributUse(expAtt,exp);
 						else 
-							AppelOuAcces^support := Acces^factory.createAttributAcces(expAtt);
+							AppelOuAcces^support := Acces^factory.createAttributAcces(expAtt,exp);
 						end
 				end
 			elseif (exp.containsMethode(identificateur^txt)) then
@@ -2232,6 +2236,58 @@ do
 			else
 				error(ATTRIBUT_doesnt_exist,exp.getName(),identificateur^txt);
 			end
+		with AttributUseImpl then 
+			tmpcti := exp.getType();
+			match tmpcti
+				with ClasseTypeImpl then
+					tmpc := tmpcti.getClasse();
+					if(tmpc.containsAttribut(identificateur^txt)) then
+						expAtt := tmpc.getAttribut(identificateur^txt);
+						match expAtt
+							with ElementClasse then
+								if (Acces^droiteAffectation) then
+									AppelOuAcces^support := Acces^factory.createAttributUse(expAtt,exp.getClasseUse());
+								else
+									AppelOuAcces^support := Acces^factory.createAttributAcces(expAtt,exp.getClasseUse());
+								end
+						end
+					elseif (tmpc.containsMethode(identificateur^txt)) then
+						expAtt := tmpc.getMethode(identificateur^txt);
+						match expAtt
+							with Methode then
+								AppelOuAcces^support := Acces^factory.createMethodeUse(expAtt,exp.getClasseUse());
+						end
+					else
+						error(ATTRIBUT_doesnt_exist,identificateur^txt);
+					end
+			end
+		with AttributAccesImpl then
+			tmpcti := exp.getType();
+			match tmpcti
+				with ClasseTypeImpl then
+					tmpc := tmpcti.getClasse();
+					if(tmpc.containsAttribut(identificateur^txt)) then
+						expAtt := tmpc.getAttribut(identificateur^txt);
+						match expAtt
+							with ElementClasse then
+								if (Acces^droiteAffectation) then
+									AppelOuAcces^support := Acces^factory.createAttributUse(expAtt,exp.getClasseUse());
+								else
+									AppelOuAcces^support := Acces^factory.createAttributAcces(expAtt,exp.getClasseUse());
+								end
+						end
+					elseif (tmpc.containsMethode(identificateur^txt)) then
+						expAtt := tmpc.getMethode(identificateur^txt);
+						match expAtt
+							with Methode then
+								AppelOuAcces^support := Acces^factory.createMethodeUse(expAtt,exp.getClasseUse());
+						end
+					else
+						error(ATTRIBUT_doesnt_exist,identificateur^txt);
+					end
+			end
+			
+
 	end
 end
 }

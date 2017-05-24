@@ -8,10 +8,12 @@ import fr.n7.stl.block.ast.*;
 public class AttributAccesImpl implements Expression {
 
 	private ElementClasse attribut;
+	private ClasseUseImpl classe;
 
 
-	public AttributAccesImpl(ElementClasse att){
+	public AttributAccesImpl(ElementClasse att,ClasseUseImpl classe){
 		this.attribut = att;
+		this.classe = classe;
 	}
 
 	public Type getType(){
@@ -26,7 +28,9 @@ public class AttributAccesImpl implements Expression {
 		return this.attribut;
 	}
 	
-
+	public ClasseUseImpl getClasseUse(){
+		return this.classe;
+	}
 	public Fragment getCode(TAMFactory _factory){
 		throw new SemanticsUndefinedException("getCode() AttributAccesImpl");
 	}

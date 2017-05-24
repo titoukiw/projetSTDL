@@ -56,10 +56,12 @@ public class AssignmentImpl implements Instruction, Expression {
 			return ((this.declaration != null)
 					?this.declaration.getName()
 					:this.assignable) + " = " + this.value.toString() + ";\n";
-		} else {
+		} else if (this.assignable_expr != null) {
 			return ((this.declaration != null)
 					?this.declaration.getName()
 					:this.assignable_expr) + " = " + this.value.toString() + ";\n";
+		} else {
+			return null;
 		}
 	}
 

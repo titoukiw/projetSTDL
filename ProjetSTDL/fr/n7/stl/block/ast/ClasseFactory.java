@@ -30,8 +30,8 @@ public interface ClasseFactory {
 	public Expression createMethodeUse(Methode methode,ClasseUseImpl classe);
 
 
-	public Expression createAttributUse(ElementClasse attribut);
-	public Expression createAttributAcces(ElementClasse attribut);
+	public Expression createAttributUse(ElementClasse attribut,ClasseUseImpl classe);
+	public Expression createAttributAcces(ElementClasse attribut,ClasseUseImpl classe);
 	public Expression createParametreUse(Parametre parametre);
 
 }

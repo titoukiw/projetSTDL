@@ -19,7 +19,8 @@ class InterfImpl implements Interf {
 	}
 
 	public void methCreateAtype(String a){
-		atype = new Atype(a);			// ERREUR GrosPêtage de plomb
+		atype = new Atype(a);			
+		a = atype.stringA;
 	}
 
 	public int meth2(){
@@ -32,10 +33,13 @@ public class MainClasse {
     	//int entier; pas possible dans le main pour cette grammaire
     	String a = "a";
     	InterfImpl in = new InterfImpl();
+    	a = in.atype.stringA;
+    	in.atype.stringA = "c";
     	print(in);
     	in.myInt = 5;
     	int c = in.myInt;
     	in.meth2();
     	int b = in.meth2();
+
 	}
 }

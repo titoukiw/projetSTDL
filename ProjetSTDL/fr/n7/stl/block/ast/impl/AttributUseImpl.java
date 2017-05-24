@@ -8,14 +8,20 @@ import fr.n7.stl.block.ast.*;
 public class AttributUseImpl implements Expression {
 
 	private ElementClasse attribut;
+	private ClasseUseImpl classe;
 
 
-	public AttributUseImpl(ElementClasse att){
+	public AttributUseImpl(ElementClasse att,ClasseUseImpl classe){
 		this.attribut = att;
+		this.classe = classe;
 	}
 
 	public Type getType(){
 		return this.attribut.getType();
+	}
+
+	public ClasseUseImpl getClasseUse(){
+		return this.classe;
 	}
 
 	public String toString() {
