@@ -549,6 +549,10 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new AttributAccesImpl(attribut,classe);
 	}
 
+	public Type createUndeclaredType(String id_type){
+		return new UndeclaredTypeImpl(id_type);
+	}
+
 	/*END Elements Classe*/
 
 

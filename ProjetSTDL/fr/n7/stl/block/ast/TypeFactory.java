@@ -101,4 +101,7 @@ public interface TypeFactory {
 	 */
 	public FieldDeclaration createFieldDeclaration(String _name, Type _type);
 
+
+	public Type createUndeclaredType(String id_type);
+	
 }

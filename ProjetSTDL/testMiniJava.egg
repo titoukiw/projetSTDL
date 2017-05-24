@@ -64,7 +64,6 @@ inh tdsInterfaces : SymbolTable for Interface, Interfaces;
 inh tdsClasses    : SymbolTable for Interface, Interfaces;
 inh tdsFunctions  : FunctionSymbolTable for Interface, Interfaces;
 inh tdsAttributs  : SymbolTable for Interface, Interfaces;
-inh tdsLiaison 	  : SymbolTable for Interface, Interfaces;
 inh tds		        : SymbolTable for Interface, Interfaces;
 syn ast 	        : Interface	for Interface;
 syn ast         	: LinkedList<Interface> for Interfaces;
@@ -84,7 +83,6 @@ inh tdsAttributs        : SymbolTable for ElementInterface, ElementsInterface;
 inh tdsInterfaces       : SymbolTable for ElementInterface, ElementsInterface;
 inh tdsClasses          : SymbolTable for ElementInterface, ElementsInterface;
 inh tdsFunctions        : FunctionSymbolTable for ElementInterface, ElementsInterface;
-inh tdsLiaison 	        : SymbolTable for ElementInterface, ElementsInterface;
 inh interfaceCourrante  : String for ElementsInterface, ElementInterface;
 syn ast 	              : ElementInterface for ElementInterface;
 syn ast 	              : LinkedList<ElementInterface> for ElementsInterface;
@@ -96,7 +94,6 @@ inh tdsInterfaces      : SymbolTable for Signature;
 inh tdsClasses         : SymbolTable for Signature;
 inh tdsFunctions       : FunctionSymbolTable for Signature;
 inh tdsAttributs       : SymbolTable for Signature;
-inh tdsLiaison 	 	   : SymbolTable for Signature;
 inh factory            : BlockFactory for Signature;
 inh interfaceCourrante : String for Signature;
 syn ast 	             : Signature for Signature;
@@ -119,7 +116,6 @@ inh tdsInterfaces : SymbolTable for Parametre, Parametres, SuiteParametres;
 inh tdsFunctions  : FunctionSymbolTable for Parametre, Parametres, SuiteParametres;
 inh tdsAttributs  : SymbolTable for Parametre, Parametres, SuiteParametres;
 inh tdsParametres : SymbolTable for Parametre, Parametres, SuiteParametres;
-inh tdsLiaison 	  : SymbolTable for Parametre, Parametres, SuiteParametres;
 inh factory       : BlockFactory for Parametre, Parametres, SuiteParametres;
 syn ast 	        : Parametre for Parametre;
 syn ast 	        : LinkedList<Parametre> for Parametres, SuiteParametres;
@@ -129,7 +125,6 @@ inh tdsInterfaces : SymbolTable for Classes, Classe;
 inh tdsFunctions  : FunctionSymbolTable for Classes, Classe;
 inh tdsAttributs  : SymbolTable for Classes, Classe;
 inh tdsClasses    : SymbolTable for Classes, Classe;
-inh tdsLiaison 	  : SymbolTable for Classes, Classe;
 inh tds           : SymbolTable for Classes, Classe;
 inh factory       : BlockFactory for Classe,Classes;
 syn ast           : LinkedList<Classe> for Classes;
@@ -165,7 +160,6 @@ inh tdsClasses    : SymbolTable for AttributOuMethode,SuiteAttributOuMethode, Co
 inh tdsAttributs  : SymbolTable for AttributOuMethode,SuiteAttributOuMethode, Constructeur, ElementsClasse, ElementClasse;
 inh tdsInterfaces : SymbolTable for AttributOuMethode,SuiteAttributOuMethode, Constructeur, ElementsClasse, ElementClasse;
 inh tdsFunctions  : FunctionSymbolTable for AttributOuMethode,SuiteAttributOuMethode, Constructeur, ElementsClasse, ElementClasse;
-inh tdsLiaison 	  : SymbolTable for AttributOuMethode, SuiteAttributOuMethode, Constructeur, ElementsClasse, ElementClasse;
 inh droit         : DroitAcces for ElementClasse,AttributOuMethode,SuiteAttributOuMethode,Constructeur;
 inh ident         : String for SuiteAttributOuMethode;
 inh static        : boolean for AttributOuMethode,SuiteAttributOuMethode;
@@ -180,7 +174,6 @@ inh tdsInterfaces : SymbolTable for Type, TypeAtomique, SuiteTypeAtomique;
 inh tdsClasses    : SymbolTable for Type, TypeAtomique, SuiteTypeAtomique;
 inh tdsFunctions  : FunctionSymbolTable for Type, TypeAtomique, SuiteTypeAtomique;
 inh tdsAttributs  : SymbolTable for Type, TypeAtomique, SuiteTypeAtomique;
-inh tdsLiaison 	  : SymbolTable for Type, TypeAtomique, SuiteTypeAtomique;
 inh tds           : SymbolTable for Type, TypeAtomique, SuiteTypeAtomique;
 inh factory       : BlockFactory for Type, TypeAtomique, SuiteTypeAtomique;
 inh innerArray    : Type for SuiteTypeAtomique;
@@ -192,7 +185,6 @@ inh tdsInterfaces : SymbolTable for Principale, MethodePrincipale;
 inh tdsClasses    : SymbolTable for Principale, MethodePrincipale;
 inh tdsFunctions  : FunctionSymbolTable for Principale, MethodePrincipale;
 inh tdsAttributs  : SymbolTable for Principale, MethodePrincipale;
-inh tdsLiaison 	  : SymbolTable for Principale, MethodePrincipale;
 inh tds           : SymbolTable for Principale, MethodePrincipale;
 syn ast           : ClassePrincipale for Principale;
 syn ast           : Block for MethodePrincipale;
@@ -205,7 +197,6 @@ inh tdsInterfaces : SymbolTable for Bloc;
 inh tdsClasses    : SymbolTable for Bloc;
 inh tdsFunctions  : FunctionSymbolTable for Bloc;
 inh tdsAttributs  : SymbolTable for Bloc;
-inh tdsLiaison 	  : SymbolTable for Bloc;
 syn ast           : Block for Bloc;
 
 --Expression, Expressions, SuiteExpressions
@@ -214,7 +205,6 @@ inh tdsInterfaces : SymbolTable for Expression, Expressions, SuiteExpressions;
 inh tdsClasses    : SymbolTable for Expression, Expressions, SuiteExpressions;
 inh tdsFunctions  : FunctionSymbolTable for Expression, Expressions, SuiteExpressions;
 inh tdsAttributs  : SymbolTable for Expression, Expressions, SuiteExpressions;
-inh tdsLiaison 	  : SymbolTable for Expression, Expressions, SuiteExpressions;
 inh tds           : SymbolTable for Expression, Expressions, SuiteExpressions;
 inh droiteAffectation : boolean for Expression; --Hh Acces lorsqu'on est à droite du signe =. (à surveiller)
 syn ast           : Expression for Expression;
@@ -227,7 +217,6 @@ inh tdsInterfaces : SymbolTable for Instruction, Instructions;
 inh tdsClasses    : SymbolTable for Instruction, Instructions;
 inh tdsFunctions  : FunctionSymbolTable for Instruction, Instructions;
 inh tdsAttributs  : SymbolTable for Instruction, Instructions;
-inh tdsLiaison 	  : SymbolTable for Instruction, Instructions;
 inh tds           : SymbolTable for Instruction, Instructions;
 syn ast           : Instruction for Instruction;
 syn list          : LinkedList<Instruction> for Instructions;
@@ -240,7 +229,6 @@ inh tdsInterfaces : SymbolTable for Condition, SuiteConditionnelle, SuiteConditi
 inh tdsClasses    : SymbolTable for Condition, SuiteConditionnelle, SuiteCondition;
 inh tdsFunctions  : FunctionSymbolTable for Condition, SuiteConditionnelle, SuiteCondition;
 inh tdsAttributs  : SymbolTable for Condition, SuiteConditionnelle, SuiteCondition;
-inh tdsLiaison 	  : SymbolTable for Condition, SuiteCondition, SuiteConditionnelle;
 inh tds           : SymbolTable for Condition, SuiteConditionnelle, SuiteCondition;
 syn ast           : Instruction for SuiteConditionnelle;
 syn ast           : Expression for Condition, SuiteCondition;
@@ -257,7 +245,6 @@ inh tdsInterfaces : SymbolTable for Terme, SuiteTerme;
 inh tdsClasses    : SymbolTable for Terme, SuiteTerme;
 inh tdsFunctions  : FunctionSymbolTable for Terme, SuiteTerme;
 inh tdsAttributs  : SymbolTable for Terme, SuiteTerme;
-inh tdsLiaison 	  : SymbolTable for Terme, SuiteTerme;
 inh tds           : SymbolTable for Terme, SuiteTerme;
 inh droiteAffectation : boolean for Terme, SuiteTerme;
 syn ast           : Expression for Terme, SuiteTerme;
@@ -269,7 +256,6 @@ inh tdsInterfaces : SymbolTable for Facteur, SuiteFacteur;
 inh tdsClasses    : SymbolTable for Facteur, SuiteFacteur;
 inh tdsFunctions  : FunctionSymbolTable for Facteur, SuiteFacteur;
 inh tdsAttributs  : SymbolTable for Facteur, SuiteFacteur;
-inh tdsLiaison 	  : SymbolTable for Facteur, SuiteFacteur;
 inh tds           : SymbolTable for Facteur, SuiteFacteur;
 inh droiteAffectation : boolean for Facteur, SuiteFacteur;
 syn ast           : Expression for Facteur, SuiteFacteur;
@@ -281,7 +267,6 @@ inh tdsInterfaces : SymbolTable for Affectation, SuiteAffectation;
 inh tdsClasses    : SymbolTable for Affectation, SuiteAffectation;
 inh tdsFunctions  : FunctionSymbolTable for Affectation, SuiteAffectation;
 inh tdsAttributs  : SymbolTable for Affectation, SuiteAffectation;
-inh tdsLiaison 	  : SymbolTable for Affectation, SuiteAffectation;
 inh tds           : SymbolTable for Affectation, SuiteAffectation;
 inh droiteAffectation : boolean for Affectation, SuiteAffectation;
 syn ast           : Expression for Affectation, SuiteAffectation;
@@ -293,7 +278,6 @@ inh tdsInterfaces : SymbolTable for SuiteNouveau;
 inh tdsClasses    : SymbolTable for SuiteNouveau;
 inh tdsFunctions  : FunctionSymbolTable for SuiteNouveau;
 inh tdsAttributs  : SymbolTable for SuiteNouveau;
-inh tdsLiaison 	  : SymbolTable for SuiteNouveau;
 inh tds           : SymbolTable for SuiteNouveau;
 syn ast           : Expression for SuiteNouveau;
 
@@ -312,7 +296,6 @@ inh tdsInterfaces : SymbolTable for Appel, AppelOuAcces, Acces;
 inh tdsClasses    : SymbolTable for Appel, AppelOuAcces, Acces;
 inh tdsFunctions  : FunctionSymbolTable for Appel, AppelOuAcces, Acces;
 inh tdsAttributs  : SymbolTable for Appel, AppelOuAcces, Acces;
-inh tdsLiaison 	  : SymbolTable for Appel, AppelOuAcces, Acces;
 inh tds           : SymbolTable for Appel, AppelOuAcces, Acces;
 inh support       : Expression for Acces, AppelOuAcces, Appel;
 inh droiteAffectation : boolean for Acces, AppelOuAcces, Appel;
@@ -324,7 +307,6 @@ inh tdsInterfaces : SymbolTable for Arguments;
 inh tdsClasses    : SymbolTable for Arguments;
 inh tdsFunctions  : FunctionSymbolTable for Arguments;
 inh tdsAttributs  : SymbolTable for Arguments;
-inh tdsLiaison 	  : SymbolTable for Arguments;
 inh tds           : SymbolTable for Arguments;
 syn ast           : LinkedList<Expression> for Arguments; 
 
@@ -400,7 +382,6 @@ global
   tds_Classes : SymbolTable;
   tds_Functions : FunctionSymbolTable;
   tds_Attributs : SymbolTable;
-  tds_Liaison 	: SymbolTable;
 
 #factory {
 do
@@ -408,13 +389,11 @@ do
   tds_Classes := new SymbolTable();
   tds_Functions := new FunctionSymbolTable();
   tds_Attributs := new SymbolTable();
-  tds_Liaison := new SymbolTable();
 
   Interfaces^tdsInterfaces := tds_Interfaces;
   Interfaces^tdsClasses := tds_Classes;
   Interfaces^tdsFunctions := tds_Functions;
   Interfaces^tdsAttributs := tds_Attributs;
-  Interfaces^tdsLiaison := tds_Liaison;
   Interfaces^tds := new SymbolTable();
   Interfaces^factory := new BlockFactoryImpl();
   
@@ -426,7 +405,6 @@ do
   Classes^tdsClasses := tds_Classes;
   Classes^tdsFunctions := tds_Functions;
   Classes^tdsAttributs := tds_Attributs;
-  Classes^tdsLiaison := tds_Liaison;
   Classes^tds := new SymbolTable();
   Classes^factory := new BlockFactoryImpl();
 end
@@ -438,7 +416,6 @@ do
   Principale^tdsClasses := tds_Classes;
   Principale^tdsFunctions := tds_Functions;
   Principale^tdsAttributs := tds_Attributs;
-  Principale^tdsLiaison := tds_Liaison;
   Principale^tds := new SymbolTable();
   Principale^factory := new BlockFactoryImpl();
 end
@@ -1274,7 +1251,7 @@ do
       end
 	  else --LiaisonTardive ...
 
-	  	  --TypeAtomique^tdsLiaison.register(d);
+	  	  TypeAtomique^ast := TypeAtomique^factory.createUndeclaredType(d);
 	  	  error(LiaisonTardive_,identificateur_type^txt);
 		  --error(TYPE_unknown,identificateur_type^txt);
     end
