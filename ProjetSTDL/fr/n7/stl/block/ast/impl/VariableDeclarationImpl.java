@@ -35,22 +35,37 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 
 
 	public VariableDeclarationImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		if(value != null){
+			Expression declaredValue = this.value.makeLiaisonTardive(classes,interfaces);
 		
-		Expression declaredValue = this.value.makeLiaisonTardive(classes,interfaces);
-		if(declaredValue == null){
-			throw new SemanticsUndefinedException("cant declare" + this.value);
-		}
-		if(this.type instanceof UndeclaredTypeImpl){
-			for (Classe classe : classes){
-				if(classe.getName().equals(((UndeclaredTypeImpl) this.type).getName())){
-					return new VariableDeclarationImpl(this.name,new ClasseTypeImpl(classe), declaredValue);
-				}
+			if(declaredValue == null){
+				throw new SemanticsUndefinedException("cant declare" + this.value);
 			}
-
-			throw new SemanticsUndefinedException("cant declare" + this.type);
+			if(this.type instanceof UndeclaredTypeImpl){
+				for (Classe classe : classes){
+					if(classe.getName().equals(((UndeclaredTypeImpl) this.type).getName())){
+						return new VariableDeclarationImpl(this.name,new ClasseTypeImpl(classe), declaredValue);
+					}
+				}
+	
+				throw new SemanticsUndefinedException("cant declare" + this.type);
+			}
+			return new VariableDeclarationImpl(this.name, this.type,declaredValue);
+		} else {
+			if(this.type instanceof UndeclaredTypeImpl){
+				for (Classe classe : classes){
+					if(classe.getName().equals(((UndeclaredTypeImpl) this.type).getName())){
+						return new VariableDeclarationImpl(this.name,new ClasseTypeImpl(classe), this.value);
+					}
+				}
+	
+				throw new SemanticsUndefinedException("cant declare" + this.type);
+			}
 		}
 
-		return new VariableDeclarationImpl(this.name, this.type,declaredValue);
+		return null;
+
+		
 	}
 
 

@@ -10,6 +10,7 @@ class Atype {
 
 	public void methCreateInterfImpl(){
 		interf = new InterfImpl();
+		//int test = interf.meth2();		//Un aperçu de ce qu'il reste a faire !
 	}
 }
 
