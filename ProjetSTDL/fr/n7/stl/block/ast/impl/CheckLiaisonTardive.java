@@ -14,11 +14,11 @@ public class CheckLiaisonTardive {
 		this.ast = ast;
 	}
 
-	public isSucces(){
+	public boolean isSucces(){
 		return this.succes;
 	}
 
-	public getAst(){
+	public boolean getAst(){
 		return this.ast;
 	}
 }

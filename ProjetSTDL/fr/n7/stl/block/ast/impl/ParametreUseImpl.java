@@ -11,7 +11,7 @@ public class ParametreUseImpl implements Expression {
 	
 	/**
 	 * Creates a variable use expression Abstract Syntax Tree node.
-	 * @param _parametre Declaration of the used variable.
+	 * param _parametre Declaration of the used variable.
 	 */
 	public ParametreUseImpl(Parametre _parametre) {
 		this.parametre = _parametre;
