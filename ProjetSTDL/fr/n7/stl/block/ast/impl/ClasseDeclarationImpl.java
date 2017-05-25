@@ -69,7 +69,9 @@ public class ClasseDeclarationImpl implements ClasseDeclaration {
 	}
 
 	public boolean checkType(){
-		throw new SemanticsUndefinedException("checkType() ClasseDeclarationImpl");
+		boolean result;
+		result = this.value.getType().compatibleWith(this.type) && this.classe.checkType(); 
+		return result;
 	}
 
 	public int allocateMemory(Register regiser, int offset){

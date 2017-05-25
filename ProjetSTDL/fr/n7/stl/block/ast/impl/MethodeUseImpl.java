@@ -63,7 +63,16 @@ public class MethodeUseImpl implements Expression, Instruction {
 
 
 	public boolean checkType(){
-		throw new SemanticsUndefinedException("checkType() MethodeUseImpl");
+		boolean result = true;
+		String nomMeth = this.methode.getName();
+		Classe cl = this.classe.getDeclaration().getClasse();
+		if (cl.containsSignature(this.methode.getName(), this.methode.getParametres())){
+			this.methode = cl.getSignature(this.methode.getName(), this.methode.getParametres());
+			result = true;
+		} else {
+			result = false;
+		}
+		return result;
 	}
 	
 

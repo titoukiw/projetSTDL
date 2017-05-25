@@ -110,13 +110,15 @@ public class AssignmentImpl implements Instruction, Expression {
 	 */
 	@Override
 	public boolean checkType() {
+		boolean result;
 			if(this.assignable != null){
-				return this.value.getType().compatibleWith(this.declaration.getType());
+				result = this.value.getType().compatibleWith(this.declaration.getType());
 			} else if (this.assignable_expr != null) {
-				return this.value.getType().compatibleWith(this.assignable_expr.getType());
+				result = this.value.getType().compatibleWith(this.assignable_expr.getType());
 			} else {
-				return false;
+				result = false;
 			}
+			return result;
        }
 
 	/* (non-Javadoc)

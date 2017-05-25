@@ -81,8 +81,9 @@ public class ConstructeurImpl implements Constructeur {
 
 	@Override
 	public boolean checkType() {
-		// TODO Auto-generated method stub
-		return body.checkType();
+		boolean result;
+		result = body.checkType();
+		return result;
 	}
 
 

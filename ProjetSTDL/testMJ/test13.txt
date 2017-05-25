@@ -5,12 +5,14 @@ class Atype {
 	public String stringA;
 
 	public Atype(String a){
-		String b = a;  					// ERREUR: bloc_undefined_identa
+		String b = a;  	
+		interf = new InterfImpl();				// ERREUR: bloc_undefined_identa
 	}
 
 	public void methCreateInterfImpl(){
 		interf = new InterfImpl();
-		//int test = interf.meth2();		//Un aperçu de ce qu'il reste a faire !
+		InterfImpl testInterf = interf;
+		interf.myInt = 5;		//Un aperçu de ce qu'il reste a faire !
 	}
 }
 
@@ -39,7 +41,8 @@ public class MainClasse {
     	String a = "a";
     	InterfImpl in = new InterfImpl();
     	a = in.atype.stringA;
-    	in.atype.stringA = "c";
+    	in.atype.interf = "c";
+    	in.atype.interf.myInt = 1;
     	print(in);
     	in.myInt = 5;
     	c = in.myInt;

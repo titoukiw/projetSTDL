@@ -1,5 +1,6 @@
 package fr.n7.stl.block.ast;
 
+import java.util.LinkedList;
 /**
  * @author okeee
  *
@@ -7,8 +8,10 @@ package fr.n7.stl.block.ast;
 public interface Classe extends Objet {
 
 	public boolean equalsTo(Classe _classe);
-	public boolean containsMethode(String id);
-	public Methode getMethode(String id);
+	public boolean containsMethode(String id);		// Depreciated
+	public Methode getMethode(String id);			// Depreciated
+	public boolean containsSignature(String id, LinkedList<Parametre> listParam);
+	public Methode getSignature(String id, LinkedList<Parametre> listParam);
 	public boolean containsAttribut(String id);
 	public Expression getAttribut(String id);
 

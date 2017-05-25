@@ -29,7 +29,7 @@ public class ClasseTypeImpl implements Type {
 
 	public boolean compatibleWith(Type _other){
 		if (_other instanceof ClasseTypeImpl){
-			return this.classe.getName().equals(((ClasseTypeImpl) _other).getClasse());
+			return this.classe.getName().equals(((ClasseTypeImpl) _other).getClasse().getName());
 		} else {
 			System.out.println(this.toString() + "||" + _other.toString() );
 			return false;

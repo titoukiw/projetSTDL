@@ -32,6 +32,7 @@ public class ClasseImpl implements Classe {
 		}
 
 		public boolean checkType(){
+
 			boolean result = true;
 			for(ElementClasse elt: elements){
 				result = result && elt.checkType();
@@ -65,6 +66,31 @@ public class ClasseImpl implements Classe {
 
 		}
 
+
+		public boolean containsSignature(String id, LinkedList<Parametre> listParam){
+			for(ElementClasse elem : this.elements){
+				if(elem instanceof MethodeImpl){
+					if( elem.getName().equals(id) && (((MethodeImpl)elem).getParametres().equals(listParam)) ) {
+						System.out.println("biiaaatch");
+						System.out.println(listParam);
+						System.out.println(((MethodeImpl)elem).getParametres());
+						return true;
+					} 
+				}
+			}
+			return false;
+		}
+
+		public Methode getSignature(String id, LinkedList<Parametre> listParam){
+			for(ElementClasse elem : this.elements){
+				if(elem instanceof MethodeImpl){
+					if( elem.getName().equals(id) && (((MethodeImpl)elem).getParametres().equals(listParam)) ) {
+						return (MethodeImpl) elem;
+					} 
+				}
+			}
+			return null;
+		}
 
 		public boolean containsMethode(String id){
 			for(ElementClasse elem : this.elements){

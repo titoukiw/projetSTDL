@@ -1,53 +1,24 @@
-interface Interf{}
-
 class Atype {
-	public InterfImpl interf; 				// ERREUR: type_unknownInterfImpl
+
 	public String stringA;
 
-	public Atype(String a){
-		String b = a;  	
-		interf = new InterfImpl();				// ERREUR: bloc_undefined_identa
-	}
+	public Atype(){}
 
-	public void methCreateInterfImpl(){
-		interf = new InterfImpl();
-		InterfImpl testInterf = interf;
-		interf.myInt = 5;		//Un aperçu de ce qu'il reste a faire !
+	public void meth(){
+		stringA = "PasDeParam";
+	}
+	public void meth(String str){
+		stringA = str;
 	}
 }
 
-class InterfImpl implements Interf {
-	public int myInt;
-	public Atype atype;
-
-	public InterfImpl(){
-		myInt = 3;
-	}
-
-	public void methCreateAtype(String a){
-		atype = new Atype(a);			
-		a = atype.stringA;
-	}
-
-	public int meth2(){
-		return 3;
-	}
-}
 
 public class MainClasse {
     public static void main(String[] args){
-    	//int entier; pas possible dans le main pour cette grammaire
-    	int c = 7;
-    	String a = "a";
-    	InterfImpl in = new InterfImpl();
-    	a = in.atype.stringA;
-    	in.atype.interf = "c";
-    	print(in);
-    	in.myInt = 5;
-    	c = in.myInt;
-    	in.meth2();
-    	int b = in.meth2();
-    	c = b ;
+    	Atype a = new Atype();
+    	int i = 1;
 
+    	a.meth();
+    	a.meth(i,"bitch");
 	}
 }

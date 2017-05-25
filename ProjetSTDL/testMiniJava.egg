@@ -2086,6 +2086,7 @@ do
     	match d
     	with Attribut then
     		if (Facteur^droiteAffectation) then
+    			-- Vérif droitAcces ?
     			AppelOuAcces^support := Facteur^factory.createAttributUse(d,null);
     		else 
     			AppelOuAcces^support := Facteur^factory.createAttributAssignment(d,null);
