@@ -1,6 +1,8 @@
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.*;
+import fr.n7.stl.block.ast.Expression;
+import fr.n7.stl.block.ast.FinalStaticField;
+import fr.n7.stl.block.ast.Type;
 
 
 public class FinalStaticFieldImpl extends VariableDeclarationImpl implements FinalStaticField {
@@ -32,14 +34,16 @@ public class FinalStaticFieldImpl extends VariableDeclarationImpl implements Fin
 	}
 
 	/* TO DO */
+	@Override
 	public boolean checkType() {
-		return true;
+		return this.type.compatibleWith(value.getType());
 	}
 	
 	
 	public String toString() {
 		return "([FinalStaticField] " + this.type + " " + this.name + " = " + this.value + ";)\n";
 	}
+
 
 
 

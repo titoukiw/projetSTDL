@@ -18,7 +18,7 @@ public class CheckLiaisonTardive {
 		return this.succes;
 	}
 
-	public boolean getAst(){
+	public String getAst(){
 		return this.ast;
 	}
 }

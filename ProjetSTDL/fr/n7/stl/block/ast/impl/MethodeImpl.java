@@ -119,6 +119,11 @@ public class MethodeImpl implements Methode {
 		throw new SemanticsUndefinedException("getCode AttributImpl");
 	}
 
+	@Override
+	public boolean checkType() {
+		return body.checkType();
+	}
+
 
 }
 

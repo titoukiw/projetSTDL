@@ -28,7 +28,12 @@ public class ClasseTypeImpl implements Type {
 
 
 	public boolean compatibleWith(Type _other){
-		throw new SemanticsUndefinedException("compatibleWith() ClasseTypeImpl");
+		if (_other instanceof ClasseTypeImpl){
+			return this.classe.getName().equals(((ClasseTypeImpl) _other).getClasse());
+		} else {
+			System.out.println(this.toString() + "||" + _other.toString() );
+			return false;
+		}
 	}
 
 

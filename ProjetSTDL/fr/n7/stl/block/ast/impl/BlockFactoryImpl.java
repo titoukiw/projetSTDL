@@ -97,10 +97,6 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new VariableUseImpl(_declaration);
 	}
 
-	public Expression createVariableAcces(VariableDeclaration _declaration) {
-		return new VariableAccesImpl(_declaration);
-	}
-
 	public Expression createClasseUse(ClasseDeclaration _declaration){
 		return new ClasseUseImpl(_declaration);
 	}
@@ -545,8 +541,8 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new AttributUseImpl(attribut,classe);
 	}
 	
-	public Expression createAttributAcces(ElementClasse attribut,ClasseUseImpl classe){
-		return new AttributAccesImpl(attribut,classe);
+	public Expression createAttributAssignment(ElementClasse attribut,ClasseUseImpl classe){
+		return new AttributAssignmentImpl(attribut,classe);
 	}
 
 	public Type createUndeclaredType(String id_type){

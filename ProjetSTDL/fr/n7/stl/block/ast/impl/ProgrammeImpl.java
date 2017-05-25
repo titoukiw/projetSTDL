@@ -36,4 +36,23 @@ public class ProgrammeImpl implements Programme {
 		this.classes = declaredClasses;
 	}
 
+	public boolean checkType(){
+		boolean result = true;
+		for(Interface inter : interfaces){
+			result = result && inter.checkType();
+			if(!result){
+				break;
+			}
+		}
+		for (Classe cl : classes){
+			result = result && cl.checkType();
+			if(!result){
+				break;
+			}			
+		}
+		result = result && classePrincipale.checkType();
+
+		return result;
+	}
+
 }

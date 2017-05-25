@@ -64,6 +64,10 @@ public class AttributImpl implements Attribut {
 		return this.id;
 	}
 
+	public boolean checkType(){
+		return true;
+	}
+
 	public Fragment getCode(TAMFactory factory){
 		throw new SemanticsUndefinedException("getCode AttributImpl");
 	}

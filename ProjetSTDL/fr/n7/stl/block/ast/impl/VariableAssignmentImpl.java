@@ -23,6 +23,14 @@ public class VariableAssignmentImpl extends VariableUseImpl implements Assignabl
 	}
 
 	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return ("(VariableAssignt)@{" + this.declaration.getName() + "}");
+	}
+
+	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.impl.VariableUseImpl#getCode(fr.n7.stl.tam.ast.TAMFactory)
 	 */
 	@Override

@@ -95,4 +95,9 @@ public class SignatureImpl implements Signature {
 		}
 		return false;
 	}
+
+	@Override
+	public boolean checkType() {
+		return true;
+	}
 }

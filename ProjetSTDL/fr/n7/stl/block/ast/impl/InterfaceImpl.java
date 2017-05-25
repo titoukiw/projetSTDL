@@ -1,14 +1,17 @@
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.*;
+import java.util.LinkedList;
 
 /**
  * @author okeee
  *
  */
-
-import fr.n7.stl.block.ast.*;
-import java.util.LinkedList;
+import fr.n7.stl.block.ast.Classe;
+import fr.n7.stl.block.ast.ElementInterface;
+import fr.n7.stl.block.ast.Expression;
+import fr.n7.stl.block.ast.FinalStaticField;
+import fr.n7.stl.block.ast.Interface;
+import fr.n7.stl.block.ast.Type;
 
 public class InterfaceImpl implements Interface {
 
@@ -117,5 +120,13 @@ public class InterfaceImpl implements Interface {
 	/* does not @Override ?!*/
 	public Type merge(Type type){
 		return null;
+	}
+
+	public boolean checkType() {
+		boolean result = true;
+		for(ElementInterface elt: listElements){
+			result = result && elt.checkType();
+		}
+		return result;
 	}
 }

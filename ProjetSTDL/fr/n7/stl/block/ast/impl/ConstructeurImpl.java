@@ -72,6 +72,12 @@ public class ConstructeurImpl implements Constructeur {
 		throw new SemanticsUndefinedException("getCode AttributImpl");
 	}
 
+	@Override
+	public boolean checkType() {
+		// TODO Auto-generated method stub
+		return body.checkType();
+	}
+
 
 
 }

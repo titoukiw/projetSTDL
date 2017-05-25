@@ -6,8 +6,8 @@ JAR=$(JDIR)/jar
 JAVADOC=$(JDIR)/javadoc
 
 #################
-
-all : legg compile doc exec
+#all : legg compile doc exec
+all : clean legg compile exec
 
 doc :
 	mkdir doc && \

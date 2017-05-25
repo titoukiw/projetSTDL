@@ -14,4 +14,6 @@ public interface Methode extends ElementClasse {
 	public LinkedList<Parametre> getParametres();
 
 	public String getClasseCourante();
+
+	public boolean checkType();
 }

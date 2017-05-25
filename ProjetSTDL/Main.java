@@ -35,12 +35,13 @@ public class Main{
       prq.endReporting();
       System.out.println("AST :"+ prog);
 
-      /*
+      
       if (bloc.get_ast().checkType()) {
 	  System.out.println( "Correctement typé." );
       } else {
 	  System.out.println( "Mal typé." );
       }
+      /*
       bloc.get_ast().allocateMemory(Register.SB,0);
       TAMFactoryImpl _factory = new TAMFactoryImpl();
       Fragment _fragment = bloc.get_ast().getCode(_factory);

@@ -1,13 +1,13 @@
 package fr.n7.stl.block.ast.impl;
 
+import java.util.LinkedList;
+
 /**
  * @author okeee
  *
  */
-
 import fr.n7.stl.block.ast.*;
-import fr.n7.stl.tam.ast.*;
-import java.util.LinkedList;
+import fr.n7.stl.tam.ast.Register;
 
 public class ParametreImpl implements Parametre {
 

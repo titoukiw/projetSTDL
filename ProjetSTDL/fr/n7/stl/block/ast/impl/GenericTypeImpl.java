@@ -1,7 +1,9 @@
 package fr.n7.stl.block.ast.impl;
 
 import java.util.LinkedList;
-import fr.n7.stl.block.ast.*;
+
+import fr.n7.stl.block.ast.Objet;
+import fr.n7.stl.block.ast.Type;
 
 
 public class GenericTypeImpl implements Type {

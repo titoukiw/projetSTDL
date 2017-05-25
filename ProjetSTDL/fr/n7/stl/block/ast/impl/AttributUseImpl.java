@@ -43,6 +43,11 @@ public class AttributUseImpl implements Expression {
 	public Fragment getCode(TAMFactory _factory){
 		throw new SemanticsUndefinedException("getCode() AttributUseImpl");
 	}
+
+	public boolean checkType() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
 
 

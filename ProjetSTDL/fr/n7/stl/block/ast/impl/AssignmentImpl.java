@@ -91,13 +91,33 @@ public class AssignmentImpl implements Instruction, Expression {
 		}
 	}
 
+	public boolean checkTypeConstructeur(LinkedList<Classe> classes, LinkedList<Interface> interfaces, String classeCourante) {
+		boolean result = true;	//On vérifie qu'un contructeur n'appelle pas son propre type ?
+			Classe _cl = null;
+			for (Classe cl : classes){
+				if (cl.getName().equals(classeCourante)){
+					_cl = cl;
+				}
+			}
+			if (this.assignable.getType() == _cl.getType()){
+				return false;					
+			} else {
+				return true;
+			}
+	}
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Instruction#checkType()
 	 */
 	@Override
 	public boolean checkType() {
-	        return this.value.getType().compatibleWith(this.assignable.getType());
-        }
+			if(this.assignable != null){
+				return this.value.getType().compatibleWith(this.declaration.getType());
+			} else if (this.assignable_expr != null) {
+				return this.value.getType().compatibleWith(this.assignable_expr.getType());
+			} else {
+				return false;
+			}
+       }
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Instruction#allocateMemory(fr.n7.stl.tam.ast.Register, int)

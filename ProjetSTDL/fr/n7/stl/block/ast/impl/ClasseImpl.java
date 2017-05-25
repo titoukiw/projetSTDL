@@ -31,6 +31,17 @@ public class ClasseImpl implements Classe {
 			return new ClasseTypeImpl(this);
 		}
 
+		public boolean checkType(){
+			boolean result = true;
+			for(ElementClasse elt: elements){
+				result = result && elt.checkType();
+				if(!result){
+					break;
+				}
+			}
+			return result;
+		}
+
 		public boolean equalsTo(Classe classe){
 			return this.nom.equals(classe.getName());
 		}

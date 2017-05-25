@@ -106,7 +106,6 @@ public class BlockImpl implements Block {
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Block#checkType()
 	 */
-	@Override
 	public boolean checkType() {
 	        boolean _local = true;
                 for(Instruction _instruction : this.instructions) {
@@ -140,5 +139,4 @@ public class BlockImpl implements Block {
 		_fragment.add(_factory.createPop(0,this.allocatedSize));
 		return _fragment;
 	}
-
 }

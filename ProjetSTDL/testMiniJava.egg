@@ -1718,11 +1718,8 @@ end
 SuiteCondition -> Comparatif Condition #ast ;
 #ast {
 do
-  SuiteCondition^ast :=
-  SuiteCondition^factory.createBinaryExpression(
-  SuiteCondition^gauche,
-  Comparatif^bin_op,
-  Condition^ast);
+  SuiteCondition^ast :=  SuiteCondition^factory.createBinaryExpression(
+  								SuiteCondition^gauche, Comparatif^bin_op, Condition^ast);
 end 
 }
 
@@ -2074,7 +2071,8 @@ do
       		if(Facteur^droiteAffectation) then
       			AppelOuAcces^support := Facteur^factory.createVariableUse(d);
       		else
-      			AppelOuAcces^support := Facteur^factory.createVariableAcces(d);
+      			AppelOuAcces^support := Facteur^factory.createVariableAssignment(d);
+      			error(Fichtre_, d);
       		end
       with Parametre then AppelOuAcces^support := Facteur^factory.createParametreUse(d);
       end
@@ -2086,7 +2084,7 @@ do
     		if (Facteur^droiteAffectation) then
     			AppelOuAcces^support := Facteur^factory.createAttributUse(d,null);
     		else 
-    			AppelOuAcces^support := Facteur^factory.createAttributAcces(d,null);
+    			AppelOuAcces^support := Facteur^factory.createAttributAssignment(d,null);
     		end
     	with FinalStaticField then AppelOuAcces^support := d.getValue();
     	else error(UNDEFINED_attribut_staticfield, identificateur^txt);
@@ -2231,7 +2229,7 @@ do
 						if (Acces^droiteAffectation) then --Hh
 							AppelOuAcces^support := Acces^factory.createAttributUse(expAtt,exp);
 						else 
-							AppelOuAcces^support := Acces^factory.createAttributAcces(expAtt,exp);
+							AppelOuAcces^support := Acces^factory.createAttributAssignment(expAtt,exp);
 						end
 				end
 			elseif (exp.containsMethode(identificateur^txt)) then
@@ -2255,7 +2253,7 @@ do
 								if (Acces^droiteAffectation) then
 									AppelOuAcces^support := Acces^factory.createAttributUse(expAtt,exp.getClasseUse());
 								else
-									AppelOuAcces^support := Acces^factory.createAttributAcces(expAtt,exp.getClasseUse());
+									AppelOuAcces^support := Acces^factory.createAttributAssignment(expAtt,exp.getClasseUse());
 								end
 						end
 					elseif (tmpc.containsMethode(identificateur^txt)) then
@@ -2268,7 +2266,7 @@ do
 						error(ATTRIBUT_doesnt_exist,identificateur^txt);
 					end
 			end
-		with AttributAccesImpl then
+		with AttributAssignmentImpl then
 			tmpcti := exp.getType();
 			match tmpcti
 				with ClasseTypeImpl then
@@ -2280,7 +2278,7 @@ do
 								if (Acces^droiteAffectation) then
 									AppelOuAcces^support := Acces^factory.createAttributUse(expAtt,exp.getClasseUse());
 								else
-									AppelOuAcces^support := Acces^factory.createAttributAcces(expAtt,exp.getClasseUse());
+									AppelOuAcces^support := Acces^factory.createAttributAssignment(expAtt,exp.getClasseUse());
 								end
 						end
 					elseif (tmpc.containsMethode(identificateur^txt)) then

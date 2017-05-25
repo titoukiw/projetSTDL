@@ -1,11 +1,11 @@
 package fr.n7.stl.block.ast.impl;
 
 
-import java.util.LinkedList;
-
-
-import fr.n7.stl.block.ast.*;
-import fr.n7.stl.tam.ast.*;
+import fr.n7.stl.block.ast.Block;
+import fr.n7.stl.block.ast.ClassePrincipale;
+import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
+import fr.n7.stl.tam.ast.TAMFactory;
 
 
 
@@ -29,7 +29,7 @@ public class ClassePrincipaleImpl implements ClassePrincipale {
 
 
 	public boolean checkType() {
-		throw new SemanticsUndefinedException("checkType ClassePrincipaleImpl");
+		return methodePrincipale.checkType();
 	}
 
 	public int allocateMemory(Register _register, int _offset){
@@ -39,4 +39,5 @@ public class ClassePrincipaleImpl implements ClassePrincipale {
 	public Fragment getCode(TAMFactory _factory){
 		throw new SemanticsUndefinedException("getCode ClassePrincipaleImpl");
 	}
+
 }
