@@ -21,7 +21,9 @@ public class ClasseDeclarationImpl implements ClasseDeclaration {
 		this.nom = name;
 		this.type = typ;
 		this.value = expr;
-		this.classe = ((ClasseTypeImpl) this.type).getClasse() ;
+		if(this.type instanceof ClasseTypeImpl){
+			this.classe = ((ClasseTypeImpl) this.type).getClasse() ;
+		}
 	}
 
 	public Classe getClasse(){
@@ -38,6 +40,14 @@ public class ClasseDeclarationImpl implements ClasseDeclaration {
 			throw new SemanticsUndefinedException("cant declare " + this.value);
 		}
 		this.value = declaredValue;
+		if(this.type instanceof UndeclaredTypeImpl){
+			this.type = ((UndeclaredTypeImpl)this.type).makeLiaisonTardive(classes,interfaces);
+			if(this.type == null){
+				throw new SemanticsUndefinedException("cant declare " + this.type);
+			}
+			this.classe = ((ClasseTypeImpl) this.type).getClasse();
+		}
+		
 		return this;
 	}
 

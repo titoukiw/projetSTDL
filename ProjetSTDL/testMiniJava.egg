@@ -1546,6 +1546,10 @@ do
     			d := Instruction^factory.createClasseDeclaration(identificateur^txt,Type^ast,Expression^ast);
     			Instruction^tds.register(d);
     			Instruction^ast := d ;
+    		with UndeclaredTypeImpl then
+    			d := Instruction^factory.createClasseDeclaration(identificateur^txt,Type^ast,Expression^ast);
+    			Instruction^tds.register(d);
+    			Instruction^ast := d ;
     		else
     			d := Instruction^factory.createVariableDeclaration(identificateur^txt,Type^ast,Expression^ast);
     		    Instruction^tds.register(d);
@@ -2265,6 +2269,8 @@ do
 					else
 						error(ATTRIBUT_doesnt_exist,identificateur^txt);
 					end
+				with UndeclaredTypeImpl then
+					write "LIAISONTARDIVE_METHODE_NOT_IMPLEMENTED\n";
 			end
 		with AttributAssignmentImpl then
 			tmpcti := exp.getType();

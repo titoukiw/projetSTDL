@@ -5,12 +5,14 @@ class Atype {
 	public String stringA;
 
 	public Atype(String a){
-		String b = a;  					// ERREUR: bloc_undefined_identa
+		String b = a;  	
+		interf = new InterfImpl();				// ERREUR: bloc_undefined_identa
 	}
 
 	public void methCreateInterfImpl(){
 		interf = new InterfImpl();
-		//int test = interf.meth2();		//Un aperçu de ce qu'il reste a faire !
+		InterfImpl testInterf = interf;
+		int test = interf.meth2();		//Un aperçu de ce qu'il reste a faire !
 	}
 }
 

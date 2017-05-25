@@ -32,6 +32,8 @@ public class ClasseUseImpl implements Expression, Instruction {
 	}
 
 	public ClasseUseImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		ClasseDeclaration declaredClasse =((ClasseDeclaration) classe.makeLiaisonTardive(classes,interfaces));
+		this.classe = declaredClasse;
 		return this;
 	}
 

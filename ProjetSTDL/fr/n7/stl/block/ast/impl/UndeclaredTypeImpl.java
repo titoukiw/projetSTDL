@@ -17,6 +17,22 @@ public class UndeclaredTypeImpl implements Type {
 		return this.nom;
 	}
 
+	public Type makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		for(Classe classe : classes){
+			if(classe.getName().equals(this.nom)){
+				return new ClasseTypeImpl(classe);
+			}
+		}
+
+		for(Interface interf : interfaces){
+			if(interf.getName().equals(this.nom)){
+				return new InterfaceTypeImpl(interf);
+			}
+		}
+
+		return null;
+	}
+
 	public boolean equalsTo(Type _other){
 		throw new SemanticsUndefinedException("equalsTo no meaning for UndeclaredTypeImpl");
 	}

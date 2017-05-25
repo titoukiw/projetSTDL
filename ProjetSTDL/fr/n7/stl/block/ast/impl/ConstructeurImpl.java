@@ -33,6 +33,13 @@ public class ConstructeurImpl implements Constructeur {
 	}
 
 	public ElementClasse makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		LinkedList<Parametre> declaredListParam = new LinkedList<Parametre>();
+		for (Parametre param : listParam){
+			declaredListParam.add(((Parametre)param.makeLiaisonTardive(classes,interfaces)));
+		}
+		Block declaredBody = body.makeLiaisonTardive(classes,interfaces);
+		this.listParam = declaredListParam;
+		this.body = declaredBody;
 		return this;
 	}
 
