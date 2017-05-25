@@ -66,8 +66,13 @@ public class MethodeUseImpl implements Expression, Instruction {
 		boolean result = true;
 		String nomMeth = this.methode.getName();
 		Classe cl = this.classe.getDeclaration().getClasse();
-		if (cl.containsSignature(this.methode.getName(), this.methode.getParametres())){
-			this.methode = cl.getSignature(this.methode.getName(), this.methode.getParametres());
+		LinkedList<Type> listType = new LinkedList<Type>();
+		for(Expression e : this.arguments){
+			listType.addFirst(e.getType());
+		}
+
+		if (cl.containsSignature(this.methode.getName(),listType)){
+			this.methode = cl.getSignature(this.methode.getName(), listType);
 			result = true;
 		} else {
 			result = false;

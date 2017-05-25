@@ -4,7 +4,7 @@ class Atype {
 
 	public Atype(){}
 
-	public void meth(){
+	public void meth(int i, String j){
 		stringA = "PasDeParam";
 	}
 	public void meth(String str){
@@ -18,7 +18,7 @@ public class MainClasse {
     	Atype a = new Atype();
     	int i = 1;
 
-    	a.meth();
+    	//a.meth();
     	a.meth(i,"bitch");
 	}
 }

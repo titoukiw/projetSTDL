@@ -67,13 +67,14 @@ public class ClasseImpl implements Classe {
 		}
 
 
-		public boolean containsSignature(String id, LinkedList<Parametre> listParam){
+		public boolean containsSignature(String id, LinkedList<Type> listTypeParam){
 			for(ElementClasse elem : this.elements){
 				if(elem instanceof MethodeImpl){
-					if( elem.getName().equals(id) && (((MethodeImpl)elem).getParametres().equals(listParam)) ) {
-						System.out.println("biiaaatch");
-						System.out.println(listParam);
-						System.out.println(((MethodeImpl)elem).getParametres());
+					LinkedList<Type> listType = new LinkedList<Type>();
+					for(Parametre p : ((MethodeImpl)elem).getParametres()){
+						listType.addFirst(p.getType());
+					}
+					if( elem.getName().equals(id) && listType.equals(listTypeParam)) {
 						return true;
 					} 
 				}
@@ -81,10 +82,14 @@ public class ClasseImpl implements Classe {
 			return false;
 		}
 
-		public Methode getSignature(String id, LinkedList<Parametre> listParam){
+		public Methode getSignature(String id, LinkedList<Type> listTypeParam){
 			for(ElementClasse elem : this.elements){
 				if(elem instanceof MethodeImpl){
-					if( elem.getName().equals(id) && (((MethodeImpl)elem).getParametres().equals(listParam)) ) {
+					LinkedList<Type> listType = new LinkedList<Type>();
+					for(Parametre p : ((MethodeImpl)elem).getParametres()){
+						listType.addFirst(p.getType());
+					}
+					if( elem.getName().equals(id) && listType.equals(listTypeParam)) {
 						return (MethodeImpl) elem;
 					} 
 				}

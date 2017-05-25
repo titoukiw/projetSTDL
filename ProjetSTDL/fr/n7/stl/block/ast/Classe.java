@@ -10,8 +10,8 @@ public interface Classe extends Objet {
 	public boolean equalsTo(Classe _classe);
 	public boolean containsMethode(String id);		// Depreciated
 	public Methode getMethode(String id);			// Depreciated
-	public boolean containsSignature(String id, LinkedList<Parametre> listParam);
-	public Methode getSignature(String id, LinkedList<Parametre> listParam);
+	public boolean containsSignature(String id, LinkedList<Type> listParam);
+	public Methode getSignature(String id, LinkedList<Type> listParam);
 	public boolean containsAttribut(String id);
 	public Expression getAttribut(String id);
 
