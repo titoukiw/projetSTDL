@@ -7,6 +7,7 @@ import fr.n7.stl.block.ast.*;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import java.util.LinkedList;
 
 /**
  * Implementation of the Abstract Syntax Tree node for an array type.
@@ -45,6 +46,22 @@ public class AssignmentImpl implements Instruction, Expression {
 	public AssignmentImpl(Expression assignable, Expression value){
 		this.assignable_expr = assignable;
 		this.value = value;
+	}
+
+
+	public AssignmentImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		if(this.declaration != null && this.value != null){
+			return new AssignmentImpl(this.declaration.makeLiaisonTardive(classes,interfaces), this.value.makeLiaisonTardive(classes,interfaces));
+		}
+		if(this.assignable != null && this.value != null){
+			return new AssignmentImpl(this.assignable.makeLiaisonTardive(classes,interfaces), this.value.makeLiaisonTardive(classes,interfaces));
+		}
+		if(this.assignable_expr != null && this.value != null){
+			return new AssignmentImpl(this.assignable_expr.makeLiaisonTardive(classes,interfaces), this.value.makeLiaisonTardive(classes,interfaces));
+		}
+
+		return this;
+
 	}
 
 	/* (non-Javadoc)

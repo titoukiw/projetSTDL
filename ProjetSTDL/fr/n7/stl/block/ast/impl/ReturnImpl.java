@@ -3,6 +3,7 @@ package fr.n7.stl.block.ast.impl;
 
 import fr.n7.stl.block.ast.*;
 import fr.n7.stl.tam.ast.*;
+import java.util.LinkedList;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a conditional instruction.
@@ -21,6 +22,16 @@ public class ReturnImpl implements Instruction {
 	public String toString() {
 		return "return " + this.expr;
 	}
+
+	public ReturnImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		Expression declaredExpr = this.expr.makeLiaisonTardive(classes,interfaces);
+		if(declaredExpr == null){
+			throw new SemanticsUndefinedException("cant declare " + this.expr);
+		}
+
+		return new ReturnImpl(declaredExpr);
+	}
+
 
 	@Override
 	public boolean checkType() {

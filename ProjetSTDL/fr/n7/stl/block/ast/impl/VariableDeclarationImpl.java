@@ -3,12 +3,9 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.block.ast.VariableDeclaration;
-import fr.n7.stl.tam.ast.Fragment;
-import fr.n7.stl.tam.ast.Register;
-import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.block.ast.*;
+import fr.n7.stl.tam.ast.*;
+import java.util.LinkedList;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a variable declaration instruction.
@@ -34,6 +31,28 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 		this.type = _type;
 		this.value = _value;
 	}
+
+
+
+	public VariableDeclarationImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		
+		Expression declaredValue = this.value.makeLiaisonTardive(classes,interfaces);
+		if(declaredValue == null){
+			throw new SemanticsUndefinedException("cant declare" + this.value);
+		}
+		if(this.type instanceof UndeclaredTypeImpl){
+			for (Classe classe : classes){
+				if(classe.getName().equals(((UndeclaredTypeImpl) this.type).getName())){
+					return new VariableDeclarationImpl(this.name,new ClasseTypeImpl(classe), declaredValue);
+				}
+			}
+
+			throw new SemanticsUndefinedException("cant declare" + this.type);
+		}
+
+		return new VariableDeclarationImpl(this.name, this.type,declaredValue);
+	}
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

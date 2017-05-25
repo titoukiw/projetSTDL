@@ -3,13 +3,11 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.AtomicType;
-import fr.n7.stl.block.ast.Block;
-import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.Instruction;
+import fr.n7.stl.block.ast.*;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import java.util.LinkedList;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a repetition instruction.
@@ -33,6 +31,20 @@ public class RepetitionImpl implements Instruction {
 	public String toString() {
 		return "while (" + this.condition + ") " + this.body;
 	}
+
+	public Instruction makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		Expression declaredCondition = condition.makeLiaisonTardive(classes,interfaces);
+		if(declaredCondition == null){
+			throw new SemanticsUndefinedException("cant declare " + this.condition);
+		}
+		Block declaredBody = body.makeLiaisonTardive(classes,interfaces);
+		if(declaredBody == null){
+			throw new SemanticsUndefinedException("cant declare " + this.body);
+		}
+
+		return new RepetitionImpl(declaredCondition,declaredBody);
+	}
+
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Instruction#checkType()

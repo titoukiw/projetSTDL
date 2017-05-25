@@ -1,6 +1,7 @@
 package fr.n7.stl.block.ast.impl;
 
 import java.util.List;
+import java.util.LinkedList;
 import fr.n7.stl.tam.ast.*;
 import fr.n7.stl.block.ast.*;
 
@@ -29,6 +30,11 @@ public class ClasseUseImpl implements Expression, Instruction {
 	public ClasseDeclaration getDeclaration() {
 		return this.classe;
 	}
+
+	public ClasseUseImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		return this;
+	}
+
 
 	public boolean containsMethode(String id){
 		return this.classe.getClasse().containsMethode(id);

@@ -7,8 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.io.*;
-import fr.n7.stl.block.ast.Block;
-import fr.n7.stl.block.ast.Instruction;
+import fr.n7.stl.block.ast.*;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -61,6 +60,23 @@ public class BlockImpl implements Block {
 	@Override
 	public void add(Instruction _instruction) {
 		this.instructions.add(_instruction);
+	}
+
+
+
+	public BlockImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		
+		LinkedList<Instruction> declaredInstructions = new LinkedList<Instruction>();
+		Instruction declaredInstruction;
+		for(Instruction instruction : this.instructions){
+			declaredInstruction = instruction.makeLiaisonTardive(classes,interfaces);
+			if(declaredInstruction == null){
+				throw new SemanticsUndefinedException("Cant declare " + instruction );
+			}
+			declaredInstructions.add(declaredInstruction);
+		}
+		this.instructions = declaredInstructions;
+		return this;
 	}
 
 

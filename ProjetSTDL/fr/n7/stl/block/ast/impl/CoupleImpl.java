@@ -3,10 +3,10 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.Type;
+import fr.n7.stl.block.ast.*;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import java.util.LinkedList;
 
 /**
  * Implementation of the Abstract Syntax Tree node for building a couple value.
@@ -29,6 +29,16 @@ public class CoupleImpl implements Expression {
 		this.second = _second;
 	}
 	
+
+	public CoupleImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		Expression declaredFirst = first.makeLiaisonTardive(classes,interfaces);
+		Expression declaredSecond = second.makeLiaisonTardive(classes,interfaces);
+		if(declaredFirst == null || declaredSecond == null){
+			throw new SemanticsUndefinedException("cant declare " + this);
+		}
+		return new CoupleImpl(declaredFirst,declaredSecond);
+		}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

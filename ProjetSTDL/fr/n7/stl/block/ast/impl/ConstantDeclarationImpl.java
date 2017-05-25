@@ -3,12 +3,9 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.ConstantDeclaration;
-import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.tam.ast.Fragment;
-import fr.n7.stl.tam.ast.Register;
-import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.block.ast.*;
+import fr.n7.stl.tam.ast.*;
+import java.util.LinkedList;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a constant declaration instruction.
@@ -41,6 +38,30 @@ public class ConstantDeclarationImpl implements ConstantDeclaration {
 	public String getName() {
 		return this.name;
 	}
+
+	public ConstantDeclarationImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		Expression declaredValue = value.makeLiaisonTardive(classes,interfaces);
+		if(declaredValue == null){
+			throw new SemanticsUndefinedException("cant decalre " + this.value);
+		}
+
+		if(this.type instanceof UndeclaredTypeImpl){
+			for(Classe classe : classes){
+				if(classe.getName().equals(((UndeclaredTypeImpl)this.type).getName())){
+					return new ConstantDeclarationImpl(this.name,new ClasseTypeImpl(classe),declaredValue);
+				}
+			}
+
+			for(Interface interf : interfaces){
+				if(interf.getName().equals(((UndeclaredTypeImpl)this.type).getName())){
+					return new ConstantDeclarationImpl(this.name,new InterfaceTypeImpl(interf),declaredValue);
+				}
+			}
+			return null;
+		}
+		return new ConstantDeclarationImpl(this.name,this.type,declaredValue);
+	}
+
 	
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.ConstantDeclaration#getValue()

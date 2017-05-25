@@ -19,6 +19,30 @@ public class ObjetAllocationImpl implements Expression {
 		return this.type;
 	}
 
+	public Expression makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		LinkedList<Expression> declaredExpressions = new LinkedList<Expression>();
+
+		for(Expression expr : expressions){
+			declaredExpressions.add(expr.makeLiaisonTardive(classes,interfaces));
+		}
+
+		if(this.type instanceof UndeclaredTypeImpl){
+			for(Classe classe : classes){
+				if(classe.getName().equals(((UndeclaredTypeImpl) this.type).getName())){
+					return new ObjetAllocationImpl(new ClasseTypeImpl(classe),declaredExpressions);
+				}
+			}
+			for(Interface interf : interfaces){
+				if(interf.getName().equals(((UndeclaredTypeImpl) this.type).getName())){
+					return new ObjetAllocationImpl(new InterfaceTypeImpl(interf),declaredExpressions);
+				}
+			}
+			return null;
+		}
+		return new ObjetAllocationImpl(this.type,declaredExpressions);
+	}
+
+
 	public String toString() {
 		String toString = "(Allocation) new " + this.type + " ( " + this.expressions + " )";
 		return toString;

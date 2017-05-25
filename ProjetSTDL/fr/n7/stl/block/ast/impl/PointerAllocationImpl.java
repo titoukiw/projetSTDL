@@ -1,12 +1,8 @@
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.AtomicType;
-import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.tam.ast.Fragment;
-import fr.n7.stl.tam.ast.TAMFactory;
-import fr.n7.stl.tam.ast.Library;
-
+import fr.n7.stl.block.ast.*;
+import fr.n7.stl.tam.ast.*;
+import java.util.LinkedList;
 
 
 /**
@@ -25,6 +21,28 @@ public class PointerAllocationImpl implements Expression {
 	public PointerAllocationImpl(Type _type) {
 			this.type = _type;
 	}
+
+	public Expression makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		
+
+
+		if(this.type instanceof UndeclaredTypeImpl){
+			for(Classe classe : classes){
+				if(classe.getName().equals(((UndeclaredTypeImpl)this.type).getName())){
+					return new PointerAllocationImpl(new ClasseTypeImpl(classe));
+				}
+			}
+			for(Interface interf : interfaces){
+				if(interf.getName().equals(((UndeclaredTypeImpl)this.type).getName())){
+					return new PointerAllocationImpl(new InterfaceTypeImpl(interf));
+				}
+			}
+			return null;
+		}
+		return this;
+	}
+	
+
 
 	public Type getType(){
 		return new PointerTypeImpl(this.type);

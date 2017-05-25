@@ -1,12 +1,8 @@
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.AtomicType;
-import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.tam.ast.Fragment;
-import fr.n7.stl.tam.ast.TAMFactory;
-import fr.n7.stl.tam.ast.Library;
-
+import fr.n7.stl.block.ast.*;
+import fr.n7.stl.tam.ast.*;
+import java.util.LinkedList;
 
 
 /**
@@ -28,6 +24,28 @@ public class ArrayAllocationImpl implements Expression {
 			this.size = _size;
 			this.type = _type;
 		}
+
+
+	public ArrayAllocationImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		Expression declaredSize = size.makeLiaisonTardive(classes,interfaces);
+		if(declaredSize == null){
+			throw new SemanticsUndefinedException("cannot declare" + declaredSize);
+		}
+		if(this.type instanceof UndeclaredTypeImpl){
+			for(Classe classe : classes){
+				if(classe.getName().equals(((UndeclaredTypeImpl)this.type).getName())){
+					return new ArrayAllocationImpl(new ClasseTypeImpl(classe), declaredSize);
+				}
+			}
+			for(Interface interf : interfaces){
+				if(interf.getName().equals(((UndeclaredTypeImpl)this.type).getName())){
+					return new ArrayAllocationImpl(new InterfaceTypeImpl(interf), declaredSize);
+				}
+			}
+			return null;
+		}
+		return new ArrayAllocationImpl(this.type,declaredSize);
+	}
 
 
 	public Type getType(){

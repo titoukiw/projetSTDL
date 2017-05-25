@@ -27,6 +27,7 @@ public class MethodeImpl implements Methode {
 		this.body = body;
 		this.statique = statique;
 		this.returnType = returnType;
+		this.classeCourante = classeCourante;
 	}
 
 	public LinkedList<Parametre> getParametres(){
@@ -40,6 +41,48 @@ public class MethodeImpl implements Methode {
 	public Type getType(){
 		return this.returnType;
 	}
+
+
+
+	public ElementClasse makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		
+
+		LinkedList<Parametre> declaredParams = new LinkedList<Parametre>();
+		Parametre declaredParam;
+		Block declaredBody;
+
+		for(Parametre param : this.listParam){
+			declaredParam = param.makeLiaisonTardive(classes,interfaces);
+			if(declaredParam == null){
+				throw new SemanticsUndefinedException("Cannot declare " + param);
+			}
+			declaredParams.add(declaredParam);
+		}
+
+
+		declaredBody = body.makeLiaisonTardive(classes,interfaces);
+		if(declaredBody == null){
+			throw new SemanticsUndefinedException("Cannot declare body of " + this.id );
+		}
+
+
+		if(this.returnType instanceof UndeclaredTypeImpl){
+			for(Classe classe : classes){
+				if(classe.getName().equals(((UndeclaredTypeImpl)this.returnType).getName())){
+					return new MethodeImpl(this.id,this.classeCourante,this.droit,declaredParams,declaredBody,this.statique,
+											new ClasseTypeImpl(classe));
+				}
+			}
+			for(Interface interf : interfaces){
+				if(interf.getName().equals(((UndeclaredTypeImpl)this.returnType).getName())){
+					return new MethodeImpl(this.id,this.classeCourante,this.droit,declaredParams,declaredBody,this.statique,
+											new InterfaceTypeImpl(interf));
+				}
+			}
+		}
+
+		return new MethodeImpl(this.id,this.classeCourante,this.droit,declaredParams,declaredBody,this.statique,this.returnType);
+}
 
 	public String toString(){
 		String toString = "(Methode) " + this.droit;

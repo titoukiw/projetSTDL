@@ -7,16 +7,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import fr.n7.stl.block.ast.AtomicType;
-import fr.n7.stl.block.ast.FieldDeclaration;
-import fr.n7.stl.block.ast.ForbiddenDeclarationException;
-import fr.n7.stl.block.ast.RecordType;
-import fr.n7.stl.block.ast.Scope;
-import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.block.ast.TypeDeclaration;
-import fr.n7.stl.tam.ast.Fragment;
-import fr.n7.stl.tam.ast.Register;
-import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.block.ast.*;
+import fr.n7.stl.tam.ast.*;
 import fr.n7.stl.tam.ast.impl.FragmentImpl;
 
 /**
@@ -52,6 +44,15 @@ public class RecordTypeImpl implements RecordType, Scope<FieldDeclaration> {
         this.fields = new LinkedList<FieldDeclaration>();
     }
 
+
+
+    public RecordTypeImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+        LinkedList<FieldDeclaration> declaredFields = new LinkedList<FieldDeclaration>();
+        for(FieldDeclaration fd : fields){
+            declaredFields.add(((FieldDeclaration)fd.makeLiaisonTardive(classes,interfaces)));
+        }
+        return new RecordTypeImpl(this.name,declaredFields);
+    }
     /* (non-Javadoc)
      * @see fr.n7.stl.block.ast.RecordType#add(fr.n7.stl.block.ast.FieldDeclaration)
      */

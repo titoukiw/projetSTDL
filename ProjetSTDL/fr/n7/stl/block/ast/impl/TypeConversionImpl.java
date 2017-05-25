@@ -3,12 +3,9 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.AtomicType;
-import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.tam.ast.Fragment;
-import fr.n7.stl.tam.ast.TAMFactory;
-
+import fr.n7.stl.block.ast.*;
+import fr.n7.stl.tam.ast.*;
+import java.util.LinkedList;
 /**
  * Implementation of the Abstract Syntax Tree node for a type conversion expression.
  * @author Marc Pantel
@@ -31,6 +28,31 @@ public class TypeConversionImpl implements Expression {
 	public Type getType() {
 		return this.type;
 	}
+
+	public TypeConversionImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		Expression declaredTarget = target.makeLiaisonTardive(classes,interfaces);
+		if(declaredTarget == null){
+			throw new SemanticsUndefinedException("cant declare " + this.target);
+		}
+
+		if(this.type instanceof UndeclaredTypeImpl){
+			for(Classe classe : classes){
+				if(classe.getName().equals(((UndeclaredTypeImpl)this.type).getName())){
+					return new TypeConversionImpl(declaredTarget,new ClasseTypeImpl(classe));
+				}
+			}
+			for(Interface interf : interfaces){
+				if(interf.getName().equals(((UndeclaredTypeImpl)this.type).getName())){
+					return new TypeConversionImpl(declaredTarget,new InterfaceTypeImpl(interf));
+				}
+			}
+			return null;
+		}
+
+		return new TypeConversionImpl(declaredTarget,this.type);
+	}
+
+
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)

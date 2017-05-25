@@ -7,6 +7,7 @@ package fr.n7.stl.block.ast.impl;
 
 import fr.n7.stl.block.ast.*;
 import fr.n7.stl.tam.ast.*;
+import java.util.LinkedList;
 
 public class ParametreImpl implements Parametre {
 
@@ -33,6 +34,25 @@ public class ParametreImpl implements Parametre {
 	public Type getType(){
 		return this.type;
 	}
+
+
+	public Parametre makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		if(this.type instanceof UndeclaredTypeImpl){
+			for(Classe classe : classes){
+				if(classe.getName().equals(((UndeclaredTypeImpl)this.type).getName())){
+					return new ParametreImpl(this.id,new ClasseTypeImpl(classe));
+				}
+			}
+			for(Interface interf : interfaces){
+				return new ParametreImpl(this.id, new InterfaceTypeImpl(interf));
+			}
+
+			return null;
+		}
+
+		return this;
+	}
+
 
 
 	public int allocateMemory(Register _register, int _offset){

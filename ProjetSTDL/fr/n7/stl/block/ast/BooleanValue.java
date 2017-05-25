@@ -5,6 +5,7 @@ package fr.n7.stl.block.ast;
 
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import java.util.LinkedList;
 
 /**
  * @author Marc Pantel
@@ -40,6 +41,12 @@ public enum BooleanValue implements Value {
 		
 		}
 	}
+
+
+	public BooleanValue makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		return this;
+	}
+
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)

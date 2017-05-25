@@ -2,7 +2,7 @@ package fr.n7.stl.block.ast.impl;
 
 import java.util.LinkedList;
 import fr.n7.stl.block.ast.*;
-
+import java.io.*;
 
 public class ProgrammeImpl implements Programme {
 
@@ -27,4 +27,13 @@ public class ProgrammeImpl implements Programme {
 		result += "\n " + this.classePrincipale.toString();
 		return result;
 	}
+
+	public void makeLiaisonTardive() {
+		LinkedList<Classe> declaredClasses = new LinkedList<Classe>();
+		for (Classe classe : this.classes) {
+			declaredClasses.add(((Classe)classe.makeLiaisonTardive(this.classes,this.interfaces)));
+		}
+		this.classes = declaredClasses;
+	}
+
 }

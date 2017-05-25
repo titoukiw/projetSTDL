@@ -6,7 +6,6 @@ package fr.n7.stl.block.ast.impl;
  */
 
 import fr.n7.stl.block.ast.*;
-import fr.n7.stl.block.ast.AtomicType;
 import java.util.LinkedList;
 
 public class SignatureImpl implements Signature {
@@ -30,6 +29,31 @@ public class SignatureImpl implements Signature {
 		this.returnType = type;
 		this.interfaceCourrante = nomInterface;
 	}
+
+	public SignatureImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		LinkedList<Parametre> declaredListParam = new LinkedList<Parametre>();
+		for(Parametre param : listParam){
+			declaredListParam.add(param.makeLiaisonTardive(classes,interfaces));
+		}
+
+		if(this.returnType instanceof UndeclaredTypeImpl){
+			for(Classe classe : classes){
+				if(classe.getName().equals(((UndeclaredTypeImpl)this.returnType).getName())){
+					return new SignatureImpl(this.id, new ClasseTypeImpl(classe),declaredListParam,this.interfaceCourrante);
+				}
+			}
+			for(Interface interf : interfaces){
+				if(interf.getName().equals(((UndeclaredTypeImpl)this.returnType).getName())){
+					return new SignatureImpl(this.id, new InterfaceTypeImpl(interf),declaredListParam,this.interfaceCourrante);
+				}
+			}
+			return null;
+		}
+
+		this.listParam = declaredListParam;
+		return this;
+	}
+
 
 	@Override
 	public String getName(){

@@ -43,6 +43,24 @@ public class MethodeUseImpl implements Expression, Instruction {
 	}
 
 
+	public MethodeUseImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		Methode declaredMethode = ((Methode)methode.makeLiaisonTardive(classes,interfaces));
+		if(declaredMethode == null){
+			throw new SemanticsUndefinedException("cannot declare " + this.methode);
+		}
+		LinkedList<Expression> args = new LinkedList<Expression>();
+
+		for(Expression expr : arguments){
+			args.add(expr.makeLiaisonTardive(classes,interfaces));
+		}
+
+		MethodeUseImpl declaredMetUseImp = new MethodeUseImpl(declaredMethode,this.classe);
+		declaredMetUseImp.setArguments(args);
+		return declaredMetUseImp;
+	}
+
+
+
 
 	public boolean checkType(){
 		throw new SemanticsUndefinedException("checkType() MethodeUseImpl");

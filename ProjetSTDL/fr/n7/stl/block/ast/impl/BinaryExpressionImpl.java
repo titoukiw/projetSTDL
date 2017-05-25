@@ -3,10 +3,8 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.AtomicType;
-import fr.n7.stl.block.ast.BinaryOperator;
-import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.Type;
+import fr.n7.stl.block.ast.*;
+import java.util.LinkedList;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.util.Logger;
@@ -39,6 +37,17 @@ public class BinaryExpressionImpl implements Expression {
 		this.right = _right;
 		this.operator = _operator;
 	}
+
+
+	public BinaryExpressionImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		Expression declaredLeft = left.makeLiaisonTardive(classes,interfaces);
+		Expression declaredRight = right.makeLiaisonTardive(classes,interfaces);
+		if(declaredLeft == null || declaredRight == null){
+			throw new SemanticsUndefinedException("cant declare " + this);
+		}
+		return new BinaryExpressionImpl(declaredLeft,this.operator,declaredRight);
+	}
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

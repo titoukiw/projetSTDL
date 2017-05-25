@@ -5,14 +5,11 @@ package fr.n7.stl.block.ast.impl;
 
 import java.util.Optional;
 
-import fr.n7.stl.block.ast.AtomicType;
-import fr.n7.stl.block.ast.Block;
-import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.Instruction;
-import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.block.ast.*;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
-
+import fr.n7.stl.tam.ast.Fragment;
+import java.util.LinkedList;
 /**
  * Implementation of the Abstract Syntax Tree node for a conditional instruction.
  * @author Marc Pantel
@@ -35,6 +32,30 @@ public class ConditionalImpl implements Instruction {
 		this.thenBranch = _then;
 		this.elseBranch = Optional.empty();
 	}
+
+
+	
+	public ConditionalImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		Expression declaredCondition = this.condition.makeLiaisonTardive(classes,interfaces);
+		if(declaredCondition == null){
+			throw new SemanticsUndefinedException("cant declare " + this.condition);
+		}
+
+		Block declaredThenBranch = this.thenBranch.makeLiaisonTardive(classes,interfaces);
+		if(declaredThenBranch == null){
+			throw new SemanticsUndefinedException("cant declare " + this.thenBranch);
+		}
+
+		if(elseBranch.isPresent()){
+			Block  declaredElseBranch = this.elseBranch.get().makeLiaisonTardive(classes,interfaces);
+			if(declaredElseBranch == null){
+				throw new SemanticsUndefinedException("cant declare " + this.elseBranch.get());
+			}
+			return new ConditionalImpl(declaredCondition,declaredThenBranch,declaredElseBranch);
+		}
+		return new ConditionalImpl(declaredCondition,declaredThenBranch);
+	}
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

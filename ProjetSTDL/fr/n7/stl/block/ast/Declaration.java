@@ -4,6 +4,10 @@ package fr.n7.stl.block.ast;
  * @author Marc Pantel
  *
  */
+import fr.n7.stl.block.ast.*;
+import fr.n7.stl.tam.ast.*;
+import java.util.LinkedList;
+
 public interface Declaration {
 	
 	/**
@@ -13,5 +17,7 @@ public interface Declaration {
 	public String getName();
 
 	//public String toString(); //??
+	public Declaration makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces);
+
 
 }

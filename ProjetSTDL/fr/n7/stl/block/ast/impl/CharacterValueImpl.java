@@ -1,6 +1,7 @@
 package fr.n7.stl.block.ast.impl;
 
 import fr.n7.stl.block.ast.*;
+import java.util.LinkedList;
 import fr.n7.stl.tam.ast.*;
 
 public class CharacterValueImpl implements CharacterValue {
@@ -19,6 +20,11 @@ public class CharacterValueImpl implements CharacterValue {
 	public Type getType() {
 		return AtomicType.CharacterType;
 	}
+
+	public CharacterValueImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		return this;
+	}
+
 
 	@Override
 	public Fragment getCode(TAMFactory _factory) {

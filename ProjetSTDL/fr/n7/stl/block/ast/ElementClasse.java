@@ -5,8 +5,13 @@ package fr.n7.stl.block.ast;
  *
  */
 
+import fr.n7.stl.block.ast.*;
+import fr.n7.stl.tam.ast.*;
+import java.util.LinkedList;
+
 public interface ElementClasse extends Declaration, Expression {
 
 	public String getClasseCourante();
 	public Type getType();
+	public ElementClasse makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces);
 }

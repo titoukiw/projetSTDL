@@ -3,14 +3,12 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.Instruction;
+import fr.n7.stl.block.ast.*;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
-import fr.n7.stl.block.ast.AtomicType;
 import fr.n7.stl.tam.ast.Library;
-
+import java.util.LinkedList;
 /**
  * Implementation of the Abstract Syntax Tree node for a printer instruction.
  * @author Marc Pantel
@@ -31,6 +29,17 @@ public class PrinterImpl implements Instruction {
 	public String toString() {
 		return "print" + this.parameter + ";\n";
 	}
+
+
+	public Instruction makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		Expression declaredParameter = parameter.makeLiaisonTardive(classes,interfaces);
+		if(declaredParameter == null){
+			throw new SemanticsUndefinedException("cant declare " + this.parameter);
+		}
+
+		return new PrinterImpl(declaredParameter);
+	}
+
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Instruction#checkType()

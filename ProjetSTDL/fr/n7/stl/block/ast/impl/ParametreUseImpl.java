@@ -2,6 +2,7 @@ package fr.n7.stl.block.ast.impl;
 
 import fr.n7.stl.block.ast.*;
 import fr.n7.stl.tam.ast.*;
+import java.util.LinkedList;
 
 
 public class ParametreUseImpl implements Expression {
@@ -15,6 +16,16 @@ public class ParametreUseImpl implements Expression {
 	public ParametreUseImpl(Parametre _parametre) {
 		this.parametre = _parametre;
 	}
+
+
+	public Expression makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		Parametre declaredParametre = parametre.makeLiaisonTardive(classes,interfaces);
+		if(declaredParametre == null){
+			throw new SemanticsUndefinedException("cannot declare" + parametre);
+		}
+		return new ParametreUseImpl(declaredParametre);
+	}
+
 
 
 	public Parametre getParametre() {

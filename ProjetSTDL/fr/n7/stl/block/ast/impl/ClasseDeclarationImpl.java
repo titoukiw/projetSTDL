@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.n7.stl.block.ast.*;
 import fr.n7.stl.tam.ast.*;
+import java.util.LinkedList;
 
 
 public class ClasseDeclarationImpl implements ClasseDeclaration {
@@ -29,6 +30,15 @@ public class ClasseDeclarationImpl implements ClasseDeclaration {
 
 	public Type getType(){
 		return this.type;
+	}
+
+	public ClasseDeclarationImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		Expression declaredValue = value.makeLiaisonTardive(classes,interfaces);
+		if(declaredValue == null){
+			throw new SemanticsUndefinedException("cant declare " + this.value);
+		}
+		this.value = declaredValue;
+		return this;
 	}
 
 	public Register getRegister(){

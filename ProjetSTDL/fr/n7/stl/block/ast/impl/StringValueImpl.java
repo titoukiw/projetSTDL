@@ -3,6 +3,7 @@ package fr.n7.stl.block.ast.impl;
 
 import fr.n7.stl.block.ast.*;
 import fr.n7.stl.tam.ast.*;
+import java.util.LinkedList;
 
 public class StringValueImpl implements StringValue{
 	
@@ -21,6 +22,9 @@ public class StringValueImpl implements StringValue{
 		return AtomicType.StringType;
 	}
 
+	public StringValueImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		return this;
+	}
 
 
 	@Override

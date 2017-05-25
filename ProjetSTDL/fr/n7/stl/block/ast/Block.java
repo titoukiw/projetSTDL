@@ -5,9 +5,10 @@ package fr.n7.stl.block.ast;
 
 import java.util.Iterator;
 
-import fr.n7.stl.tam.ast.Fragment;
-import fr.n7.stl.tam.ast.Register;
-import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.block.ast.*;
+import fr.n7.stl.tam.ast.*;
+import java.util.LinkedList;
+;
 
 /**
  * Represents a Block node in the Abstract Syntax Tree node for the Bloc language.
@@ -37,6 +38,9 @@ public interface Block {
 	 * @return Synthesized True if the instruction is well typed, False if not.
 	 */	
 	public boolean checkType();
+
+
+	public Block makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces);
 	
 	/**
 	 * Inherited Semantics attribute to allocate memory for the variables declared in the instruction.

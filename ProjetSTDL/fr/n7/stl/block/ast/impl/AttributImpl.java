@@ -33,6 +33,25 @@ public class AttributImpl implements Attribut {
 		return this.type;
 	}
 
+	public ElementClasse makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		if(this.type instanceof UndeclaredTypeImpl){
+			for(Classe classe : classes) {
+				if(classe.getName().equals(((UndeclaredTypeImpl)this.type).getName())){
+					return new AttributImpl(this.id, this.classeCourante, new ClasseTypeImpl(classe), this.droit, this.statique);
+				}
+			}
+
+			for (Interface interf : interfaces){
+				if(interf.getName().equals(((UndeclaredTypeImpl)this.type).getName())){
+					return new AttributImpl(this.id, this.classeCourante, new InterfaceTypeImpl(interf), this.droit, this.statique);
+				}
+			}
+
+			return null;
+		}
+		return this;
+	}
+
 	public String toString(){
 		String toString = "(AttributImpl) "+ this.droit ;
 		if (this.statique){

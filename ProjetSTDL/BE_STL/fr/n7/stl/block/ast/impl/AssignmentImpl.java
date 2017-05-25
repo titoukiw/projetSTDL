@@ -44,6 +44,32 @@ public class AssignmentImpl implements Instruction {
 		this.value = _value;
 	}
 
+	public Instruction makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		Expression declaredValue = value.makeLiaisonTardive(classes,interfaces);
+		if(declaredValue == null){
+			throw new SemanticsUndefinedExceptio("cant declare " + this.value);
+		}
+
+		if(this.declaration != null){
+			VariableDeclaration declaredDeclaration = declaration.makeLiaisonTardive(classes,interfaces);
+			if(declaredDeclaration == null){
+				throw new SemanticsUndefinedExceptio("cant declare " + this.declaration);
+			}
+			return new AssignmentImpl(declaredDeclaration,declaredValue);
+		}
+
+		if(this.assignable != null){
+			Assignable declaredAssignable = assignable.makeLiaisonTardive(classes,interfaces);
+			if(declaredAssignable == null){
+				throw new SemanticsUndefinedExceptio("cant declare " + this.assignable);
+			}
+			return new AssignmentImpl(declaredAssignable,declaredValue);
+		}
+		return null;
+
+
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

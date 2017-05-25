@@ -3,7 +3,10 @@
  */
 package fr.n7.stl.block.ast;
 
-import fr.n7.stl.tam.ast.Register;
+import fr.n7.stl.block.ast.*;
+import fr.n7.stl.tam.ast.*;
+import java.util.LinkedList;
+
 
 /**
  * @author Marc Pantel
@@ -28,5 +31,7 @@ public interface VariableDeclaration extends Declaration, Instruction {
 	 * @return Offset used to compute the address where the declared variable will be stored.
 	 */
 	public int getOffset();
+
+	public VariableDeclaration makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces);
 
 }

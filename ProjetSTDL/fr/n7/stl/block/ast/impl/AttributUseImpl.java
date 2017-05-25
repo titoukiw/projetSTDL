@@ -1,6 +1,7 @@
 package fr.n7.stl.block.ast.impl;
 
 import java.util.List;
+import java.util.LinkedList;
 import fr.n7.stl.tam.ast.*;
 import fr.n7.stl.block.ast.*;
 
@@ -19,6 +20,11 @@ public class AttributUseImpl implements Expression {
 	public Type getType(){
 		return this.attribut.getType();
 	}
+
+	public AttributUseImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		return new AttributUseImpl(this.attribut.makeLiaisonTardive(classes,interfaces),this.classe);
+	}
+
 
 	public ClasseUseImpl getClasseUse(){
 		return this.classe;

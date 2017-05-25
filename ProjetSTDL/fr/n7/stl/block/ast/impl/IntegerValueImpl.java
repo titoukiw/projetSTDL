@@ -3,9 +3,8 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.AtomicType;
-import fr.n7.stl.block.ast.IntegerValue;
-import fr.n7.stl.block.ast.Type;
+import fr.n7.stl.block.ast.*;
+import java.util.LinkedList;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 
@@ -24,6 +23,10 @@ public class IntegerValueImpl implements IntegerValue {
 	 */
 	public IntegerValueImpl(String _text) {
 		value = Integer.parseInt(_text);
+	}
+
+	public IntegerValueImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		return this;
 	}
 
 	/* (non-Javadoc)

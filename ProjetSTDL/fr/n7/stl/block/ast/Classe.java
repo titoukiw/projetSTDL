@@ -12,4 +12,5 @@ public interface Classe extends Objet {
 	public boolean containsAttribut(String id);
 	public Expression getAttribut(String id);
 
+
 }

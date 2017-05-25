@@ -3,12 +3,11 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.block.ast.VariableDeclaration;
+import fr.n7.stl.block.ast.*;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 import java.io.*;
+import java.util.LinkedList;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a variable use expression.
@@ -26,6 +25,18 @@ public class VariableAccesImpl implements Expression {
 	public VariableAccesImpl(VariableDeclaration _declaration) {
 		this.declaration = _declaration;
 	}
+
+
+
+	public VariableAccesImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		VariableDeclaration declaredDeclaration = declaration.makeLiaisonTardive(classes,interfaces);
+		if(declaredDeclaration == null){
+			throw new SemanticsUndefinedException("cant declare " + this.declaration);
+		}
+
+		return new VariableAccesImpl(declaredDeclaration);
+	}
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

@@ -39,6 +39,17 @@ public class InterfaceImpl implements Interface {
 		return this.nom;
 	}
 
+	public InterfaceImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		LinkedList<ElementInterface> declaredListElements = new LinkedList<ElementInterface>();
+		for(ElementInterface elem : listElements){
+			declaredListElements.add(((ElementInterface)elem.makeLiaisonTardive(classes,interfaces)));
+		}
+
+		this.listElements = declaredListElements;
+		return this;
+	}
+
+
 	public boolean hasFinalStaticField(String name){
 		for(ElementInterface elem : this.listElements){
 			if (elem instanceof FinalStaticFieldImpl && name.equals(elem.getName())){

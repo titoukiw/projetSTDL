@@ -8,6 +8,7 @@ import java.io.*;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.impl.TAMFactoryImpl; 
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.block.ast.*;
 
 public class Main{
 
@@ -25,12 +26,14 @@ public class Main{
       prq.beginReporting();
       bloc.set_eval(true);
       bloc.compile(cu);
+      Programme prog = bloc.get_ast();
+      prog.makeLiaisonTardive();
 
 
       for(IProblem problem : prp.getAllProblems())
       	prq.acceptProblem(problem );
       prq.endReporting();
-      System.out.println("AST :"+bloc.get_ast());
+      System.out.println("AST :"+ prog);
 
       /*
       if (bloc.get_ast().checkType()) {

@@ -3,14 +3,11 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.AtomicType;
-import fr.n7.stl.block.ast.CoupleType;
-import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.block.ast.UnaryOperator;
+import fr.n7.stl.block.ast.*;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.util.Logger;
+import java.util.LinkedList;
 
 /**
  * Implementation of the Abstract Syntax Tree node for an unary operation expression.
@@ -32,6 +29,16 @@ public class UnaryExpressionImpl implements Expression {
 		this.operator = _operator;
 		this.parameter = _parameter;
 	}
+
+
+	public UnaryExpressionImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces) {
+		Expression declaredParameter = parameter.makeLiaisonTardive(classes,interfaces);
+		if(declaredParameter == null){
+			throw new SemanticsUndefinedException("cant declare " + this.parameter);
+		}
+		return new UnaryExpressionImpl(this.operator,declaredParameter);
+	}
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

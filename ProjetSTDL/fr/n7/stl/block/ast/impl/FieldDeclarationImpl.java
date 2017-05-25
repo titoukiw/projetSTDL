@@ -3,8 +3,8 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.FieldDeclaration;
-import fr.n7.stl.block.ast.Type;
+import fr.n7.stl.block.ast.*;
+import java.util.LinkedList;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a field in a record.
@@ -20,6 +20,26 @@ public class FieldDeclarationImpl implements FieldDeclaration {
 		this.name = _name;
 		this.type = _type;
 	}
+
+	public FieldDeclarationImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		if(this.type instanceof UndeclaredTypeImpl){
+			for(Classe classe : classes){
+				if(classe.getName().equals(((UndeclaredTypeImpl)this.type).getName())){
+					return new FieldDeclarationImpl(this.name, new ClasseTypeImpl(classe));
+				}
+			}
+
+			for(Interface interf : interfaces){
+				if(interf.getName().equals(((UndeclaredTypeImpl)this.type).getName())){
+					return new FieldDeclarationImpl(this.name, new InterfaceTypeImpl(interf));
+				}
+			}
+			return null;
+		}
+
+		return this;
+	}
+
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Declaration#getName()

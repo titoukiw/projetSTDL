@@ -36,6 +36,25 @@ public class ClasseImpl implements Classe {
 		}
 
 
+
+		public ClasseImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+			
+			LinkedList<ElementClasse> declaredElements = new LinkedList<ElementClasse>();
+			ElementClasse declaredElement;
+			for(ElementClasse elem : this.elements){
+				declaredElement = elem.makeLiaisonTardive(classes,interfaces);
+				if(declaredElement == null){
+					throw new SemanticsUndefinedException("Cannot declare " + elem);
+				}
+				declaredElements.add(declaredElement);
+
+			}
+			this.elements = declaredElements;
+			return this;
+
+		}
+
+
 		public boolean containsMethode(String id){
 			for(ElementClasse elem : this.elements){
 				if(elem instanceof MethodeImpl && elem.getName().equals(id)){

@@ -3,13 +3,11 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.FieldDeclaration;
-import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.tam.ast.Fragment;
-import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.block.ast.*;
+import fr.n7.stl.tam.ast.*;
 import java.util.Optional;
 import java.io.*;
+import java.util.LinkedList;
 /**
  * Implementation of the Abstract Syntax Tree node for accessing a field in a record.
  * @author Marc Pantel
@@ -48,6 +46,28 @@ public class FieldAccessImpl implements Expression {
 	public String toString() {
 		return this.record + "." + this.name;
 	}
+
+
+	public FieldAccessImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		
+
+		Expression declaredRecord = record.makeLiaisonTardive(classes,interfaces);
+		if(declaredRecord == null){
+			throw new SemanticsUndefinedException("cannot declare " + this.record);
+		}
+		
+		if(field != null){
+			FieldDeclaration declaredField = ((FieldDeclaration) field.makeLiaisonTardive(classes,interfaces));
+			if(declaredField == null){
+				throw new SemanticsUndefinedException("cannot declare" + this.field);
+			}
+			return new FieldAccessImpl(declaredRecord,declaredField);
+		}
+
+		return new FieldAccessImpl(declaredRecord,this.name);
+	}
+
+
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Expression#getType()

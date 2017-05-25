@@ -3,12 +3,9 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.tam.ast.Fragment;
-import fr.n7.stl.tam.ast.TAMFactory;
-import fr.n7.stl.block.ast.AtomicType;
-import fr.n7.stl.tam.ast.Library;
+import fr.n7.stl.block.ast.*;
+import fr.n7.stl.tam.ast.*;
+import java.util.LinkedList;
 /**
  * Implementation of the Abstract Syntax Tree node for accessing an array element.
  * @author Marc Pantel
@@ -35,6 +32,10 @@ public class ArrayAccessImpl implements Expression {
 	@Override
 	public String toString() {
 		return (this.array + "[ " + this.index + " ]");
+	}
+
+	public ArrayAccessImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		return new ArrayAccessImpl(array.makeLiaisonTardive(classes,interfaces),index.makeLiaisonTardive(classes,interfaces));
 	}
 
 	/* (non-Javadoc)

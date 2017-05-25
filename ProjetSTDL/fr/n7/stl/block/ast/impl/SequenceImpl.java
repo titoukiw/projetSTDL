@@ -6,11 +6,8 @@ package fr.n7.stl.block.ast.impl;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import fr.n7.stl.block.ast.Sequence;
-import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.tam.ast.Fragment;
-import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.block.ast.*;
+import fr.n7.stl.tam.ast.*;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a sequence building expression.
@@ -38,6 +35,16 @@ public class SequenceImpl implements Sequence {
 	@Override
 	public void add(Expression _value) {
 		this.values.add(_value);
+	}
+
+	public SequenceImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		LinkedList<Expression> declaredValues = new LinkedList<Expression>();
+
+		for(Expression value : values){
+			declaredValues.add(value.makeLiaisonTardive(classes,interfaces));
+		}
+
+		return new SequenceImpl(declaredValues);
 	}
 
 	/* (non-Javadoc)

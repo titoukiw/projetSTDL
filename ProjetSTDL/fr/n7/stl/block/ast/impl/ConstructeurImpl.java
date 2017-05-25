@@ -32,6 +32,11 @@ public class ConstructeurImpl implements Constructeur {
 		return this.classeCourante;
 	}
 
+	public ElementClasse makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
+		return this;
+	}
+
+
 	public String toString(){
 		String toString = "(Constructeur)" + this.droit + " " + this.id + " (";
 		for(Parametre param : this.listParam){
