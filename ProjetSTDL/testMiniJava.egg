@@ -2270,7 +2270,8 @@ do
 						error(ATTRIBUT_doesnt_exist,identificateur^txt);
 					end
 				with UndeclaredTypeImpl then
-					write "LIAISONTARDIVE_METHODE_NOT_IMPLEMENTED\n";
+					write "LIAISONTARDIVE_AttributUse_NOT_IMPLEMENTED\n";
+					error(LIAISONTARDIVE_ATTRIBUTUSE);
 			end
 		with AttributAssignmentImpl then
 			tmpcti := exp.getType();
@@ -2296,6 +2297,9 @@ do
 					else
 						error(ATTRIBUT_doesnt_exist,identificateur^txt);
 					end
+				with UndeclaredTypeImpl then
+					write "LIAISONTARDIVE_AttributAssignment_NOT_IMPLEMENTED\n";
+					error(LIAISONTARDIVE_ATTRIBUTASSIGNMENT);
 			end
 			
 

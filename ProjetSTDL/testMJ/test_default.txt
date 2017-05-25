@@ -12,7 +12,7 @@ class Atype {
 	public void methCreateInterfImpl(){
 		interf = new InterfImpl();
 		InterfImpl testInterf = interf;
-		int test = interf.meth2();		//Un aperçu de ce qu'il reste a faire !
+		interf.myInt = 5;		//Un aperçu de ce qu'il reste a faire !
 	}
 }
 
@@ -41,7 +41,7 @@ public class MainClasse {
     	String a = "a";
     	InterfImpl in = new InterfImpl();
     	a = in.atype.stringA;
-    	in.atype.stringA = "c";
+    	in.atype.interf = "c";
     	print(in);
     	in.myInt = 5;
     	c = in.myInt;
