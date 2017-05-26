@@ -12,10 +12,18 @@ class Atype {
 	}
 }
 
+classe Btype extends Atype {
+	
+	public Btype(){}
+}
+
 
 public class MainClasse {
     public static void main(String[] args){
     	Atype a = new Atype();
+    	Btype b = new Btype();
+
+    	a = b;
     	int i = 1;
 
     	//a.meth();

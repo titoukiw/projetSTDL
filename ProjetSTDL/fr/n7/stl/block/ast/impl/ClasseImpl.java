@@ -47,7 +47,13 @@ public class ClasseImpl implements Classe {
 			return this.nom.equals(classe.getName());
 		}
 
+		public Classe getHeritage(){
+			return this.extendsClasses.get(0);
+		}
 
+		public LinkedList<Interface> getInterface(){
+			return this.implementsInterfaces;
+		}
 
 		public ClasseImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
 			

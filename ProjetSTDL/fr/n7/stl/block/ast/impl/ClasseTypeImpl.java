@@ -28,12 +28,27 @@ public class ClasseTypeImpl implements Type {
 
 
 	public boolean compatibleWith(Type _other){
+		boolean result = false;
 		if (_other instanceof ClasseTypeImpl){
-			return this.classe.getName().equals(((ClasseTypeImpl) _other).getClasse().getName());
+			if (this.classe.getName().equals(((ClasseTypeImpl) _other).getClasse().getName())){
+				result = true;
+
+			} else {
+				Classe cl_other = ((ClasseTypeImpl) _other).getClasse().getHeritage();
+				while( cl_other != null){
+					result = this.classe.getName().equals(cl_other.getName());
+					if(result = true){
+						return result;
+					}
+					cl_other = cl_other.getHeritage();
+				}
+				return result;
+			}
 		} else {
 			System.out.println(this.toString() + "||" + _other.toString() );
 			return false;
 		}
+		return result;
 	}
 
 
