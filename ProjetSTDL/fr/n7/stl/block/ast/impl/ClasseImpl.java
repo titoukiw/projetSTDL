@@ -47,8 +47,8 @@ public class ClasseImpl implements Classe {
 			return this.nom.equals(classe.getName());
 		}
 
-		public Classe getHeritage(){
-			return this.extendsClasses.get(0);
+		public LinkedList<Classe> getHeritage(){
+			return this.extendsClasses;
 		}
 
 		public LinkedList<Interface> getInterface(){

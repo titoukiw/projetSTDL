@@ -20,8 +20,22 @@ public class InterfaceTypeImpl implements Type {
 		}
 	}
 
+	public Interface getInterface(){
+		return this.inter;
+	}
+	
 	public boolean compatibleWith(Type _other){
-		throw new SemanticsUndefinedException("compatibleWith() InterfaceTypeImpl");
+		boolean result;
+		result = this.toString().equals(_other.toString());
+		if (!result){
+			for (Interface i : this.inter.getHeritage()){
+				result = i.getType().compatibleWith(_other);
+				if (result){
+					return result;
+				}
+			}
+		}
+		return result;
 	}
 
 	public Type merge(Type _other){

@@ -34,16 +34,40 @@ public class ClasseTypeImpl implements Type {
 				result = true;
 
 			} else {
-				Classe cl_other = ((ClasseTypeImpl) _other).getClasse().getHeritage();
-				while( cl_other != null){
-					result = this.classe.getName().equals(cl_other.getName());
+				LinkedList<Classe> thisHerit = this.classe.getHeritage();
+				Classe thisCl;
+				while( thisHerit.size() > 0 ){
+					thisCl = thisHerit.get(0);
+					result = thisCl.getName().equals(((ClasseTypeImpl) _other).getClasse().getName());
 					if(result = true){
 						return result;
 					}
-					cl_other = cl_other.getHeritage();
+					thisHerit = thisCl.getHeritage();
 				}
 				return result;
 			}
+		} else if (_other instanceof InterfaceTypeImpl){
+
+				for (Interface i: this.classe.getInterface()){
+					if (i.getType().compatibleWith(_other)){
+						result = true;
+						return result;
+					}
+				}
+
+				LinkedList<Classe> thisHerit = this.classe.getHeritage();
+				Classe thisCl;
+				while( thisHerit.size() > 0 ){
+					thisCl = thisHerit.get(0);
+					for (Interface i: thisCl.getInterface()){
+						if (i.getType().compatibleWith(_other)){
+							result = true;
+							return result;
+						}
+					}
+					thisHerit = thisCl.getHeritage();
+				}
+				return result;
 		} else {
 			System.out.println(this.toString() + "||" + _other.toString() );
 			return false;

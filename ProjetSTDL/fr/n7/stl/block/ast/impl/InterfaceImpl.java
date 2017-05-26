@@ -42,6 +42,10 @@ public class InterfaceImpl implements Interface {
 		return this.nom;
 	}
 
+	public LinkedList<Interface> getHeritage(){
+		return this.listHeritage;
+	}
+
 	public InterfaceImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
 		LinkedList<ElementInterface> declaredListElements = new LinkedList<ElementInterface>();
 		for(ElementInterface elem : listElements){

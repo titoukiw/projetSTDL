@@ -1,4 +1,10 @@
-class Atype {
+interface Type{}
+
+interface Type2 extends Type{
+	//final static int i = 0;
+}
+
+class Atype implements Type2{
 
 	public String stringA;
 
@@ -12,7 +18,7 @@ class Atype {
 	}
 }
 
-classe Btype extends Atype {
+class Btype { //extends Atype{
 	
 	public Btype(){}
 }
@@ -20,13 +26,13 @@ classe Btype extends Atype {
 
 public class MainClasse {
     public static void main(String[] args){
-    	Atype a = new Atype();
-    	Btype b = new Btype();
+    	//Atype a = new Atype();
+    	//Btype b = new Btype();
+    	Type c = new Btype();
 
-    	a = b;
-    	int i = 1;
+    	//Btype b = new Atype();
 
     	//a.meth();
-    	a.meth(i,"bitch");
+    	//a.meth(i,"bitch");
 	}
 }
