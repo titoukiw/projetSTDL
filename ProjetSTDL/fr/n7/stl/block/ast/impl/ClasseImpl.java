@@ -60,6 +60,16 @@ public class ClasseImpl implements Classe {
 			return this.implementsInterfaces;
 		}
 
+		public LinkedList<Constructeur> getConstructeurs(){
+			LinkedList<Constructeur> constructeurs = new LinkedList<Constructeur>();
+			for(ElementClasse e : elements){
+				if (e instanceof Constructeur){
+					constructeurs.add(((Constructeur)e));
+				}
+			}
+			return constructeurs;
+		}
+
 		public ClasseImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
 			
 			LinkedList<ElementClasse> declaredElements = new LinkedList<ElementClasse>();

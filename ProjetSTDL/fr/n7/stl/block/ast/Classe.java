@@ -20,6 +20,7 @@ public interface Classe extends Objet {
 	public LinkedList<ElementClasse> getElements();
 	public LinkedList<Classe> getHeritage();
 	public LinkedList<Interface> getInterface();
+	public LinkedList<Constructeur> getConstructeurs();
 
 	public Fragment getCode(TAMFactory factory);
 	public int allocateMemory(Register registre, int offset);

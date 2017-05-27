@@ -48,12 +48,26 @@ public class ObjetAllocationImpl implements Expression {
 		return toString;
 	}
 
+	public String getLabel(){
+		LinkedList<Constructeur> constructeurs = ((ClasseTypeImpl) this.type).getClasse().getConstructeurs();
+		for(Constructeur constructeur : constructeurs){
+			if(constructeur.getLabelIfEquals(this.expressions) != null){
+				return constructeur.getLabelIfEquals(this.expressions);
+			}
+		}
+
+		return "WRONG_LABEL";
+	}
+
 	public Fragment getCode(TAMFactory _factory){
 		Fragment code = _factory.createFragment();
+
+
+
 		for(Expression e : expressions){
 			code.append(e.getCode(_factory));
 		}
-		code.add(_factory.createCall("le_bon_label",Register.LB));
+		code.add(_factory.createCall(this.getLabel(),Register.LB));
 		return code;
 
 	}

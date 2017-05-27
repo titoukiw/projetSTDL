@@ -14,4 +14,5 @@ public interface Constructeur extends ElementClasse {
 	public LinkedList<Parametre> getParametres();
 
 	public String getClasseCourante();
+	public String getLabelIfEquals(LinkedList<Expression> expr);
 }

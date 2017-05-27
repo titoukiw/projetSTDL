@@ -62,6 +62,21 @@ public class ConstructeurImpl implements Constructeur {
 		throw new SemanticsUndefinedException("getType ConstructeurImpl");
 	}
 
+	public String getLabelIfEquals(LinkedList<Expression> listExprs){
+		boolean local = true;
+		if(listExprs.size() == listParam.size()){
+			for(int i = 0; i < listParam.size();i++){
+				local = local && listExprs.get(i).getType().compatibleWith(listParam.get(i).getType());
+			}
+		}
+
+		if(local){
+			return this.label;
+		} else {
+			return null;
+		}
+	}
+
 	public boolean isEqual(Constructeur cons){
 		if(this.id == cons.getName() && this.classeCourante == cons.getClasseCourante() 
 									 && this.listParam.size() == cons.getParametres().size()){
@@ -81,6 +96,9 @@ public class ConstructeurImpl implements Constructeur {
 
 	public int length(){
 		return 0;
+	}
+	public String getLabel(){
+		return this.label;
 	}
 
 	public Fragment getCode(TAMFactory factory){
