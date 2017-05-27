@@ -48,7 +48,7 @@ public class Main{
 
       TAMFactoryImpl _factory = new TAMFactoryImpl();
       Fragment _fragment = prog.getCode(_factory);
-      _fragment.add(_factory.createHalt());
+   
       System.out.println(_fragment);
       
       // prog.get_ast().allocateMemory(Register.SB,0);

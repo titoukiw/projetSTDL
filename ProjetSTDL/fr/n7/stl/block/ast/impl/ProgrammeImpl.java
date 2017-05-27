@@ -79,16 +79,20 @@ public class ProgrammeImpl implements Programme {
 
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment code = _factory.createFragment();
+		Fragment codeprinc = _factory.createFragment();
 		// Code des Final Static Field dans l'interface ?
 		// for(Interface interf : interfaces){
 		// 	code.append(interf.getCode(_factory));
 		// }
+		
 		for(Classe classe : classes){
 			code.append(classe.getCode(_factory));
 		}
-		code.append(classePrincipale.getCode(_factory));
+		codeprinc.append(classePrincipale.getCode(_factory));
+		codeprinc.add(_factory.createHalt());
+		codeprinc.append(code);
 		//POP allocatedSize ?
-		return code;
+		return codeprinc;
 	}
 
 }
