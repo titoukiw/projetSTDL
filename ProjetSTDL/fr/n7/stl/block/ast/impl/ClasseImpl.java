@@ -8,6 +8,9 @@ package fr.n7.stl.block.ast.impl;
 import fr.n7.stl.block.ast.*;
 import fr.n7.stl.block.ast.impl.*;
 import java.util.LinkedList;
+import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
+import fr.n7.stl.tam.ast.TAMFactory;
 
 public class ClasseImpl implements Classe {
 
@@ -15,6 +18,8 @@ public class ClasseImpl implements Classe {
 		private LinkedList<Interface> implementsInterfaces;
 		private LinkedList<Classe> extendsClasses;
 		private LinkedList<ElementClasse> elements;
+		private Register register;
+		private int offset;
 
 		public ClasseImpl(String nom, LinkedList<Interface> implementsInterfaces, LinkedList<Classe> extendsClasses, LinkedList<ElementClasse> elements){
 			this.nom = nom;
@@ -167,6 +172,25 @@ public class ClasseImpl implements Classe {
 
 			toString += "\n }";
 			return toString;
+		}
+
+		public int allocateMemory(Register _register, int _offset){
+			int local_offset = _offset;
+			for(ElementClasse elem : elements){
+				local_offset += elem.allocateMemory(_register,_offset);
+			}
+
+			this.offset = local_offset - _offset;
+			this.register = register;
+			return local_offset;
+		}
+
+		public Fragment getCode(TAMFactory _factory){
+			Fragment code = _factory.createFragment();
+			for(ElementClasse elem : elements){
+				code.append(elem.getCode(_factory));
+			}
+			return code;
 		}
 
 }

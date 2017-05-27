@@ -72,8 +72,13 @@ public class AttributImpl implements Attribut {
 		return this.type.length();
 	}
 
+	public int allocateMemory(Register _register, int _offset){
+		return 0;
+	}
+
 	public Fragment getCode(TAMFactory factory){
-		throw new SemanticsUndefinedException("getCode AttributImpl");
+		Fragment code = factory.createFragment();
+		return code;
 	}
 
 }

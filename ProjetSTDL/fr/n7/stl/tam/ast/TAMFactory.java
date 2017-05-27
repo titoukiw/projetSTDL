@@ -7,6 +7,7 @@ import java.util.List;
 
 import fr.n7.stl.block.ast.BinaryOperator;
 import fr.n7.stl.block.ast.UnaryOperator;
+import fr.n7.stl.block.ast.impl.SemanticsUndefinedException;
 
 /**
  * Factory to build abstract syntax tree nodes for the TAM language.
@@ -143,10 +144,10 @@ public interface TAMFactory {
 	 * register to the address of the provided location).
 	 * @param _register Register for the address where the control is transfered to.
 	 * @param _offset Offset for the address where the control is transfered to.
-	 * @param _size TODO
+	 * @param _frame The caller frame in the call stack.
 	 * @return A TAM Call instruction AST node.
 	 */
-	public TAMInstruction createCall(Register _register, int _offset, int _size);
+	public TAMInstruction createCall(Register _register, int _offset, Register _frame);
 
 	/**
 	 * Build a TAM Call instruction AST node whose execution will build a call frame 
@@ -154,20 +155,20 @@ public interface TAMFactory {
 	 * on the stack and transfer the control to the address resolved from the provided
 	 * label (assign the Control Pointer register to that address).
 	 * @param _label : Label whose resolved address is where the control will be transfered.
-	 * @param _size TODO
+	 * @param _frame The caller frame in the call stack.
 	 * @return A TAM Call instruction AST node.
 	 */
-	public TAMInstruction createCall(String _label, int _size);
+	public TAMInstruction createCall(String _label, Register _frame);
 
 	/**
 	 * Build a TAM Call Immediate instruction AST node whose execution will pop an address
 	 * from the stack, build a call frame (current value of LB, current value of ST, current
 	 * value of CP), push it on the stack and transfer the control to the popped address
 	 * (assign the Control Pointer register to that address).
-	 * @param _size TODO
+	 * @param _frame The caller frame in the call stack.
 	 * @return A TAM Call Immediate instruction AST node.
 	 */
-	public TAMInstruction createCallI(int _size);
+	public TAMInstruction createCallI(Register _frame);
 
 	/**
 	 * Build a TAM Return instruction AST node whose execution will pop a memory chunk of the
@@ -217,7 +218,7 @@ public interface TAMFactory {
 		case Multiply: return Library.IMul;
 		case Or: return Library.BOr;
 		case Substract: return Library.ISub;
-		default: return null;
+		default: throw new SemanticsUndefinedException("Unexpected unary operator: " + _operator);
 		}
 	}
 	

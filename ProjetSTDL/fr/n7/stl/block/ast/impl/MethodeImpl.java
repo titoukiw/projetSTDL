@@ -8,7 +8,7 @@ package fr.n7.stl.block.ast.impl;
 import fr.n7.stl.block.ast.*;
 import fr.n7.stl.tam.ast.*;
 import java.util.LinkedList;
-
+import java.util.ListIterator;
 public class MethodeImpl implements Methode {
 
 	private String id;
@@ -17,6 +17,8 @@ public class MethodeImpl implements Methode {
 	private DroitAcces droit;
 	private boolean statique;
 	private Type returnType;
+	private int paramSize;
+	private String label;
 	private String classeCourante;
 
 	public MethodeImpl(String id, String classeCourante, DroitAcces droit, LinkedList<Parametre> listParam,
@@ -41,6 +43,7 @@ public class MethodeImpl implements Methode {
 	public Type getType(){
 		return this.returnType;
 	}
+
 
 
 
@@ -118,8 +121,27 @@ public class MethodeImpl implements Methode {
 		return 0; //?
 	}
 
+	public int allocateMemory(Register _register, int _offset){
+		int local_offset = - 1;//dernier parametre est @ST-1 
+		LinkedList tmpParam = new LinkedList<Parametre>(listParam);
+		ListIterator li = tmpParam.listIterator(tmpParam.size());
+		while(li.hasPrevious()){
+			local_offset -= ((Parametre)li.previous()).allocateMemory(Register.ST,local_offset);//Les parametres sont push lors de l'appel, ils sont donc en dessous de ST
+		}
+		this.paramSize = -local_offset;
+		this.body.allocateMemory(_register,_offset);
+		return 0;
+
+	}
+
 	public Fragment getCode(TAMFactory factory){
-		throw new SemanticsUndefinedException("getCode AttributImpl");
+		Fragment code = factory.createFragment();
+		code.append(body.getCode(factory));
+		code.add(factory.createReturn(returnType.length(),this.paramSize));
+		this.label = this.id + factory.createLabelNumber();
+		code.addPrefix( this.label + ":");
+		return code;
+
 	}
 
 	@Override

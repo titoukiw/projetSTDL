@@ -63,7 +63,32 @@ public class ProgrammeImpl implements Programme {
 	 * @see fr.n7.stl.block.ast.Block#allocateMemory(fr.n7.stl.tam.ast.Register, int)
 	 */
 	public int allocateMemory(Register _register, int _offset) {
-		return this.classePrincipale.allocateMemory(_register,_offset);
+		int local_offset = _offset;
+		// Memory pour les Final Static Field dans l'interface ?
+		// for(Interface interf : interfaces){
+		// 	local_offset += interf.allocateMemory(_register,local_offset);
+		// }
+		for(Classe classe : classes){
+			local_offset += classe.allocateMemory(_register,local_offset);
+		}
+		local_offset += this.classePrincipale.allocateMemory(_register,local_offset);
+		this.allocatedSize = local_offset - _offset;
+
+		return 0;
+	}
+
+	public Fragment getCode(TAMFactory _factory) {
+		Fragment code = _factory.createFragment();
+		// Code des Final Static Field dans l'interface ?
+		// for(Interface interf : interfaces){
+		// 	code.append(interf.getCode(_factory));
+		// }
+		for(Classe classe : classes){
+			code.append(classe.getCode(_factory));
+		}
+		code.append(classePrincipale.getCode(_factory));
+		//POP allocatedSize ?
+		return code;
 	}
 
 }

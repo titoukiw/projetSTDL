@@ -10,4 +10,5 @@ public interface Parametre extends Declaration{
 	public Type getType();
 	public int allocateMemory(Register _register, int _offset);
 	public Parametre makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces);
+	public int getOffset();
 }

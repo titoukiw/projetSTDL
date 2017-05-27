@@ -35,6 +35,10 @@ public class ParametreImpl implements Parametre {
 		return this.type;
 	}
 
+	public int getOffset(){
+		return this.offset;
+	}
+
 
 	public Parametre makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
 		if(this.type instanceof UndeclaredTypeImpl){

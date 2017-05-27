@@ -12,4 +12,5 @@ public interface Objet extends Declaration {
 
 	public boolean checkType();
 
+
 }

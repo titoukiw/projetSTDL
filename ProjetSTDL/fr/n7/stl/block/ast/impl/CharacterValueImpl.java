@@ -28,7 +28,9 @@ public class CharacterValueImpl implements CharacterValue {
 
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("getCode() CharacterValueImpl");
+		Fragment code = _factory.createFragment();
+		code.add(_factory.createLoadL((int) value));
+		return code;
 	}
 
 

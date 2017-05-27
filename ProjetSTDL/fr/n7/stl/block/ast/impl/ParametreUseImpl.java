@@ -53,7 +53,16 @@ public class ParametreUseImpl implements Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("getCode() ParametreUseImpl");
+		Fragment code = _factory.createFragment();
+		if(this.parametre.getType() instanceof ClasseTypeImpl){
+			code.add(_factory.createLoad(Register.ST,this.parametre.getOffset(),1)); //on a passe le pointeur vers la classe
+			code.add(_factory.createLoadI(this.parametre.getType().length()));
+		} else {
+			code.add(_factory.createLoad(Register.ST,this.parametre.getOffset(),this.parametre.getType().length()));
+		}
+
+
+		return code;
 	}
 
 

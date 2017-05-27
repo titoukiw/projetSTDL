@@ -23,4 +23,6 @@ public interface Programme {
 
 	public void makeLiaisonTardive();
 
+	public Fragment getCode(TAMFactory _factory);
+
 }

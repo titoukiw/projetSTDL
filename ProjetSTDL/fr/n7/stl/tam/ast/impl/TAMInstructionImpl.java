@@ -67,6 +67,13 @@ class TAMInstructionImpl implements TAMInstruction {
 	protected Optional<Integer> size;
 
 	/**
+	 * Some TAM instructions manipulate explicitly the call stack and the current frame (CALL, CALLI instructions).
+	 * This is the frame of the caller function.
+	 * It is stored in the size bitfield in the instructions.
+	 */
+	private Optional<Register> frame;
+	
+	/**
 	 * Construction for a full TAM instruction with kind, label, location and size.
 	 * @param _kind Kind for the TAM instruction.
 	 * @param _label Optional Label for the TAM instruction.
@@ -74,10 +81,11 @@ class TAMInstructionImpl implements TAMInstruction {
 	 * @param _offset Optional Integer offset for the TAM instruction.
 	 * @param _target Optional Label target for the TAM instruction.
 	 * @param _size Optional Integer size for the TAM instruction.
+	 * @param _frame Optional Register frame for the TAM instruction.
 	 */
 	public TAMInstructionImpl(TAMInstructionKind _kind, Optional<String> _label, 
 			Optional<Register> _register, Optional<Integer> _offset, 
-			Optional<String> _target, Optional<Integer> _size) {
+			Optional<String> _target, Optional<Integer> _size, Optional<Register> _frame) {
 		this.kind = _kind;
 		this.comments = new LinkedList<String>();
 		this.prefixes = new LinkedList<String>();
@@ -89,6 +97,7 @@ class TAMInstructionImpl implements TAMInstruction {
 		this.offset = _offset;
 		this.target = _target;
 		this.size = _size;
+		this.frame = _frame;
 	}
 	
 	/* (non-Javadoc)
@@ -124,7 +133,7 @@ class TAMInstructionImpl implements TAMInstruction {
 			_result += _label + "\n";
 		}
 		_result += this.kind;
-		_result += ((this.size.isPresent())?(" (" + this.size.get() + ")"):"");
+		_result += ((this.size.isPresent())?(" (" + this.size.get() + ")"):((this.frame.isPresent())?(this.frame.get()):""));
 		_result += ((this.offset.isPresent())?(" " + this.offset.get()):"");
 		_result += ((this.register.isPresent())?("[" + this.register.get() + "]"):"");
 		_result += ((this.target.isPresent())?(" " + this.target.get()):"");

@@ -1,6 +1,9 @@
 package fr.n7.stl.block.ast;
 
 import java.util.LinkedList;
+import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
+import fr.n7.stl.tam.ast.TAMFactory;
 /**
  * @author okeee
  *
@@ -17,6 +20,9 @@ public interface Classe extends Objet {
 	public LinkedList<ElementClasse> getElements();
 	public LinkedList<Classe> getHeritage();
 	public LinkedList<Interface> getInterface();
+
+	public Fragment getCode(TAMFactory factory);
+	public int allocateMemory(Register registre, int offset);
 
 
 }

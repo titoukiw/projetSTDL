@@ -17,7 +17,7 @@ doc :
 	../fr/n7/stl/util/*.java
 
 legg : 
-	$(JAVA) -jar $(EGGJAR) MiniJava.egg
+	$(JAVA) -jar $(EGGJAR) Bloc.egg
 
 compile :
 	cd egg && \

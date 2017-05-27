@@ -29,7 +29,15 @@ public class StringValueImpl implements StringValue{
 
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("getCode() StringValueImpl");
+		Fragment code = _factory.createFragment();
+		for(int i = 0; i<value.length();i++){
+			code.add(_factory.createLoadL((int) value.charAt(i)));
+		}
+		code.add(_factory.createLoadL(value.length()));
+		code.add(Library.MAlloc);
+		code.add(_factory.createLoadI(value.length()));
+		code.add(_factory.createPop(1,value.length()));
+		return code; //renvoie l'adresse du premier char du String (dans le tas)
 	}
 
 }

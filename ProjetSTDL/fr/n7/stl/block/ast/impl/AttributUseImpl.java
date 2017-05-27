@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import fr.n7.stl.tam.ast.*;
 import fr.n7.stl.block.ast.*;
 
-
 public class AttributUseImpl implements Expression {
 
 	private ElementClasse attribut;
@@ -41,7 +40,8 @@ public class AttributUseImpl implements Expression {
 	
 
 	public Fragment getCode(TAMFactory _factory){
-		throw new SemanticsUndefinedException("getCode() AttributUseImpl");
+		Fragment code = _factory.createFragment();
+		return code;
 	}
 
 	public boolean checkType() {
