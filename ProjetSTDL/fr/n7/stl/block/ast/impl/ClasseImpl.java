@@ -139,6 +139,10 @@ public class ClasseImpl implements Classe {
 			return null;
 		}
 
+		public LinkedList<ElementClasse> getElements(){
+			return elements;
+		}
+
 		public String toString(){
 			String toString = "\n (Classe) " + this.nom;
 			if(this.implementsInterfaces.size() > 0){

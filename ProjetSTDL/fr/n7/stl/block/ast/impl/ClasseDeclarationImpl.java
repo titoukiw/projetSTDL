@@ -74,8 +74,10 @@ public class ClasseDeclarationImpl implements ClasseDeclaration {
 		return result;
 	}
 
-	public int allocateMemory(Register regiser, int offset){
-		throw new SemanticsUndefinedException("allocateMemory() ClasseDeclarationImpl");
+	public int allocateMemory(Register register, int offset){
+		this.register =  register;
+		this.offset = offset;
+		return this.type.length();
 	}
 
 	public Fragment getCode(TAMFactory factory){

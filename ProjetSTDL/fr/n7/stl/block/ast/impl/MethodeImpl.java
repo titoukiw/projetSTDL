@@ -114,6 +114,9 @@ public class MethodeImpl implements Methode {
 		return this.id;
 	}
 
+	public int length(){
+		return 0; //?
+	}
 
 	public Fragment getCode(TAMFactory factory){
 		throw new SemanticsUndefinedException("getCode AttributImpl");

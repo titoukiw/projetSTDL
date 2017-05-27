@@ -32,8 +32,8 @@ public class ClassePrincipaleImpl implements ClassePrincipale {
 		return methodePrincipale.checkType();
 	}
 
-	public int allocateMemory(Register _register, int _offset){
-		throw new SemanticsUndefinedException("allocateMemory ClassePrincipaleImpl");
+	public int allocateMemory(Register _register, int _offset) {
+		return this.methodePrincipale.allocateMemory(_register, _offset); //+1 pour le nom ?
 	}
 
 	public Fragment getCode(TAMFactory _factory){

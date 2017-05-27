@@ -36,7 +36,7 @@ public class VariableAssignmentImpl extends VariableUseImpl implements Assignabl
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _fragment = _factory.createFragment();
-		if(this.declaration.getType() instanceof PointerTypeImpl || this.declaration.getType() instanceof ArrayTypeImpl){
+		if (this.declaration.getType() instanceof ArrayTypeImpl){
 			_fragment.add(_factory.createLoad(this.declaration.getRegister(),this.declaration.getOffset(),this.declaration.getType().length()));
 		} else {
 			_fragment.add(_factory.createLoadA(this.declaration.getRegister(),this.declaration.getOffset()));

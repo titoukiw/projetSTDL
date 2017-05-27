@@ -41,8 +41,10 @@ public class Main{
       } else {
 	  System.out.println( "Mal typé." );
       }
+      System.out.println("allocateMemory = ");
+      System.out.println(prog.allocateMemory(Register.SB,0));
       /*
-      bloc.get_ast().allocateMemory(Register.SB,0);
+      prog.get_ast().allocateMemory(Register.SB,0);
       TAMFactoryImpl _factory = new TAMFactoryImpl();
       Fragment _fragment = bloc.get_ast().getCode(_factory);
       _fragment.add(_factory.createHalt());

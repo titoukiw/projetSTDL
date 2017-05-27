@@ -124,7 +124,7 @@ public class BlockImpl implements Block {
 			local += i.allocateMemory(_register,local);
 		}
 		this.allocatedSize = local - _offset;
-		return 0;
+		return this.allocatedSize;
 	}
 
 	/* (non-Javadoc)

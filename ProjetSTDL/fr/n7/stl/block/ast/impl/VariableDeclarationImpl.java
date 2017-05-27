@@ -126,7 +126,7 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 	public int allocateMemory(Register _register, int _offset) {
 		this.register = _register;
 		this.offset = _offset ;
-		return this.type.length();
+		return this.value.getType().length();
 	}
 
 	/* (non-Javadoc)

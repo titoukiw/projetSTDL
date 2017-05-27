@@ -68,6 +68,10 @@ public class AttributImpl implements Attribut {
 		return true;
 	}
 
+	public int length(){
+		return this.type.length();
+	}
+
 	public Fragment getCode(TAMFactory factory){
 		throw new SemanticsUndefinedException("getCode AttributImpl");
 	}

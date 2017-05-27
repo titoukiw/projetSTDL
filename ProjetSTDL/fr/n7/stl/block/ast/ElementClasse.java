@@ -14,5 +14,6 @@ public interface ElementClasse extends Declaration, Expression {
 	public String getClasseCourante();
 	public Type getType();
 	public boolean checkType();
+	public int length();
 	public ElementClasse makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces);
 }

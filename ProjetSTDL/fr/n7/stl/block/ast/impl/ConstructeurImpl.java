@@ -71,8 +71,12 @@ public class ConstructeurImpl implements Constructeur {
 		return false;
 	}
 
-		public String getName(){
+	public String getName(){
 		return this.id;
+	}
+
+	public int length(){
+		return 0;
 	}
 
 	public Fragment getCode(TAMFactory factory){

@@ -63,14 +63,6 @@ public interface InstructionFactory {
 	public VariableDeclaration createVariableDeclaration(String _name, Type _type, Expression _value);
 	
 	/**
-	 * Create a type declaration node in the Abstract Syntax Tree.
-	 * @param _name Name of the declared type.
-	 * @param _type Abstract Syntax Tree for the type associated to the name.
-	 * @return A Type Declaration node in the Abstract Syntax Tree.
-	 */
-	public TypeDeclaration createTypeDeclaration( String _name, Type _type);
-
-	/**
 	 * Create an assignment node in the Abstract Syntax Tree.
 	 * @param _declaration Variable Declaration node in the Abstract Syntax Tree corresponding to the assigned variable.
 	 * @param _value Abstract Syntax Tree for the expression whose value is assigned to the variable.

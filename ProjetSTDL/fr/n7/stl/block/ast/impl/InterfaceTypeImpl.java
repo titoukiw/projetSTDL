@@ -44,8 +44,7 @@ public class InterfaceTypeImpl implements Type {
 	}
 
 	public int length(){
-				throw new SemanticsUndefinedException("length() InterfaceTypeImpl");
-
+		return 0;
 	}
 
 	public String toString(){

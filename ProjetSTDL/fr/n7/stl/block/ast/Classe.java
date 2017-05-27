@@ -14,6 +14,7 @@ public interface Classe extends Objet {
 	public Methode getSignature(String id, LinkedList<Type> listParam);
 	public boolean containsAttribut(String id);
 	public Expression getAttribut(String id);
+	public LinkedList<ElementClasse> getElements();
 	public LinkedList<Classe> getHeritage();
 	public LinkedList<Interface> getInterface();
 

@@ -18,9 +18,11 @@ class Atype implements Type2{
 	}
 }
 
-class Btype { //extends Atype{
-	
-	public Btype(){}
+class Btype extends Atype{
+	private String a;
+	public Btype(){
+		String a = "bitch";
+	}
 }
 
 

@@ -3,12 +3,16 @@ package fr.n7.stl.block.ast.impl;
 import java.util.LinkedList;
 import fr.n7.stl.block.ast.*;
 import java.io.*;
+import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
+import fr.n7.stl.tam.ast.TAMFactory;
 
 public class ProgrammeImpl implements Programme {
 
 	private LinkedList<Interface> interfaces;
 	private LinkedList<Classe> classes;
 	private ClassePrincipale classePrincipale;
+	protected int allocatedSize;
 
 	public ProgrammeImpl(LinkedList<Interface> interfaces, LinkedList<Classe> classes, ClassePrincipale classePrincipale) {
 		this.interfaces = interfaces;
@@ -53,6 +57,13 @@ public class ProgrammeImpl implements Programme {
 		result = result && classePrincipale.checkType();
 
 		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see fr.n7.stl.block.ast.Block#allocateMemory(fr.n7.stl.tam.ast.Register, int)
+	 */
+	public int allocateMemory(Register _register, int _offset) {
+		return this.classePrincipale.allocateMemory(_register,_offset);
 	}
 
 }

@@ -82,8 +82,14 @@ public class ClasseTypeImpl implements Type {
 	}
 
 	public int length(){
-				throw new SemanticsUndefinedException("length() ClasseTypeImpl");
-
+		int l = 1; //pour le nom de la classe this.classe.nom.length();
+		for (ElementClasse elt : this.classe.getElements()){
+			l += elt.length();
+		}
+		if (this.classe.getHeritage().size() > 0){
+			l += this.classe.getHeritage().get(0).getType().length();
+		}
+		return l;
 	}
 
 	public String toString(){
