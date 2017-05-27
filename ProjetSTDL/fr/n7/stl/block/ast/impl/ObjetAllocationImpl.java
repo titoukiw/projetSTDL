@@ -49,6 +49,12 @@ public class ObjetAllocationImpl implements Expression {
 	}
 
 	public Fragment getCode(TAMFactory _factory){
-		throw new SemanticsUndefinedException("getcode() ObjetAllocationImpl");
+		Fragment code = _factory.createFragment();
+		for(Expression e : expressions){
+			code.append(e.getCode(_factory));
+		}
+		code.add(_factory.createCall("le_bon_label",Register.LB));
+		return code;
+
 	}
 }

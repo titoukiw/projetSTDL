@@ -37,7 +37,7 @@ public class ClassePrincipaleImpl implements ClassePrincipale {
 	}
 
 	public Fragment getCode(TAMFactory _factory){
-		return _factory.createFragment();
+		return methodePrincipale.getCode(_factory);
 	}
 
 }
