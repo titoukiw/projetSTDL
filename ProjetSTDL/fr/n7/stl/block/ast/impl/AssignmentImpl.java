@@ -4,9 +4,7 @@
 package fr.n7.stl.block.ast.impl;
 
 import fr.n7.stl.block.ast.*;
-import fr.n7.stl.tam.ast.Fragment;
-import fr.n7.stl.tam.ast.Register;
-import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.tam.ast.*;
 import java.util.LinkedList;
 
 /**
@@ -134,9 +132,39 @@ public class AssignmentImpl implements Instruction, Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-			Fragment _fragment = this.value.getCode(_factory);
-			_fragment.append(this.assignable.getCode(_factory));
-			_fragment.add(_factory.createStoreI(this.value.getType().length()));
+		Fragment _fragment = _factory.createFragment();
+		if(this.value instanceof ObjetAllocationImpl){
+			if(this.assignable != null){
+				_fragment.append(this.value.getCode(_factory)); //value on top
+				_fragment.append(this.assignable.getCode(_factory));
+				_fragment.add(_factory.createLoadL(this.assignable.getType().length()));//size of class on top
+				_fragment.add(Library.MAlloc); // @ of class on top
+				_fragment.add(_factory.createStoreI(this.value.getType().length()));
+
+
+			}else if (this.assignable_expr != null){
+				_fragment.append(this.value.getCode(_factory)); //value on top
+				_fragment.append(this.assignable_expr.getCode(_factory));
+				_fragment.add(_factory.createLoadL(this.assignable_expr.getType().length()));//size of class on top
+				_fragment.add(Library.MAlloc); // @ of class on top
+				_fragment.add(_factory.createStoreI(this.value.getType().length()));
+
+			}else{
+				throw new SemanticsUndefinedException("AssignmentImpl getCode() no assignable");
+			}
+		}else{
+			if(this.assignable != null){
+				_fragment.append(this.value.getCode(_factory));
+				_fragment.append(this.assignable.getCode(_factory));
+				_fragment.add(_factory.createStoreI(this.value.getType().length()));
+			} else if (this.assignable_expr != null){
+				_fragment.append(this.value.getCode(_factory));
+				_fragment.append(this.assignable_expr.getCode(_factory));
+				_fragment.add(_factory.createStoreI(this.value.getType().length()));
+			}
+		}
+
+			
 		return _fragment;
 	}
 

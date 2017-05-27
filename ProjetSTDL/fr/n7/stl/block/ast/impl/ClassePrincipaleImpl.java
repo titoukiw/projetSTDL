@@ -37,7 +37,7 @@ public class ClassePrincipaleImpl implements ClassePrincipale {
 	}
 
 	public Fragment getCode(TAMFactory _factory){
-		throw new SemanticsUndefinedException("getCode ClassePrincipaleImpl");
+		return _factory.createFragment();
 	}
 
 }
