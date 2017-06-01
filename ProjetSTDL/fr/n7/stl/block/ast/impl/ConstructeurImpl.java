@@ -102,13 +102,13 @@ public class ConstructeurImpl implements Constructeur {
 	}
 
 	public Fragment getCode(TAMFactory factory){
-		int offsetFunction = -3;
+		int offsetFunction = -0;
 		Fragment code = factory.createFragment();
 		for(Parametre p : this.listParam){
 			offsetFunction -= p.getType().length();
 		}
 		code.add(factory.createLoad(Register.LB,offsetFunction-1,1));
-		offsetFunction = -3;
+		offsetFunction = -0;
 		for(Parametre p: this.listParam){
 			offsetFunction -= p.getType().length();
 			code.add(factory.createLoad(Register.LB,offsetFunction,p.getType().length()));
