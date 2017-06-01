@@ -1,26 +1,17 @@
-class Ville {
+class A {
 
-  public String nomVille;
+  private int i;
 
-  private String nomPays;
-
-  protected int nbreHabitants;
-
-  public Ville(){
-
-    nomVille = "Inconnu";
-
-    nomPays = "Inconnu";
-
-    nbreHabitants = 0;
-
-  } 
+  public A(int j){
+    i = j;
+  }
  }
 
 public class MainClasse {
     public static void main(String[] args){
 
-	Ville toulouse = new Ville();
+	A a = new A(1);
+  A b = new A(2);
 
 }
 }
