@@ -62,7 +62,7 @@ public class AttributUseImpl implements Expression {
 		for(ElementClasse att : this.classeCourrante.getElements()){
 			if(att instanceof Attribut) {
 				if(att.getName().equals(attribut.getName())){
-					fragment.add(_factory.createLoadL(pos));
+					fragment.add(_factory.createLoadL(pos)); //calcul du decalage de l'adresse de l'attribut par rapport a l'adresse de la classe
 					fragment.add(Library.IAdd);
 					return fragment;
 				} else {
