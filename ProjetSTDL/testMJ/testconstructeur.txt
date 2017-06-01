@@ -1,0 +1,26 @@
+class Ville {
+
+  public String nomVille;
+
+  private String nomPays;
+
+  protected int nbreHabitants;
+
+  public Ville(){
+
+    nomVille = "Inconnu";
+
+    nomPays = "Inconnu";
+
+    nbreHabitants = 0;
+
+  } 
+ }
+
+public class MainClasse {
+    public static void main(String[] args){
+
+	Ville toulouse = new Ville();
+
+}
+}
