@@ -58,7 +58,7 @@ public class AttributUseImpl implements Expression {
 		int pos = 0;
 		Fragment fragment = _factory.createFragment();
 		//fragment.add(_factory.createLoad(Register.LB,posClass,this.classeCourrante.getType().length()));//on load l'adresse de la classe
-		fragment.add(_factory.createLoad(Register.LB,3,1)); // Load de l'adresse de la classe qu'on utilise
+		fragment.add(_factory.createLoad(Register.LB,3,1)); // Load de l'adresse de la classe qu'on utilise (elle est toujours au meme endroit)
 		for(ElementClasse att : this.classeCourrante.getElements()){
 			if(att instanceof Attribut) {
 				if(att.getName().equals(attribut.getName())){
