@@ -114,7 +114,7 @@ public class ConstructeurImpl implements Constructeur {
 			code.add(factory.createLoad(Register.LB,offsetFunction,p.getType().length()));
 		}
 		code.append(body.getCode(factory));
-		code.add(factory.createReturn(1,this.paramSize));  //renvoie l'adresse de la classe créée
+		code.add(factory.createReturn(0,this.paramSize)); 
 		this.label = this.id + factory.createLabelNumber();
 		code.addPrefix( this.label + ":");
 		return code;
