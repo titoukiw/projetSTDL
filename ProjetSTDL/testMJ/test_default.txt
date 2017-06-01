@@ -1,40 +1,26 @@
-interface Type{}
+class Ville {
 
-interface Type2 extends Type{
-	//final static int i = 0;
-}
+  public String nomVille;
 
-class Atype implements Type2{
+  private String nomPays;
 
-	public String stringA;
+  protected int nbreHabitants;
 
-	public Atype(){}
+  public Ville(){
 
-	public void meth(int i, String j){
-		stringA = "PasDeParam";
-	}
-	public void meth(String str){
-		stringA = str;
-	}
-}
+    nomVille = "Inconnu";
 
-class Btype extends Atype{
-	private String a;
-	public Btype(){
-		String a = "bitch";
-	}
-}
+    nomPays = "Inconnu";
 
+    nbreHabitants = 0;
+
+  } 
+ }
 
 public class MainClasse {
     public static void main(String[] args){
-    	//Atype a = new Atype();
-    	//Btype b = new Btype();
-    	Type c = new Btype();
 
-    	//Btype b = new Atype();
+	Ville toulouse = new Ville();
 
-    	//a.meth();
-    	//a.meth(i,"bitch");
-	}
+}
 }

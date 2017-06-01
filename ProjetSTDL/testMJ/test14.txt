@@ -1,0 +1,40 @@
+interface Type{}
+
+interface Type2 extends Type{
+    //final static int i = 0;
+}
+
+class Atype implements Type2{
+
+    public String stringA;
+
+    public Atype(){}
+
+    public void meth(int i, String j){
+        stringA = "PasDeParam";
+    }
+    public void meth(String str){
+        stringA = str;
+    }
+}
+
+class Btype extends Atype{
+    private String a;
+    public Btype(){
+        String a = "bitch";
+    }
+}
+
+
+public class MainClasse {
+    public static void main(String[] args){
+        //Atype a = new Atype();
+        //Btype b = new Btype();
+        Type c = new Btype();
+
+        //Btype b = new Atype();
+
+        //a.meth();
+        //a.meth(i,"bitch");
+    }
+}

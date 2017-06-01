@@ -111,7 +111,9 @@ public class AssignmentImpl implements Instruction, Expression {
 		boolean result;
 			if(this.assignable != null){
 				result = this.value.getType().compatibleWith(this.declaration.getType());
-			} else if (this.assignable_expr != null) {
+			} else if (this.assignable_expr != null && 
+					   !(this.assignable_expr instanceof BinaryExpressionImpl) &&
+					   !(this.assignable_expr instanceof UnaryExpressionImpl) ){
 				result = this.value.getType().compatibleWith(this.assignable_expr.getType());
 			} else {
 				result = false;

@@ -22,7 +22,7 @@ public class ClassePrincipaleImpl implements ClassePrincipale {
 
 	public String toString() {
 		String toString = "public class " + this.name;
-		toString += " { \n" + "public staitc void main(String args[]) ";
+		toString += " { \n" + "public static void main(String args[]) ";
 		toString += " " + this.methodePrincipale + "\n }";
 		return toString;
 	}
