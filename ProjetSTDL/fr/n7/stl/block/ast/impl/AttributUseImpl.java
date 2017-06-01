@@ -54,15 +54,19 @@ public class AttributUseImpl implements Expression {
 	
 
 	public Fragment getCode(TAMFactory _factory){
+		//int posClass = -5;
 		int pos = 0;
 		Fragment fragment = _factory.createFragment();
+		//fragment.add(_factory.createLoad(Register.LB,posClass,this.classeCourrante.getType().length()));//on load l'adresse de la classe
+		fragment.add(_factory.createLoad(Register.LB,3,1)); // Load de l'adresse de la classe qu'on utilise
 		for(ElementClasse att : this.classeCourrante.getElements()){
 			if(att instanceof Attribut) {
 				if(att.getName().equals(attribut.getName())){
-					fragment.add(_factory.createLoad(Register.SB,pos,this.classeCourrante.getType().length()));
+					fragment.add(_factory.createLoadL(pos));
+					fragment.add(Library.IAdd);
 					return fragment;
 				} else {
-					pos = ((AttributImpl)this.attribut).offset;
+					pos -= ((AttributImpl)this.attribut).offset;
 				}
 			}
 		}

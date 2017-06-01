@@ -1,20 +1,14 @@
-LOADL 1
-SUBR MAlloc
-STORE (1) 1[SB]
-LOAD (1) 1[SB]
-LOADL 1
-CALLLB A1
-LOADL 1
-SUBR MAlloc
-STORE (1) 2[SB]
-LOAD (1) 2[SB]
-LOADL 2
-CALLLB A1
+LOADL 1 ;taille de la classe
+SUBR MAlloc ;allouer la memoire pour la classe
+LOADL 1 ;parametre de la fonction
+CALL (LB) A1 ;appel de la fonction
 POP (0) 2
 HALT
 A1:
-LOAD (1) -1[ST]
-LOAD (1) -2[ST]
-STOREI (1)
-POP (0) 0
-RETURN (1) 2
+LOAD (1) -4[LB] ; load du parametre (on LOAD tous les parametres au debut de l'appel)
+LOAD (1) -1[ST] ; load du parametre qu'on va utiliser
+LOAD (1) -5[LB] ; load de l'adresse de la classe (qu'on utilise pour son attribut)
+LOADL 0 ; load de l'offset de l'attribut dans la classe
+SUBR Iadd ; on veut l'adresse de l'attribut
+STOREI (1) ; On store la nouvelle valeur de l'attribut a l'adresse de l'attribut
+RETURN (1) 1 ; on return en depilant le parametre

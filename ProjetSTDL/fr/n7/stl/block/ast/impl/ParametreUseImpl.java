@@ -53,12 +53,13 @@ public class ParametreUseImpl implements Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
+		int offsetFun = 3;
 		Fragment code = _factory.createFragment();
 		if(this.parametre.getType() instanceof ClasseTypeImpl){
-			code.add(_factory.createLoad(Register.ST,this.parametre.getOffset(),1)); //on a passe le pointeur vers la classe
+			code.add(_factory.createLoad(Register.LB,-this.parametre.getOffset()+offsetFun,1)); //on a passe le pointeur vers la classe
 			code.add(_factory.createLoadI(this.parametre.getType().length()));
 		} else {
-			code.add(_factory.createLoad(Register.ST,this.parametre.getOffset(),this.parametre.getType().length()));
+			code.add(_factory.createLoad(Register.LB,-this.parametre.getOffset()+offsetFun,this.parametre.getType().length()));
 		}
 
 

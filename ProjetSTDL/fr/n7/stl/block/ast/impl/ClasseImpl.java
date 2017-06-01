@@ -19,7 +19,7 @@ public class ClasseImpl implements Classe {
 		private LinkedList<Classe> extendsClasses;
 		protected LinkedList<ElementClasse> elements;
 		private Register register;
-		private int offset;
+		protected int offset;
 
 		public ClasseImpl(String nom, LinkedList<Interface> implementsInterfaces, LinkedList<Classe> extendsClasses, LinkedList<ElementClasse> elements){
 			this.nom = nom;

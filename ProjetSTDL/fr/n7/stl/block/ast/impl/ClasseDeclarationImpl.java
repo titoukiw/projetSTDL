@@ -84,8 +84,6 @@ public class ClasseDeclarationImpl implements ClasseDeclaration {
 		Fragment fragment = factory.createFragment();
 		fragment.add(factory.createLoadL(this.type.length()));
 		fragment.add(Library.MAlloc);
-		fragment.add(factory.createStore(this.register,this.offset,1));
-		fragment.add(factory.createLoad(this.register,this.offset,1));
 		fragment.append(this.value.getCode(factory));
 		return fragment;
 	}

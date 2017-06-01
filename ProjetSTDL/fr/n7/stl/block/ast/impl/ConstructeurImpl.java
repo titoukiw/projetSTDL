@@ -102,7 +102,17 @@ public class ConstructeurImpl implements Constructeur {
 	}
 
 	public Fragment getCode(TAMFactory factory){
+		int offsetFunction = -3;
 		Fragment code = factory.createFragment();
+		for(Parametre p : this.listParam){
+			offsetFunction -= p.getType().length();
+		}
+		code.add(factory.createLoad(Register.LB,offsetFunction-1,1));
+		offsetFunction = -3;
+		for(Parametre p: this.listParam){
+			offsetFunction -= p.getType().length();
+			code.add(factory.createLoad(Register.LB,offsetFunction,p.getType().length()));
+		}
 		code.append(body.getCode(factory));
 		code.add(factory.createReturn(1,this.paramSize));  //renvoie l'adresse de la classe créée
 		this.label = this.id + factory.createLabelNumber();
@@ -118,13 +128,13 @@ public class ConstructeurImpl implements Constructeur {
 	}
 
 	public int allocateMemory(Register register, int offset){
-		int local_offset = - 1;//dernier parametre est @ST-1 
+		int local_offset = -1;//dernier parametre est @ST-1 
 		LinkedList tmpParam = new LinkedList<Parametre>(listParam);
 		ListIterator li = tmpParam.listIterator(tmpParam.size());
 		while(li.hasPrevious()){
 			local_offset -= ((Parametre)li.previous()).allocateMemory(Register.ST,local_offset);//Les parametres sont push lors de l'appel, ils sont donc en dessous de ST
 		}
-		this.paramSize = -local_offset;
+		this.paramSize = -local_offset ;
 		this.body.allocateMemory(register,offset);
 		return 0;
 	}
