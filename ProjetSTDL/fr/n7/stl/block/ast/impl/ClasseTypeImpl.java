@@ -82,7 +82,7 @@ public class ClasseTypeImpl implements Type {
 	}
 
 	public int length(){
-		int l = 1; //pour le nom de la classe this.classe.nom.length();
+		int l = 0; 
 		for (ElementClasse elt : this.classe.getElements()){
 			l += elt.length();
 		}

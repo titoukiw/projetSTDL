@@ -11,11 +11,13 @@ import java.util.LinkedList;
 
 public class AttributImpl implements Attribut {
 
-	private String id;
-	private Type type;
-	private DroitAcces droit;
-	private boolean statique;
-	private String classeCourante;
+	protected String id;
+	protected Type type;
+	protected DroitAcces droit;
+	protected boolean statique;
+	protected String classeCourante;
+	protected int offset;
+	protected Register register;
 
 	public AttributImpl(String id, String classeCourante, Type type, DroitAcces droit, boolean statique){
 		this.id = id;
@@ -73,7 +75,9 @@ public class AttributImpl implements Attribut {
 	}
 
 	public int allocateMemory(Register _register, int _offset){
-		return 0;
+		this.register = _register;
+		this.offset = _offset;
+		return this.type.length();
 	}
 
 	public Fragment getCode(TAMFactory factory){

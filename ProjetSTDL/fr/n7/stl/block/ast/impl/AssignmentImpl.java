@@ -135,26 +135,38 @@ public class AssignmentImpl implements Instruction, Expression {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _fragment = _factory.createFragment();
-		if(this.value instanceof ObjetAllocationImpl){
-			if(this.assignable != null){
-				_fragment.append(this.value.getCode(_factory)); //value on top
-				_fragment.append(this.assignable.getCode(_factory));
-				_fragment.add(_factory.createLoadL(this.assignable.getType().length()));//size of class on top
-				_fragment.add(Library.MAlloc); // @ of class on top
-				_fragment.add(_factory.createStoreI(this.value.getType().length()));
+		// if(this.value instanceof ObjetAllocationImpl){
+		// 	if(this.assignable != null){
+		// 		// _fragment.append(this.value.getCode(_factory)); //value on top
+		// 		// _fragment.append(this.assignable.getCode(_factory));
+		// 		// _fragment.add(_factory.createLoadL(this.assignable.getType().length()));//size of class on top
+		// 		// _fragment.add(Library.MAlloc); // @ of class on top
+		// 		// _fragment.add(_factory.createStoreI(this.value.getType().length()));
+
+		// 		_fragment.append(this.assignable.getCode(_factory));
+		// 		_fragment.add(_factory.createLoadL(this.assignable.getType().length()));
+		// 		_fragment.add(Library.MAlloc);
+		// 		_fragment.add(_factory.createStoreI(1));
+		// 		_fragment.append(this.value.getCode(_factory));
 
 
-			}else if (this.assignable_expr != null){
-				_fragment.append(this.value.getCode(_factory)); //value on top
-				_fragment.append(this.assignable_expr.getCode(_factory));
-				_fragment.add(_factory.createLoadL(this.assignable_expr.getType().length()));//size of class on top
-				_fragment.add(Library.MAlloc); // @ of class on top
-				_fragment.add(_factory.createStoreI(this.value.getType().length()));
 
-			}else{
-				throw new SemanticsUndefinedException("AssignmentImpl getCode() no assignable");
-			}
-		}else{
+		// 	}else if (this.assignable_expr != null){
+		// 		// _fragment.append(this.value.getCode(_factory)); //value on top
+		// 		// _fragment.append(this.assignable_expr.getCode(_factory));
+		// 		// _fragment.add(_factory.createLoadL(this.assignable_expr.getType().length()));//size of class on top
+		// 		// _fragment.add(Library.MAlloc); // @ of class on top
+		// 		// _fragment.add(_factory.createStoreI(this.value.getType().length()));
+		// 		_fragment.append(this.assignable_expr.getCode(_factory));
+		// 		_fragment.add(_factory.createLoadL(this.assignable_expr.getType().length()));
+		// 		_fragment.add(Library.MAlloc);
+		// 		_fragment.add(_factory.createStoreI(1));
+		// 		_fragment.append(this.value.getCode(_factory));
+
+		// 	}else{
+		// 		throw new SemanticsUndefinedException("AssignmentImpl getCode() no assignable");
+		// 	}
+		// }else{
 			if(this.assignable != null){
 				_fragment.append(this.value.getCode(_factory));
 				_fragment.append(this.assignable.getCode(_factory));
@@ -164,7 +176,7 @@ public class AssignmentImpl implements Instruction, Expression {
 				_fragment.append(this.assignable_expr.getCode(_factory));
 				_fragment.add(_factory.createStoreI(this.value.getType().length()));
 			}
-		}
+		// }
 
 			
 		return _fragment;

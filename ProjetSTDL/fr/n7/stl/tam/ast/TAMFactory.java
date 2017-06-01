@@ -46,6 +46,9 @@ public interface TAMFactory {
 	 * @return A TAM integer constant Load instruction AST node.
 	 */
 	public TAMInstruction createLoadL(int _value);
+
+
+	public TAMInstruction createLoadL(String value);
 	
 	/**
 	 * Build a TAM address Load instruction AST node whose execution 

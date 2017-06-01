@@ -17,7 +17,7 @@ public class ClasseImpl implements Classe {
 		private String nom;
 		private LinkedList<Interface> implementsInterfaces;
 		private LinkedList<Classe> extendsClasses;
-		private LinkedList<ElementClasse> elements;
+		protected LinkedList<ElementClasse> elements;
 		private Register register;
 		private int offset;
 

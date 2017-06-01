@@ -9,6 +9,7 @@ public class AttributUseImpl implements Expression {
 
 	private ElementClasse attribut;
 	private ClasseUseImpl classe;
+	private Classe classeCourrante;
 
 
 	public AttributUseImpl(ElementClasse att,ClasseUseImpl classe){
@@ -16,12 +17,25 @@ public class AttributUseImpl implements Expression {
 		this.classe = classe;
 	}
 
+	public AttributUseImpl(ElementClasse att,ClasseUseImpl classe,Classe classeCourrante){
+		this.attribut = att;
+		this.classe = classe;
+		this.classeCourrante = classeCourrante;
+	}
+
+
 	public Type getType(){
 		return this.attribut.getType();
 	}
 
 	public AttributUseImpl makeLiaisonTardive(LinkedList<Classe> classes, LinkedList<Interface> interfaces){
-		return new AttributUseImpl(this.attribut.makeLiaisonTardive(classes,interfaces),this.classe);
+		for(Classe cl : classes){
+			System.out.println(cl.getName());
+			if(cl.getName().equals(this.attribut.getClasseCourante())){
+				this.classeCourrante = cl;
+			}
+		}
+		return new AttributUseImpl(this.attribut.makeLiaisonTardive(classes,interfaces),this.classe,this.classeCourrante);
 	}
 
 
@@ -40,8 +54,19 @@ public class AttributUseImpl implements Expression {
 	
 
 	public Fragment getCode(TAMFactory _factory){
-		Fragment code = _factory.createFragment();
-		return code;
+		int pos = 0;
+		Fragment fragment = _factory.createFragment();
+		for(ElementClasse att : this.classeCourrante.getElements()){
+			if(att instanceof Attribut) {
+				if(att.getName().equals(attribut.getName())){
+					fragment.add(_factory.createLoad(Register.SB,pos,this.classeCourrante.getType().length()));
+					return fragment;
+				} else {
+					pos = ((AttributImpl)this.attribut).offset;
+				}
+			}
+		}
+		return null;
 	}
 
 	public boolean checkType() {

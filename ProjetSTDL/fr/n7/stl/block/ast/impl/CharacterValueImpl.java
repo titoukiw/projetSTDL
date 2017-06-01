@@ -29,7 +29,7 @@ public class CharacterValueImpl implements CharacterValue {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment code = _factory.createFragment();
-		code.add(_factory.createLoadL((int) value));
+		code.add(_factory.createLoadL(this.value));
 		return code;
 	}
 
