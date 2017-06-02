@@ -2064,7 +2064,7 @@ local
    o : Optional<Declaration>;
    d : Declaration;
 do
-   if (Facteur^tds.contains(identificateur^txt)) then
+   if (Facteur^tds.knows(identificateur^txt)) then
       o := Facteur^tds.get(identificateur^txt);
       d := o.get();
       match d
@@ -2076,7 +2076,6 @@ do
       			AppelOuAcces^support := Facteur^factory.createVariableUse(d);
       		else
       			AppelOuAcces^support := Facteur^factory.createVariableAssignment(d);
-      			error(Fichtre_, d);
       		end
       with Parametre then AppelOuAcces^support := Facteur^factory.createParametreUse(d);
       end

@@ -1,17 +1,10 @@
-class A {
-
-  private int i;
-
-  public A(int j){
-    i = j;
-  }
- }
-
 public class MainClasse {
     public static void main(String[] args){
-
-	A a = new A(1);
-  A b = new A(2);
-
-}
+    	int i = 0;
+    	if (i = 0){
+    		i = 1;
+    	} else {
+    		i = 2;
+    	}
+	}
 }
