@@ -1,0 +1,34 @@
+AST :
+ (Interface)Type{
+ }
+ (Interface)Type2 extends Type,{
+ }
+ (Classe) Atype implements Type2 , { 
+
+	(AttributImpl) Public String stringA;
+	(Constructeur)Public Atype (){
+}
+
+	(Methode) Public void meth ( (Parametre) int i, (Parametre) String j,){
+(AttributUse From Atype )@{stringA} = "PasDeParam";
+}
+
+	(Methode) Public void meth ( (Parametre) String str,){
+(AttributUse From Atype )@{stringA} = @(ParametreUse) {str};
+}
+
+ }
+ (Classe) Btype extends Atype , { 
+
+	(AttributImpl) Private String a;
+	(Constructeur)Public Btype (){
+(VariableDeclaration)String a = "test";
+}
+
+ }
+ public class MainClasse { 
+public static void main(String args[])  {
+(VariableDeclaration)Type c = (Allocation) new Btype ( [] );
+}
+
+ }

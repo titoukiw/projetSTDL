@@ -1,0 +1,18 @@
+LOADL 0
+LOADA 0[SB]
+LOADL 0
+SUBR IEq
+JUMPIF (0) else_Condition1
+LOADL 1
+LOADA 0[SB]
+STOREI (1)
+POP (0) 0
+JUMP fin_Condition1
+else_Condition1:
+LOADL 2
+LOADA 0[SB]
+STOREI (1)
+POP (0) 0
+fin_Condition1:
+POP (0) 1
+HALT

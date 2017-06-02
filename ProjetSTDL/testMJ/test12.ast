@@ -1,0 +1,29 @@
+ (Interface)Interf{
+ }
+ (Classe) InterfImpl implements Interf , { 
+
+	(AttributImpl) Public int myInt;
+	(Constructeur)Public InterfImpl (){
+(AttributUse From InterfImpl )@{myInt} = 3;
+}
+
+	(Methode) Public void meth1 ( (Parametre) String a,){
+}
+
+	(Methode) Public int meth2 (){
+return 3}
+
+ }
+ public class MainClasse { 
+public static void main(String args[])  {
+(VariableDeclaration)String a = "a";
+(ClasseDeclaration)InterfImpl in = (Allocation) new InterfImpl ( [] );
+print(ClasseUse) @{in};
+(AttributAssignt From InterfImpl )@{myInt} = 5;
+(VariableDeclaration)int c = (AttributUse From InterfImpl )@{myInt};
+(MethodeUse From InterfImpl) @{meth2()}
+(VariableDeclaration)int b = (MethodeUse From InterfImpl) @{meth2()}
+;
+}
+
+ }

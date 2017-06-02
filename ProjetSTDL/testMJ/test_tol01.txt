@@ -4,3 +4,4 @@ public class MainClasse {
     	i + 1 = 2;
 	}
 }
+//permet de tester que i + 1 = 2 est mal typé

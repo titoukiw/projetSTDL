@@ -1,0 +1,52 @@
+AST :
+ (Interface)Interf{
+ }
+ (Classe) Atype { 
+
+	(AttributImpl) Public InterfImpl interf;
+	(AttributImpl) Public String stringA;
+	(Constructeur)Public Atype ( (Parametre) String a,){
+(VariableDeclaration)String b = @(ParametreUse) {a};
+(AttributUse From Atype )@{interf} = (Allocation) new InterfImpl ( [] );
+}
+
+	(Methode) Public void methCreateInterfImpl (){
+(AttributUse From Atype )@{interf} = (Allocation) new InterfImpl ( [] );
+(ClasseDeclaration)InterfImpl testInterf = (AttributUse From Atype )@{interf};
+null}
+
+ }
+ (Classe) InterfImpl implements Interf , { 
+
+	(AttributImpl) Public int myInt;
+	(AttributImpl) Public Atype atype;
+	(Constructeur)Public InterfImpl (){
+(AttributUse From InterfImpl )@{myInt} = 3;
+}
+
+	(Methode) Public void methCreateAtype ( (Parametre) String a,){
+(AttributUse From InterfImpl )@{atype} = (Allocation) new Atype ( [@(ParametreUse) {a}] );
+@(ParametreUse) {a} = (AttributUse From Atype )@{stringA};
+}
+
+	(Methode) Public int meth2 (){
+return 3}
+
+ }
+ public class MainClasse { 
+public static void main(String args[])  {
+(VariableDeclaration)int c = 7;
+(VariableDeclaration)String a = "a";
+(ClasseDeclaration)InterfImpl in = (Allocation) new InterfImpl ( [] );
+(VariableAssignt)@{a} = (AttributUse From Atype )@{stringA};
+(AttributAssignt From Atype )@{interf} = "c";
+nullprint(ClasseUse) @{in};
+(AttributAssignt From InterfImpl )@{myInt} = 5;
+(VariableAssignt)@{c} = (AttributUse From InterfImpl )@{myInt};
+(MethodeUse From InterfImpl) @{meth2()}
+(VariableDeclaration)int b = (MethodeUse From InterfImpl) @{meth2()}
+;
+(VariableAssignt)@{c} = (VariableUse)@{b};
+}
+
+ }

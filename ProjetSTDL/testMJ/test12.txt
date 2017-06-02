@@ -15,7 +15,6 @@ class InterfImpl implements Interf {
 
 public class MainClasse {
     public static void main(String[] args){
-    	//int entier; pas possible dans le main pour cette grammaire
     	String a = "a";
     	InterfImpl in = new InterfImpl();
     	print(in);
@@ -25,3 +24,4 @@ public class MainClasse {
     	int b = in.meth2();
 	}
 }
+//Methode pas implémentée ... (donc pas de TAM)

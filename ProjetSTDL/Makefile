@@ -26,7 +26,7 @@ compile :
 	$(JAVAC) -classpath $(EGGJAR):. Main.java
 
 exec :
-	$(JAVA) -classpath $(EGGJAR):. Main ./testMJ/test_default.txt
+	$(JAVA) -classpath $(EGGJAR):. Main ./testMJ/testSucces/testAllocation.txt
 
 clean :
 	-rm Main.class

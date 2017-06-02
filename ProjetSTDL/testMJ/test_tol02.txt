@@ -4,3 +4,4 @@ public class MainClasse {
     	{i} * {2} = 12;
 	}
 }
+//permet de tester que {i} * {2} = 12 est mal type

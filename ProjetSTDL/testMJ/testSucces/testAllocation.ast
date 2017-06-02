@@ -1,0 +1,15 @@
+AST :
+ (Classe) A { 
+
+	(AttributImpl) Private int i;
+	(Constructeur)Public A ( (Parametre) int j,){
+(AttributUse From A )@{i} = @(ParametreUse) {j};
+}
+
+ }
+ public class MainClasse { 
+public static void main(String args[])  {
+(ClasseDeclaration)A a = (Allocation) new A ( [1] );
+}
+
+ }

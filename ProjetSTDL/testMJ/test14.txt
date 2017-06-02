@@ -21,7 +21,7 @@ class Atype implements Type2{
 class Btype extends Atype{
     private String a;
     public Btype(){
-        String a = "bitch";
+        String a = "test";
     }
 }
 
@@ -35,6 +35,8 @@ public class MainClasse {
         //Btype b = new Atype();
 
         //a.meth();
-        //a.meth(i,"bitch");
+        //a.meth(i,"test");
     }
 }
+//Permet de visualiser l'héritage
+//Le code genere est faux (probleme de taille d'allocation des le debut, le type de c etant une interface, probleme)

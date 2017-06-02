@@ -52,3 +52,5 @@ public class MainClasse {
 
 	}
 }
+//méthode pas implémentée, donc pas de TAM
+//Permet de voir la liaison tardive

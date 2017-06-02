@@ -1,0 +1,9 @@
+AST :
+ public class MainClasse { 
+public static void main(String args[])  {
+(VariableDeclaration)int i = 0;
+({ (VariableAssignt)@{i} } * { 2 }) = 12;
+}
+
+ }
+Mal typé.

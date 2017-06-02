@@ -1,0 +1,13 @@
+class A {
+  private int i;
+  
+  public A(int j){
+    i = j;
+  }
+ }
+
+public class MainClasse {
+    public static void main(String[] args){
+	A a = new A(1);
+}
+}

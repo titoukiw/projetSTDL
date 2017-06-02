@@ -1,0 +1,13 @@
+public class MainClasse { 
+public static void main(String args[])  {
+(VariableDeclaration)int i = 0;
+if (((VariableAssignt)@{i} == 0) ){
+(VariableAssignt)@{i} = 1;
+}
+ else {
+(VariableAssignt)@{i} = 2;
+}
+}
+
+ }
+Correctement typé.

@@ -1,6 +1,8 @@
 public class MainClasse {
     public static void main(String[] args){
     	String s;
-    	s = "inch'allah";
+    	s = "test";
 	}
-} // Pas dans la grammaire
+} 
+// Pas dans la grammaire
+// La declaration doit etre aussi une affectation
